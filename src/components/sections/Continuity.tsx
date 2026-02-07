@@ -38,32 +38,16 @@ export default function Continuity() {
     const ctx = gsap.context(() => {
       if (headerRef.current) {
         gsap.from(headerRef.current.children, {
-          opacity: 0,
-          y: 40,
-          duration: 0.8,
-          ease: "power3.out",
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
+          opacity: 0, y: 40, duration: 0.8, ease: "power3.out", stagger: 0.12,
+          scrollTrigger: { trigger: headerRef.current, start: "top 85%", toggleActions: "play none none none" },
         });
       }
 
       const validItems = itemsRef.current.filter(Boolean) as HTMLDivElement[];
       if (validItems.length > 0) {
         gsap.from(validItems, {
-          opacity: 0,
-          y: 30,
-          duration: 0.7,
-          ease: "power3.out",
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: validItems[0],
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
+          opacity: 0, y: 30, duration: 0.7, ease: "power3.out", stagger: 0.12,
+          scrollTrigger: { trigger: validItems[0], start: "top 85%", toggleActions: "play none none none" },
         });
       }
     }, sectionRef);
@@ -72,22 +56,23 @@ export default function Continuity() {
   }, []);
 
   return (
-    <section id="continuity" ref={sectionRef} className="section-padding bg-bg">
+    <section id="continuity" ref={sectionRef} className="section-padding" style={{ background: '#13101C' }}>
       <div className="container-custom">
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 items-start">
           <div ref={headerRef} className="space-y-6">
             <span className="badge-primary">Continuity</span>
-            <h2 className="text-display-sm md:text-display-md font-heading text-text-primary">
+            <h2 className="text-display-sm md:text-display-md font-heading text-white">
               Stop playing catch up.
-              <span className="block gradient-text">Enjoy calm execution.</span>
+              <span className="block text-gradient">Enjoy calm execution.</span>
             </h2>
-            <p className="text-lg text-text-secondary leading-relaxed">
+            <p className="text-lg text-white/50 leading-relaxed">
               We turn complexity into clarity by stabilizing every handoff in the
               petroleum chain. Less firefighting, more predictable operations.
             </p>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-primary-700"
+              className="inline-flex items-center gap-2 text-sm font-semibold"
+              style={{ color: '#C86FFF' }}
             >
               Build a continuity plan
               <ArrowUpRight className="w-4 h-4" />
@@ -98,26 +83,16 @@ export default function Continuity() {
             {CONTINUITY_ITEMS.map((item, index) => (
               <div
                 key={item.challenge}
-                ref={(el) => {
-                  itemsRef.current[index] = el;
-                }}
-                className="grid md:grid-cols-2 gap-6 rounded-3xl border border-border bg-bg-card p-6 shadow-soft"
+                ref={(el) => { itemsRef.current[index] = el; }}
+                className="grid md:grid-cols-2 gap-6 card-premium"
               >
                 <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
-                    Before
-                  </p>
-                  <p className="mt-3 text-base font-semibold text-text-primary">
-                    {item.challenge}
-                  </p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/35">Before</p>
+                  <p className="mt-3 text-base font-semibold text-white">{item.challenge}</p>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
-                    After
-                  </p>
-                  <p className="mt-3 text-base font-semibold text-text-primary">
-                    {item.response}
-                  </p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/35">After</p>
+                  <p className="mt-3 text-base font-semibold text-white">{item.response}</p>
                 </div>
               </div>
             ))}

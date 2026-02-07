@@ -36,32 +36,16 @@ export default function Insights() {
     const ctx = gsap.context(() => {
       if (headerRef.current) {
         gsap.from(headerRef.current.children, {
-          opacity: 0,
-          y: 40,
-          duration: 0.8,
-          ease: "power3.out",
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
+          opacity: 0, y: 40, duration: 0.8, ease: "power3.out", stagger: 0.12,
+          scrollTrigger: { trigger: headerRef.current, start: "top 85%", toggleActions: "play none none none" },
         });
       }
 
       const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
       if (cards.length > 0) {
         gsap.from(cards, {
-          opacity: 0,
-          y: 40,
-          duration: 0.7,
-          ease: "power3.out",
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: cards[0],
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
+          opacity: 0, y: 40, duration: 0.7, ease: "power3.out", stagger: 0.12,
+          scrollTrigger: { trigger: cards[0], start: "top 85%", toggleActions: "play none none none" },
         });
       }
     }, sectionRef);
@@ -70,33 +54,31 @@ export default function Insights() {
   }, []);
 
   return (
-    <section id="insights" ref={sectionRef} className="section-padding bg-bg-surface">
+    <section id="insights" ref={sectionRef} className="section-padding" style={{ background: '#1A1726' }}>
       <div className="container-custom">
         <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-14">
           <span className="badge-primary mb-4 inline-flex">Insights</span>
-          <h2 className="text-display-sm md:text-display-md font-heading text-text-primary">
+          <h2 className="text-display-sm md:text-display-md font-heading text-white">
             Actionable insight from within.
-            <span className="block gradient-text">Fuel teams that move first.</span>
+            <span className="block text-gradient-blue">Fuel teams that move first.</span>
           </h2>
-          <p className="mt-4 text-lg text-text-secondary">
+          <p className="mt-4 text-lg text-white/50">
             We surface the critical levers that keep petroleum operations stable,
             from allocation planning to delivery execution.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8">
-          <div className="card-premium border border-border-light">
-            <p className="text-xs uppercase tracking-[0.25em] text-text-muted">
-              Featured Insight
-            </p>
-            <h3 className="mt-4 text-2xl font-heading text-text-primary">
+          <div className="card-premium">
+            <p className="text-xs uppercase tracking-[0.25em] text-white/35">Featured Insight</p>
+            <h3 className="mt-4 text-2xl font-heading text-white">
               Solvable drags that slow down your best teams
             </h3>
-            <p className="mt-3 text-sm text-text-secondary leading-relaxed">
+            <p className="mt-3 text-sm text-white/50 leading-relaxed">
               We reduce over-checking, fragmented documentation, and late-stage
               escalations by centralizing supply intelligence and validation.
             </p>
-            <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-primary-700">
+            <div className="mt-6 flex items-center gap-2 text-sm font-semibold" style={{ color: '#C86FFF' }}>
               Read the briefing
               <ArrowUpRight className="w-4 h-4" />
             </div>
@@ -106,20 +88,12 @@ export default function Insights() {
             {INSIGHT_FEATURES.map((item, index) => (
               <div
                 key={item.title}
-                ref={(el) => {
-                  cardsRef.current[index] = el;
-                }}
-                className="card-premium border border-border-light"
+                ref={(el) => { cardsRef.current[index] = el; }}
+                className="card-premium"
               >
-                <p className="text-xs uppercase tracking-[0.25em] text-text-muted">
-                  {item.label}
-                </p>
-                <h4 className="mt-3 text-lg font-heading text-text-primary">
-                  {item.title}
-                </h4>
-                <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-                  {item.summary}
-                </p>
+                <p className="text-xs uppercase tracking-[0.25em] text-white/35">{item.label}</p>
+                <h4 className="mt-3 text-lg font-heading text-white">{item.title}</h4>
+                <p className="mt-2 text-sm text-white/50 leading-relaxed">{item.summary}</p>
               </div>
             ))}
           </div>

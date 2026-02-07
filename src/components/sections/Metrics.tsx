@@ -4,11 +4,7 @@ import { useEffect, useRef } from 'react';
 import CountUp from 'react-countup';
 import { gsap } from '@/lib/gsap';
 import { STATS } from '@/lib/constants';
-import { cn } from '@/lib/utils';
 
-/* ----------------------------------------
-   Single stat card
-   ---------------------------------------- */
 interface StatCardProps {
   value: number;
   suffix: string;
@@ -18,12 +14,10 @@ interface StatCardProps {
 }
 
 function StatCard({ value, suffix, label, index, isLast }: StatCardProps) {
-  // Determine if value has decimals for formatting
   const decimals = value % 1 !== 0 ? 1 : 0;
 
   return (
     <div className="stat-card relative flex flex-col items-center text-center px-6 py-8 lg:py-0">
-      {/* Animated count-up value */}
       <div className="flex items-baseline gap-1">
         <CountUp
           end={value}
@@ -36,37 +30,30 @@ function StatCard({ value, suffix, label, index, isLast }: StatCardProps) {
           {({ countUpRef }) => (
             <span
               ref={countUpRef}
-              className="text-display-md lg:text-display-lg font-bold text-primary-500"
+              className="text-display-md lg:text-display-lg font-bold text-gradient"
             />
           )}
         </CountUp>
-        <span className="text-display-sm lg:text-display-md font-bold text-primary-500">
+        <span className="text-display-sm lg:text-display-md font-bold text-gradient">
           {suffix}
         </span>
       </div>
 
-      {/* Label */}
-      <p className="mt-2 text-sm lg:text-base font-medium text-text-secondary">
+      <p className="mt-2 text-sm lg:text-base font-medium text-white/50">
         {label}
       </p>
 
-      {/* Subtle divider between stat cards (not after the last one) */}
       {!isLast && (
         <div
           aria-hidden="true"
-          className={cn(
-            'hidden lg:block absolute right-0 top-1/2 -translate-y-1/2',
-            'w-px h-16 bg-gradient-to-b from-transparent via-primary-200 to-transparent',
-          )}
+          className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-16"
+          style={{ background: 'linear-gradient(to bottom, transparent, rgba(200, 111, 255, 0.3), transparent)' }}
         />
       )}
     </div>
   );
 }
 
-/* ----------------------------------------
-   Metrics section
-   ---------------------------------------- */
 export default function Metrics() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -74,40 +61,14 @@ export default function Metrics() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      /* --- Whole section entrance --- */
       gsap.from('.metrics-inner', {
-        opacity: 0,
-        y: 50,
-        duration: 0.9,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
+        opacity: 0, y: 50, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%', toggleActions: 'play none none none' },
       });
 
-      /* --- Stat cards staggered entrance --- */
       gsap.from('.stat-card', {
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        ease: 'power3.out',
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: '.metrics-grid',
-          start: 'top 88%',
-          toggleActions: 'play none none none',
-        },
-      });
-
-      /* --- Decorative dots slow drift --- */
-      gsap.to('.metrics-dots', {
-        y: -10,
-        duration: 5,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
+        opacity: 0, y: 30, duration: 0.6, ease: 'power3.out', stagger: 0.15,
+        scrollTrigger: { trigger: '.metrics-grid', start: 'top 88%', toggleActions: 'play none none none' },
       });
     }, sectionRef);
 
@@ -115,69 +76,31 @@ export default function Metrics() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden section-padding-sm bg-bg-surface"
-    >
-      {/* ---- Mesh-gradient overlay ---- */}
+    <section ref={sectionRef} className="relative overflow-hidden section-padding-sm" style={{ background: '#1A1726' }}>
       <div
         aria-hidden="true"
-        className={cn(
-          'absolute inset-0 pointer-events-none',
-          'bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(11,42,66,0.08),transparent)]',
-        )}
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(200, 111, 255, 0.08), transparent)' }}
       />
 
-      {/* ---- Decorative gradient line top ---- */}
       <div
         aria-hidden="true"
-        className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-200 to-transparent"
+        className="absolute top-0 left-0 w-full h-px"
+        style={{ background: 'linear-gradient(to right, transparent, rgba(200, 111, 255, 0.2), transparent)' }}
       />
-
-      {/* ---- Decorative dots pattern ---- */}
-      <div
-        aria-hidden="true"
-        className={cn(
-          'metrics-dots absolute -top-6 right-12 grid grid-cols-5 gap-3 opacity-20 pointer-events-none',
-        )}
-      >
-        {Array.from({ length: 25 }).map((_, i) => (
-          <span
-            key={i}
-            className="block w-1.5 h-1.5 rounded-full bg-primary-300"
-          />
-        ))}
-      </div>
-
-      {/* ---- Decorative dots pattern bottom-left ---- */}
-      <div
-        aria-hidden="true"
-        className={cn(
-          'absolute -bottom-4 left-8 grid grid-cols-4 gap-3 opacity-15 pointer-events-none',
-        )}
-      >
-        {Array.from({ length: 16 }).map((_, i) => (
-          <span
-            key={i}
-            className="block w-1.5 h-1.5 rounded-full bg-secondary-300"
-          />
-        ))}
-      </div>
 
       <div className="container-custom relative z-10">
         <div className="metrics-inner">
-          {/* ---- Header ---- */}
           <div className="text-center mb-14">
-            <h2 className="text-display-sm lg:text-display-md font-heading text-text-primary">
+            <h2 className="text-display-sm lg:text-display-md font-heading text-white">
               Measurable momentum
             </h2>
-            <p className="mt-4 text-text-secondary max-w-2xl mx-auto">
+            <p className="mt-4 text-white/50 max-w-2xl mx-auto">
               Transparent performance metrics from our growing 2026 launch network.
             </p>
-            <div className="mt-6 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500" />
+            <div className="mt-6 mx-auto w-16 h-1 rounded-full gradient-bar" />
           </div>
 
-          {/* ---- Stats grid ---- */}
           <div className="metrics-grid grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0">
             {STATS.map((stat, index) => (
               <StatCard
@@ -193,10 +116,10 @@ export default function Metrics() {
         </div>
       </div>
 
-      {/* ---- Decorative gradient line bottom ---- */}
       <div
         aria-hidden="true"
-        className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary-200 to-transparent"
+        className="absolute bottom-0 left-0 w-full h-px"
+        style={{ background: 'linear-gradient(to right, transparent, rgba(200, 111, 255, 0.2), transparent)' }}
       />
     </section>
   );

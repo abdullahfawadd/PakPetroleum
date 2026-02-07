@@ -2,23 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ========================================
-   CSS CUSTOM PROPERTIES - LIGHT EDITORIAL
-   ======================================== */
 :root {
-  --bg: #F7F4EF;
-  --bg-surface: #F1ECE5;
-  --text-primary: #1B1F1D;
-  --text-secondary: #4E4A44;
-  --brand-navy: #0B2A42;
-  --brand-copper: #B46B3D;
-  --brand-sand: #C39A67;
+  --bg-body: #13101C;
+  --bg-surface: #1A1726;
+  --bg-elevated: #211D30;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --purple: #C86FFF;
+  --purple-deep: #AC24FF;
+  --blue: #1B4DFE;
+  --pink: #E59DFA;
+  --gold: #FFD600;
+  --orange: #FE881B;
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-muted: rgba(255, 255, 255, 0.4);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.16);
   --nav-height: 5rem;
 }
 
-/* ========================================
-  BASE STYLES - LIGHT THEME
-  ======================================== */
 @layer base {
   * {
     -webkit-font-smoothing: antialiased;
@@ -28,24 +30,23 @@
   html {
     scroll-behavior: auto;
     overflow-x: hidden;
-    background: var(--bg);
+    background: var(--bg-body);
   }
 
   body {
     color: var(--text-primary);
-    background: var(--bg);
+    background: var(--bg-body);
     overflow-x: hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   ::selection {
-    background: rgba(11, 42, 66, 0.15);
-    color: #1B1F1D;
+    background: rgba(200, 111, 255, 0.35);
+    color: #FFFFFF;
   }
 
-  /* Scrollbar - minimal light */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
 
   ::-webkit-scrollbar-track {
@@ -53,20 +54,16 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(17, 24, 39, 0.15);
-    border-radius: 3px;
+    background: rgba(200, 111, 255, 0.25);
+    border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(17, 24, 39, 0.25);
+    background: rgba(200, 111, 255, 0.4);
   }
 }
 
-/* ========================================
-   COMPONENT STYLES
-   ======================================== */
 @layer components {
-  /* Container */
   .container-main {
     @apply max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16;
   }
@@ -76,29 +73,48 @@
   }
 
   .container-narrow {
-    @apply max-w-[1000px] mx-auto px-6 md:px-10;
+    @apply max-w-[900px] mx-auto px-6 md:px-10;
   }
 
-  /* Section spacing - generous like eternacloud */
   .section-spacing {
     @apply py-28 md:py-36 lg:py-44;
   }
 
   .section-spacing-sm {
-    @apply py-18 md:py-24 lg:py-30;
+    @apply py-20 md:py-28 lg:py-32;
   }
 
   .section-padding {
-    @apply py-24 md:py-32 lg:py-36;
+    @apply py-24 md:py-32 lg:py-40;
   }
 
   .section-padding-sm {
-    @apply py-16 md:py-20 lg:py-24;
+    @apply py-16 md:py-24 lg:py-28;
   }
 
-  /* Gradient text - brand rainbow */
-  .gradient-text {
-    background: linear-gradient(135deg, #0B2A42, #B46B3D, #C39A67);
+  .text-gradient {
+    background: linear-gradient(135deg, #C86FFF 0%, #E59DFA 40%, #FFD600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-blue {
+    background: linear-gradient(135deg, #1B4DFE 0%, #AC24FF 50%, #E59DFA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(135deg, #C86FFF 0%, #FE881B 50%, #FFD600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-animated {
+    background: linear-gradient(135deg, #1B4DFE, #AC24FF, #E59DFA, #FFD600, #FE881B);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -106,115 +122,137 @@
     animation: gradientShift 8s ease infinite;
   }
 
-  .gradient-text-brand {
-    background: linear-gradient(135deg, #0B2A42, #B46B3D, #C39A67);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradientShift 6s ease infinite;
-  }
-
-  .gradient-text-static {
-    background: linear-gradient(135deg, #0B2A42, #B46B3D, #C39A67);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Gradient bar (like eternacloud nav indicator) */
   .gradient-bar {
-    background: linear-gradient(90deg, #0B2A42, #B46B3D, #C39A67);
+    background: linear-gradient(90deg, #1B4DFE, #AC24FF, #C86FFF);
   }
 
-  /* Overline / tag */
+  .gradient-bar-warm {
+    background: linear-gradient(90deg, #C86FFF, #FE881B, #FFD600);
+  }
+
   .overline-tag {
-    @apply text-overline uppercase tracking-[0.15em] text-text-secondary;
+    @apply text-overline uppercase tracking-[0.2em];
+    color: var(--purple);
   }
 
-  /* Divider */
   .divider {
     @apply h-px w-full;
-    background: linear-gradient(90deg, transparent, rgba(17,24,39,0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(200, 111, 255, 0.12), transparent);
   }
 
   .divider-gradient {
     @apply h-px w-full;
-    background: linear-gradient(90deg, transparent, rgba(17,24,39,0.18), transparent);
+    background: linear-gradient(90deg, transparent, rgba(200, 111, 255, 0.2), transparent);
   }
 
-  /* Card - premium paper */
-  .card {
-    @apply relative bg-bg-card rounded-2xl border border-border
-           transition-all duration-500 ease-out-expo;
+  .card-glass {
+    @apply relative rounded-2xl border transition-all duration-500;
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
   }
 
-  .card:hover {
-    @apply border-border-light;
-  }
-
-  .card-premium {
-    @apply relative rounded-3xl bg-bg-card border border-border p-8
-           shadow-soft transition-all duration-500 ease-out-expo;
-  }
-
-  .card-premium:hover {
-    @apply border-border-active;
+  .card-glass:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(200, 111, 255, 0.2);
   }
 
   .card-dark {
-    @apply relative rounded-3xl bg-primary-900 border border-white/10 p-6;
+    @apply relative rounded-3xl p-6 md:p-8 transition-all duration-500;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  /* Badge */
+  .card-dark:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(200, 111, 255, 0.15);
+    box-shadow: 0 0 40px rgba(200, 111, 255, 0.08);
+  }
+
+  .card-premium {
+    @apply relative rounded-3xl border p-8 transition-all duration-500;
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .card-premium:hover {
+    border-color: rgba(200, 111, 255, 0.2);
+    box-shadow: 0 8px 40px rgba(200, 111, 255, 0.1);
+  }
+
   .badge-primary {
     @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.2em];
-    background: rgba(11, 42, 66, 0.08);
-    color: #0B2A42;
+    background: rgba(200, 111, 255, 0.1);
+    color: #C86FFF;
+    border: 1px solid rgba(200, 111, 255, 0.2);
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full text-sm font-semibold text-white;
-    background: #0B2A42;
-    transition: all 300ms ease;
+    @apply inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-sm font-semibold text-white;
+    background: linear-gradient(135deg, #AC24FF, #C86FFF);
+    transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-primary:hover {
-    box-shadow: 0 18px 40px rgba(11, 42, 66, 0.2);
-    transform: translateY(-1px);
+    box-shadow: 0 20px 50px rgba(200, 111, 255, 0.35);
+    transform: translateY(-2px);
   }
-  /* Input */
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-sm font-semibold text-white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-outline:hover {
+    border-color: rgba(200, 111, 255, 0.5);
+    background: rgba(200, 111, 255, 0.08);
+    box-shadow: 0 0 30px rgba(200, 111, 255, 0.15);
+  }
+
   .input {
-    @apply w-full px-5 py-4 bg-bg-card border border-border rounded-2xl
-           text-text-primary placeholder:text-text-muted
-           focus:outline-none focus:border-border-active
-           transition-all duration-300;
+    @apply w-full px-5 py-4 rounded-2xl text-white placeholder:text-white/30 focus:outline-none transition-all duration-300;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .input-dark {
-    @apply w-full px-5 py-4 bg-bg-surface border border-border rounded-2xl
-           text-text-primary placeholder:text-text-muted
-           focus:outline-none focus:border-border-active
-           transition-all duration-300;
+  .input:focus {
+    border-color: rgba(200, 111, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(200, 111, 255, 0.1);
   }
 
-  /* Mask for marquee edges */
   .mask-edges {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
 
-  .bg-mesh-gradient {
+  .bg-mesh {
     background:
-      radial-gradient(600px 400px at 20% 10%, rgba(11, 42, 66, 0.08), transparent 60%),
-      radial-gradient(500px 350px at 80% 30%, rgba(180, 107, 61, 0.08), transparent 60%),
-      radial-gradient(600px 500px at 50% 90%, rgba(195, 154, 103, 0.1), transparent 65%);
+      radial-gradient(600px 400px at 20% 10%, rgba(200, 111, 255, 0.08), transparent 60%),
+      radial-gradient(500px 350px at 80% 30%, rgba(27, 77, 254, 0.06), transparent 60%),
+      radial-gradient(600px 500px at 50% 90%, rgba(172, 36, 255, 0.05), transparent 65%);
+  }
+
+  .bg-glow-purple {
+    background: radial-gradient(ellipse at center, rgba(200, 111, 255, 0.15), transparent 70%);
+  }
+
+  .glow-divider {
+    @apply h-px w-full;
+    background: linear-gradient(90deg, transparent 0%, rgba(200, 111, 255, 0.3) 50%, transparent 100%);
+  }
+
+  .section-glow {
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(200, 111, 255, 0.06) 30%,
+      rgba(172, 36, 255, 0.08) 50%,
+      rgba(200, 111, 255, 0.06) 70%,
+      transparent 100%
+    );
   }
 }
 
-/* ========================================
-   SPLIT TEXT ANIMATION STYLES
-   ======================================== */
 .split-char {
   display: inline-block;
   will-change: transform, opacity;
@@ -229,9 +267,6 @@
   overflow: hidden;
 }
 
-/* ========================================
-   LENIS SMOOTH SCROLL
-   ======================================== */
 html.lenis, html.lenis body {
   height: auto;
 }
@@ -250,4 +285,19 @@ html.lenis, html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
 }

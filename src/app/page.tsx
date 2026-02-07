@@ -34,12 +34,18 @@ export default function Home() {
       <main>
         <Hero />
         <TrustMarquee />
+        {/* Purple glow band transition */}
+        <div className="h-32 glow-band" aria-hidden="true" />
         <About />
         <Operations />
+        {/* Purple glow band transition */}
+        <div className="h-24 glow-band" aria-hidden="true" />
         <Continuity />
         <Framework />
         <Need />
         <Systems />
+        {/* Purple glow band transition */}
+        <div className="h-24 glow-band" aria-hidden="true" />
         <ValueCurve />
         <Metrics />
         <Commitment />

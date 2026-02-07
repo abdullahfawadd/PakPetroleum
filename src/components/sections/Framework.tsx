@@ -53,32 +53,16 @@ export default function Framework() {
     const ctx = gsap.context(() => {
       if (headerRef.current) {
         gsap.from(headerRef.current.children, {
-          opacity: 0,
-          y: 40,
-          duration: 0.8,
-          ease: "power3.out",
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
+          opacity: 0, y: 40, duration: 0.8, ease: "power3.out", stagger: 0.12,
+          scrollTrigger: { trigger: headerRef.current, start: "top 85%", toggleActions: "play none none none" },
         });
       }
 
       const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
       if (cards.length > 0) {
         gsap.from(cards, {
-          opacity: 0,
-          y: 40,
-          duration: 0.7,
-          ease: "power3.out",
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: cards[0],
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
+          opacity: 0, y: 40, duration: 0.7, ease: "power3.out", stagger: 0.12,
+          scrollTrigger: { trigger: cards[0], start: "top 85%", toggleActions: "play none none none" },
         });
       }
     }, sectionRef);
@@ -87,15 +71,15 @@ export default function Framework() {
   }, []);
 
   return (
-    <section id="framework" ref={sectionRef} className="section-padding bg-bg-surface">
+    <section id="framework" ref={sectionRef} className="section-padding" style={{ background: '#1A1726' }}>
       <div className="container-custom">
         <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-16">
           <span className="badge-primary mb-4 inline-flex">Our Framework</span>
-          <h2 className="text-display-sm md:text-display-md font-heading text-text-primary">
+          <h2 className="text-display-sm md:text-display-md font-heading text-white">
             One practical system.
-            <span className="block gradient-text">Exponential daily value.</span>
+            <span className="block text-gradient">Exponential daily value.</span>
           </h2>
-          <p className="mt-4 text-lg text-text-secondary">
+          <p className="mt-4 text-lg text-white/50">
             Our teams secure, align, validate, and curate the operational details
             that keep petroleum supply chains stable.
           </p>
@@ -105,23 +89,17 @@ export default function Framework() {
           {FRAMEWORK_PILLARS.map((pillar, index) => (
             <div
               key={pillar.title}
-              ref={(el) => {
-                cardsRef.current[index] = el;
-              }}
-              className="card-premium border border-border-light"
+              ref={(el) => { cardsRef.current[index] = el; }}
+              className="card-premium"
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-heading text-text-primary">
-                  {pillar.title}
-                </h3>
-                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-text-muted">
-                  {pillar.label}
-                </span>
+                <h3 className="text-2xl font-heading text-white">{pillar.title}</h3>
+                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-white/30">{pillar.label}</span>
               </div>
               <ul className="mt-6 space-y-3">
                 {pillar.items.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-text-secondary">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary-600" />
+                  <li key={item} className="flex items-start gap-3 text-sm text-white/55">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full" style={{ background: '#C86FFF' }} />
                     <span>{item}</span>
                   </li>
                 ))}

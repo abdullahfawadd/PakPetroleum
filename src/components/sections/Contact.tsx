@@ -178,19 +178,19 @@ export default function Contact() {
   }, []);
 
   return (
-    <section id="contact" ref={sectionRef} className="section-padding bg-bg">
+    <section id="contact" ref={sectionRef} className="section-padding" style={{ background: '#0B0A12' }}>
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Left Column */}
           <div ref={leftColRef}>
             <span className="badge-primary mb-6">Get in Touch</span>
 
-            <h2 className="text-display-sm font-heading text-text-primary mt-4 mb-6">
+            <h2 className="text-display-sm font-heading text-white mt-4 mb-6">
               Build a supply plan
               <span className="block gradient-text">that keeps you moving.</span>
             </h2>
 
-            <p className="text-lg text-text-secondary leading-relaxed mb-10 max-w-lg">
+            <p className="text-lg text-white/60 leading-relaxed mb-10 max-w-lg">
               Whether you need bulk supply, distribution coverage, or strategic
               partnership planning, our 2026 launch team is ready to respond.
             </p>
@@ -211,8 +211,8 @@ export default function Contact() {
                       <Icon className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm text-text-secondary font-medium">{info.label}</p>
-                      <p className="text-text-primary font-semibold group-hover:text-primary-700 transition-colors duration-300">
+                      <p className="text-sm text-white/40 font-medium">{info.label}</p>
+                      <p className="text-white font-semibold group-hover:text-primary-300 transition-colors duration-300">
                         {info.value}
                       </p>
                     </div>
@@ -242,16 +242,16 @@ export default function Contact() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-text-primary mb-2">
+                  <h3 className="text-xl font-bold text-white mb-2">
                     Message Sent Successfully!
                   </h3>
-                  <p className="text-text-secondary">
+                  <p className="text-white/60">
                     Thank you for reaching out. We&apos;ll get back to you within 24 hours.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
-                  <h3 className="text-xl font-bold text-text-primary mb-6">
+                  <h3 className="text-xl font-bold text-white mb-6">
                     Send us a Message
                   </h3>
 
@@ -259,7 +259,7 @@ export default function Contact() {
                   <div className="mb-5">
                     <label
                       htmlFor="contact-name"
-                      className="block text-sm font-medium text-text-secondary mb-2"
+                      className="block text-sm font-medium text-white/60 mb-2"
                     >
                       Full Name
                     </label>
@@ -281,7 +281,7 @@ export default function Contact() {
                   <div className="mb-5">
                     <label
                       htmlFor="contact-email"
-                      className="block text-sm font-medium text-text-secondary mb-2"
+                      className="block text-sm font-medium text-white/60 mb-2"
                     >
                       Email Address
                     </label>
@@ -303,7 +303,7 @@ export default function Contact() {
                   <div className="mb-5">
                     <label
                       htmlFor="contact-subject"
-                      className="block text-sm font-medium text-text-secondary mb-2"
+                      className="block text-sm font-medium text-white/60 mb-2"
                     >
                       Subject
                     </label>
@@ -312,7 +312,7 @@ export default function Contact() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className={`input ${!formData.subject ? 'text-text-muted' : ''} ${errors.subject ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`}
+                      className={`input ${!formData.subject ? 'text-white/40' : ''} ${errors.subject ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`}
                     >
                       {SUBJECT_OPTIONS.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -329,7 +329,7 @@ export default function Contact() {
                   <div className="mb-6">
                     <label
                       htmlFor="contact-message"
-                      className="block text-sm font-medium text-text-secondary mb-2"
+                      className="block text-sm font-medium text-white/60 mb-2"
                     >
                       Message
                     </label>

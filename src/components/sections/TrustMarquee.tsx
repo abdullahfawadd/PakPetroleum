@@ -23,7 +23,8 @@ function Row({ reverse = false }: { reverse?: boolean }) {
         {doubled.map((item, i) => (
           <span
             key={i}
-            className="text-xs font-semibold uppercase tracking-[0.22em] text-text-secondary whitespace-nowrap"
+            className="text-xs font-semibold uppercase tracking-[0.22em] whitespace-nowrap"
+            style={{ color: 'rgba(200, 111, 255, 0.25)' }}
           >
             {item}
           </span>
@@ -35,7 +36,10 @@ function Row({ reverse = false }: { reverse?: boolean }) {
 
 export default function TrustMarquee() {
   return (
-    <section className="py-8 border-y border-border bg-bg-surface overflow-hidden">
+    <section
+      className="py-8 overflow-hidden"
+      style={{ background: '#1A1726', borderTop: '1px solid rgba(200, 111, 255, 0.06)', borderBottom: '1px solid rgba(200, 111, 255, 0.06)' }}
+    >
       <div className="space-y-5">
         <Row />
         <Row reverse />

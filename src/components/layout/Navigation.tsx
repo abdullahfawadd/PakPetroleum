@@ -11,9 +11,7 @@ export default function Navigation() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
   const navRef = useRef<HTMLElement>(null);
-  const logoRef = useRef<HTMLAnchorElement>(null);
 
-  // GSAP entrance
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -25,11 +23,9 @@ export default function Navigation() {
     return () => ctx.revert();
   }, []);
 
-  // Scroll tracking
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
-
       const sections = NAV_ITEMS.map((item) => item.href.replace("#", ""));
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i]);
@@ -43,7 +39,6 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body on mobile menu
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -66,42 +61,44 @@ export default function Navigation() {
         ref={navRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-bg/90 backdrop-blur-xl border-b border-border"
+            ? "backdrop-blur-2xl border-b"
             : "bg-transparent"
         }`}
-        style={{ opacity: 0 }}
+        style={{
+          opacity: 0,
+          ...(isScrolled ? {
+            background: 'rgba(19, 16, 28, 0.85)',
+            borderColor: 'rgba(200, 111, 255, 0.08)',
+          } : {}),
+        }}
       >
         <div className="container-main flex items-center justify-between h-20">
-          {/* Logo */}
           <a
-            ref={logoRef}
             href="#home"
             onClick={(e) => handleNavClick(e, "#home")}
             className="flex items-center gap-1 group"
           >
-            <span className="text-xl font-extrabold tracking-tight text-text-primary transition-transform duration-300 group-hover:scale-105">
+            <span className="text-xl font-extrabold tracking-tight text-white transition-transform duration-300 group-hover:scale-105">
               PAK
             </span>
-            <span className="text-xl font-medium tracking-tight text-text-secondary">
+            <span className="text-xl font-medium tracking-tight text-white/50">
               Petroleum
             </span>
           </a>
 
-          {/* Desktop links */}
           <ul className="hidden lg:flex items-center gap-1">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 ${
+                  className={`relative px-4 py-2 text-[13px] font-medium transition-colors duration-300 ${
                     activeSection === item.href
-                      ? "text-text-primary"
-                      : "text-text-muted hover:text-text-secondary"
+                      ? "text-white"
+                      : "text-white/35 hover:text-white/65"
                   }`}
                 >
                   {item.name}
-                  {/* Gradient underline indicator */}
                   {activeSection === item.href && (
                     <motion.span
                       layoutId="nav-indicator"
@@ -114,18 +111,17 @@ export default function Navigation() {
             ))}
           </ul>
 
-          {/* Desktop CTA */}
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, "#contact")}
-            className="hidden lg:inline-flex items-center px-5 py-2 rounded-full text-sm font-semibold text-bg bg-primary-900 transition-all duration-300 hover:opacity-90 hover:scale-[1.02]"
+            className="hidden lg:inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:shadow-glow-sm hover:scale-[1.02]"
+            style={{ background: 'linear-gradient(135deg, #AC24FF, #C86FFF)' }}
           >
             Contact
           </a>
 
-          {/* Mobile toggle */}
           <button
-            className="lg:hidden p-2 text-text-secondary hover:text-text-primary transition-colors"
+            className="lg:hidden p-2 text-white/50 hover:text-white transition-colors"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             aria-label={isMobileOpen ? "Close menu" : "Open menu"}
           >
@@ -134,7 +130,6 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {isMobileOpen && (
           <>
@@ -146,18 +141,16 @@ export default function Navigation() {
               onClick={() => setIsMobileOpen(false)}
             />
             <motion.div
-              className="fixed top-0 right-0 z-40 h-full w-[80%] max-w-sm bg-bg-surface border-l border-border flex flex-col lg:hidden"
+              className="fixed top-0 right-0 z-40 h-full w-[80%] max-w-sm flex flex-col lg:hidden"
+              style={{ background: '#1A1726', borderLeft: '1px solid rgba(200, 111, 255, 0.1)' }}
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring" as const, damping: 28, stiffness: 300 }}
             >
-              <div className="flex items-center justify-between px-6 h-20 border-b border-border">
-                <span className="text-lg font-bold text-text-primary">Menu</span>
-                <button
-                  onClick={() => setIsMobileOpen(false)}
-                  className="p-2 text-text-muted"
-                >
+              <div className="flex items-center justify-between px-6 h-20" style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                <span className="text-lg font-bold text-white">Menu</span>
+                <button onClick={() => setIsMobileOpen(false)} className="p-2 text-white/40">
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -170,8 +163,8 @@ export default function Navigation() {
                         onClick={(e) => handleNavClick(e, item.href)}
                         className={`block py-3 px-4 rounded-xl text-base font-medium transition-all duration-300 ${
                           activeSection === item.href
-                            ? "text-text-primary bg-white/[0.6]"
-                            : "text-text-muted hover:text-text-secondary"
+                            ? "text-white bg-white/[0.06]"
+                            : "text-white/35 hover:text-white/65"
                         }`}
                       >
                         {item.name}
@@ -180,11 +173,12 @@ export default function Navigation() {
                   ))}
                 </ul>
               </nav>
-              <div className="p-6 border-t border-border">
+              <div className="p-6" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
                 <a
                   href="#contact"
                   onClick={(e) => handleNavClick(e, "#contact")}
-                  className="block text-center py-3 rounded-full text-sm font-semibold text-bg bg-primary-900"
+                  className="block text-center py-3 rounded-full text-sm font-semibold text-white"
+                  style={{ background: 'linear-gradient(135deg, #AC24FF, #C86FFF)' }}
                 >
                   Get in Touch
                 </a>
