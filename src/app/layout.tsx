@@ -24,13 +24,13 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "PAK Petroleum | Powering Pakistan's Future",
   description:
-    "Premium petroleum trading, distribution, and logistics across Pakistan. Building the nation's most trusted energy network since 2026.",
+    "Mission-critical petroleum trading, distribution, and logistics across Pakistan. Building the nation's most trusted energy network since 2026.",
   keywords:
     "petroleum, fuel, Pakistan, Islamabad, energy, trading, distribution, fuel stations",
   openGraph: {
     title: "PAK Petroleum | Powering Pakistan's Future",
     description:
-      "Premium petroleum trading, distribution, and logistics across Pakistan.",
+      "Mission-critical petroleum trading, distribution, and logistics across Pakistan.",
     type: "website",
     locale: "en_US",
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PAK Petroleum",
     description:
-      "Premium petroleum trading & distribution across Pakistan.",
+      "Mission-critical petroleum trading & distribution across Pakistan.",
   },
   robots: {
     index: true,

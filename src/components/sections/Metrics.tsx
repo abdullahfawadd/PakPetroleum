@@ -46,7 +46,7 @@ function StatCard({ value, suffix, label, index, isLast }: StatCardProps) {
       </div>
 
       {/* Label */}
-      <p className="mt-2 text-sm lg:text-base font-medium text-dark-200">
+      <p className="mt-2 text-sm lg:text-base font-medium text-text-secondary">
         {label}
       </p>
 

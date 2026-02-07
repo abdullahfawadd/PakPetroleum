@@ -1,8 +1,8 @@
 export const SITE_CONFIG = {
   name: "PAK Petroleum",
-  tagline: "Powering Pakistan's Future",
+  tagline: "Mission-critical energy continuity",
   description:
-    "Premium petroleum trading, distribution, and logistics across Pakistan. Trusted energy partner for a growing nation.",
+    "Premium petroleum trading, distribution, and logistics across Pakistan. Built for dependable supply since 2026.",
   email: "info@pakpetroleum.com",
   phone: "+92 51 234 5678",
   address: "Blue Area, Islamabad, Pakistan",
@@ -32,30 +32,30 @@ export const OPERATIONS = [
   {
     title: "Procurement & Sourcing",
     description:
-      "Strategic partnerships with international suppliers ensuring consistent, high-quality petroleum products at competitive rates.",
+      "Strategic partnerships and allocation planning to secure stable, high-quality supply at competitive rates.",
     icon: "procurement",
-    gradient: "from-primary-500 to-primary-700",
+    gradient: "from-primary-600 to-primary-800",
   },
   {
     title: "Storage & Inventory",
     description:
-      "State-of-the-art storage facilities with IoT-powered inventory management systems ensuring zero downtime.",
+      "Modern storage facilities with real-time monitoring and safety-first inventory controls.",
     icon: "storage",
     gradient: "from-secondary-500 to-secondary-700",
   },
   {
     title: "Distribution Network",
     description:
-      "Efficient logistics and GPS-tracked delivery operations connecting fuel stations across Pakistan.",
+      "GPS-tracked delivery operations connecting fuel stations and fleet operators nationwide.",
     icon: "distribution",
     gradient: "from-accent-500 to-accent-700",
   },
   {
     title: "Trading Operations",
     description:
-      "Dynamic market analysis and trading strategies optimizing supply chain efficiency and margins.",
+      "Market intelligence and trading discipline that protect supply continuity and margins.",
     icon: "trading",
-    gradient: "from-primary-400 to-secondary-500",
+    gradient: "from-primary-500 to-secondary-500",
   },
 ] as const;
 
@@ -97,21 +97,21 @@ export const TESTIMONIALS = [
     name: "Ahmed Rashid",
     role: "Fleet Manager, TransPak Logistics",
     content:
-      "PAK Petroleum has been our fuel partner for 3 years. Their reliability and consistent quality have been instrumental to our fleet operations.",
+      "PAK Petroleum keeps our fleet on schedule. Their communication and delivery reliability are exceptional.",
     rating: 5,
   },
   {
     name: "Fatima Zahra",
     role: "Operations Director, CityFuel Stations",
     content:
-      "The distribution network is exceptional. On-time deliveries and professional service make them stand out in the industry.",
+      "The distribution team is precise and consistent. We have full visibility on delivery windows.",
     rating: 5,
   },
   {
     name: "Usman Malik",
     role: "CEO, Karachi Transport Co.",
     content:
-      "Switching to PAK Petroleum reduced our fuel costs by 12% while improving quality. Their team truly understands our business needs.",
+      "They simplified our supply planning and helped us reduce fuel spend while improving quality.",
     rating: 5,
   },
 ] as const;

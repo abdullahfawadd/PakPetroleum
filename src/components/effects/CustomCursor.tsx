@@ -62,26 +62,26 @@ export default function CustomCursor() {
     if (isHovering) {
       gsap.to(outerRef.current, {
         scale: 1.8,
-        borderColor: 'rgba(102, 153, 219, 0.8)',
+        borderColor: 'rgba(11, 42, 66, 0.65)',
         duration: 0.35,
         ease: 'power2.out',
       });
       gsap.to(innerRef.current, {
         scale: 0.5,
-        backgroundColor: '#FFC857',
+        backgroundColor: '#B46B3D',
         duration: 0.35,
         ease: 'power2.out',
       });
     } else {
       gsap.to(outerRef.current, {
         scale: 1,
-        borderColor: 'rgba(102, 153, 219, 0.5)',
+        borderColor: 'rgba(11, 42, 66, 0.45)',
         duration: 0.35,
         ease: 'power2.out',
       });
       gsap.to(innerRef.current, {
         scale: 1,
-        backgroundColor: '#0B3D91',
+        backgroundColor: '#0B2A42',
         duration: 0.35,
         ease: 'power2.out',
       });
@@ -154,7 +154,7 @@ export default function CustomCursor() {
           width: 24,
           height: 24,
           borderRadius: '50%',
-          border: '1.5px solid rgba(102, 153, 219, 0.5)',
+          border: '1.5px solid rgba(11, 42, 66, 0.45)',
           opacity: isVisible ? 1 : 0,
           transition: 'opacity 0.2s ease',
           willChange: 'transform',
@@ -170,7 +170,7 @@ export default function CustomCursor() {
           width: 8,
           height: 8,
           borderRadius: '50%',
-          backgroundColor: '#0B3D91',
+          backgroundColor: '#0B2A42',
           opacity: isVisible ? 1 : 0,
           transition: 'opacity 0.2s ease',
           willChange: 'transform',

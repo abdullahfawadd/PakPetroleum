@@ -80,7 +80,7 @@ export default function Preloader() {
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-bg"
         >
           {/* Subtle dot grid bg */}
-          <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle,_rgba(255,255,255,0.8)_1px,_transparent_1px)] bg-[length:32px_32px]" />
+          <div className="absolute inset-0 opacity-[0.12] bg-[radial-gradient(circle,_rgba(11,42,66,0.35)_1px,_transparent_1px)] bg-[length:32px_32px]" />
 
           {/* Brand name */}
           <div ref={brandRef} className="relative mb-12 opacity-0">
@@ -103,7 +103,7 @@ export default function Preloader() {
           </div>
 
           {/* Progress line */}
-          <div className="relative mt-10 w-48 md:w-64 h-[1px] bg-white/[0.06] overflow-hidden">
+          <div className="relative mt-10 w-48 md:w-64 h-[1px] bg-primary-200/40 overflow-hidden">
             <div
               ref={lineRef}
               className="absolute inset-0 origin-left gradient-bar"

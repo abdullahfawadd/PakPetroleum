@@ -86,6 +86,9 @@ const config: Config = {
         /* Hero / display sizes - massive like eternacloud */
         "hero": ["clamp(3.25rem, 10vw, 8.5rem)", { lineHeight: "0.98", letterSpacing: "-0.035em", fontWeight: "700" }],
         "display": ["clamp(2.5rem, 7vw, 6rem)", { lineHeight: "1.02", letterSpacing: "-0.03em", fontWeight: "700" }],
+        "display-lg": ["clamp(2.75rem, 7.5vw, 6.5rem)", { lineHeight: "1.02", letterSpacing: "-0.03em", fontWeight: "700" }],
+        "display-md": ["clamp(2.25rem, 6vw, 4.5rem)", { lineHeight: "1.05", letterSpacing: "-0.025em", fontWeight: "700" }],
+        "display-sm": ["clamp(1.85rem, 4.5vw, 3.25rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
         "heading": ["clamp(2rem, 5vw, 3.75rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
         "subheading": ["clamp(1.4rem, 3.2vw, 2.25rem)", { lineHeight: "1.2", letterSpacing: "-0.015em", fontWeight: "600" }],
         "body-lg": ["1.25rem", { lineHeight: "1.7" }],
