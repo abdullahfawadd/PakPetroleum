@@ -9,9 +9,9 @@ if (typeof window !== "undefined") {
 }
 
 const stats = [
-  { value: "150+", label: "Fuel Stations", color: "border-accent-blue" },
-  { value: "25+", label: "Cities Covered", color: "border-accent-green" },
-  { value: "99.9%", label: "Uptime Rate", color: "border-accent-gold" },
+  { value: "150+", label: "Fuel Stations", color: "border-primary-200" },
+  { value: "25+", label: "Cities Covered", color: "border-secondary-200" },
+  { value: "99.9%", label: "Uptime Rate", color: "border-accent-200" },
 ];
 
 export default function About() {
@@ -40,15 +40,14 @@ export default function About() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="section-spacing bg-bg">
+    <section ref={sectionRef} id="about" className="section-padding bg-bg">
       <div className="container-main">
         {/* Header */}
-        <div ref={headRef} className="mb-20">
-          <p className="overline-tag mb-6">About Us</p>
-          <h2 className="text-display text-text-primary max-w-4xl">
-            We don&apos;t just distribute fuel.
-            <br />
-            <span className="gradient-text">We power progress.</span>
+        <div ref={headRef} className="mb-16">
+          <p className="overline-tag mb-6">About</p>
+          <h2 className="text-display font-heading text-text-primary max-w-4xl">
+            Petroleum, engineered for
+            <span className="block gradient-text">reliability at scale.</span>
           </h2>
         </div>
 
@@ -57,26 +56,25 @@ export default function About() {
           {/* Left - text */}
           <div ref={leftRef} className="lg:col-span-3">
             <p className="text-body-lg text-text-secondary mb-6 leading-relaxed">
-              PAK Petroleum is a forward-thinking petroleum trading and
-              distribution company headquartered in Islamabad-Rawalpindi,
-              launched in 2026. We are dedicated to powering Pakistan&apos;s
-              economic growth through reliable fuel supply and innovative
-              energy solutions.
+              PAK Petroleum is a 2026 launch built for mission-critical fuel
+              continuity. We align procurement, storage, and distribution so
+              operators, fleets, and partners can move with confidence.
             </p>
             <p className="text-body-lg text-text-secondary leading-relaxed">
-              Our vision is to become Pakistan&apos;s most trusted energy
-              partner by building a nationwide network of modern fuel
-              stations, leveraging cutting-edge technology for supply chain
-              efficiency, and maintaining the highest standards of safety
-              and environmental responsibility.
+              From Islamabad-Rawalpindi to the nation&apos;s highest-demand corridors,
+              we deliver dependable supply, rigorous compliance, and a modern
+              logistics backbone designed for growth.
             </p>
+            <div className="mt-8 inline-flex items-center gap-3 px-5 py-3 rounded-full bg-primary-50 text-primary-900 text-xs font-semibold uppercase tracking-[0.2em]">
+              Founded 2026
+            </div>
           </div>
 
           {/* Right - stats */}
-          <div ref={rightRef} className="lg:col-span-2 space-y-8">
+          <div ref={rightRef} className="lg:col-span-2 space-y-6">
             {stats.map((stat, i) => (
-              <div key={i} className={`border-l-2 ${stat.color} pl-6`}>
-                <p className="text-display font-extrabold text-text-primary leading-none">
+              <div key={i} className={`card-premium border-l-4 ${stat.color}`}>
+                <p className="text-display font-heading text-text-primary leading-none">
                   {stat.value}
                 </p>
                 <p className="text-caption text-text-muted uppercase tracking-widest mt-2">

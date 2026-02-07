@@ -27,7 +27,7 @@ const CONTACT_INFO = [
     label: 'Phone',
     value: '+92 51 234 5678',
     href: 'tel:+925123456789',
-    gradient: 'from-primary-500 to-primary-700',
+    gradient: 'from-primary-600 to-primary-800',
   },
   {
     icon: Mail,
@@ -178,22 +178,21 @@ export default function Contact() {
   }, []);
 
   return (
-    <section id="contact" ref={sectionRef} className="section-padding bg-gray-50/50">
+    <section id="contact" ref={sectionRef} className="section-padding bg-bg">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Left Column */}
           <div ref={leftColRef}>
             <span className="badge-primary mb-6">Get in Touch</span>
 
-            <h2 className="text-display-sm font-bold text-dark-500 mt-4 mb-6">
-              Let&apos;s Power{' '}
-              <span className="gradient-text">Your Business</span>
+            <h2 className="text-display-sm font-heading text-text-primary mt-4 mb-6">
+              Build a supply plan
+              <span className="block gradient-text">that keeps you moving.</span>
             </h2>
 
-            <p className="text-lg text-dark-300 leading-relaxed mb-10 max-w-lg">
-              Whether you&apos;re looking for a reliable fuel supply partner, exploring distribution
-              opportunities, or seeking innovative energy solutions, we&apos;re here to help.
-              Reach out and let&apos;s build a powerful partnership together.
+            <p className="text-lg text-text-secondary leading-relaxed mb-10 max-w-lg">
+              Whether you need bulk supply, distribution coverage, or strategic
+              partnership planning, our 2026 launch team is ready to respond.
             </p>
 
             {/* Contact Info Cards */}
@@ -207,13 +206,13 @@ export default function Contact() {
                     className="flex items-center gap-4 group"
                   >
                     <div
-                      className={`flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br ${info.gradient} flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300`}
+                      className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${info.gradient} flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300`}
                     >
                       <Icon className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="text-sm text-dark-200 font-medium">{info.label}</p>
-                      <p className="text-dark-500 font-semibold group-hover:text-primary-500 transition-colors duration-300">
+                      <p className="text-sm text-text-secondary font-medium">{info.label}</p>
+                      <p className="text-text-primary font-semibold group-hover:text-primary-700 transition-colors duration-300">
                         {info.value}
                       </p>
                     </div>
@@ -243,16 +242,16 @@ export default function Contact() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-dark-500 mb-2">
+                  <h3 className="text-xl font-bold text-text-primary mb-2">
                     Message Sent Successfully!
                   </h3>
-                  <p className="text-dark-300">
+                  <p className="text-text-secondary">
                     Thank you for reaching out. We&apos;ll get back to you within 24 hours.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
-                  <h3 className="text-xl font-bold text-dark-500 mb-6">
+                  <h3 className="text-xl font-bold text-text-primary mb-6">
                     Send us a Message
                   </h3>
 
@@ -260,7 +259,7 @@ export default function Contact() {
                   <div className="mb-5">
                     <label
                       htmlFor="contact-name"
-                      className="block text-sm font-medium text-dark-400 mb-2"
+                      className="block text-sm font-medium text-text-secondary mb-2"
                     >
                       Full Name
                     </label>
@@ -282,7 +281,7 @@ export default function Contact() {
                   <div className="mb-5">
                     <label
                       htmlFor="contact-email"
-                      className="block text-sm font-medium text-dark-400 mb-2"
+                      className="block text-sm font-medium text-text-secondary mb-2"
                     >
                       Email Address
                     </label>
@@ -304,7 +303,7 @@ export default function Contact() {
                   <div className="mb-5">
                     <label
                       htmlFor="contact-subject"
-                      className="block text-sm font-medium text-dark-400 mb-2"
+                      className="block text-sm font-medium text-text-secondary mb-2"
                     >
                       Subject
                     </label>
@@ -313,7 +312,7 @@ export default function Contact() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className={`input ${!formData.subject ? 'text-dark-200' : ''} ${errors.subject ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`}
+                      className={`input ${!formData.subject ? 'text-text-muted' : ''} ${errors.subject ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`}
                     >
                       {SUBJECT_OPTIONS.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -330,7 +329,7 @@ export default function Contact() {
                   <div className="mb-6">
                     <label
                       htmlFor="contact-message"
-                      className="block text-sm font-medium text-dark-400 mb-2"
+                      className="block text-sm font-medium text-text-secondary mb-2"
                     >
                       Message
                     </label>

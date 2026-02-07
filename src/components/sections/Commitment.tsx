@@ -36,7 +36,7 @@ function CommitmentCard({ title, description, icon, index }: CommitmentCardProps
       className={cn(
         'commitment-card card-dark group',
         'flex flex-col items-start gap-5',
-        'hover:border-primary-500/50 hover:shadow-[0_0_30px_rgba(11,61,145,0.15)]',
+        'hover:border-white/20 hover:shadow-[0_0_30px_rgba(11,42,66,0.25)]',
       )}
       data-index={index}
     >
@@ -116,10 +116,10 @@ export default function Commitment() {
   }, []);
 
   return (
-    <section
+      <section
       ref={sectionRef}
       id="commitment"
-      className="relative bg-dark-500 text-white section-padding overflow-hidden"
+      className="relative bg-primary-900 text-white section-padding overflow-hidden"
     >
       {/* ---- Decorative gradient orb ---- */}
       <div
@@ -127,7 +127,7 @@ export default function Commitment() {
         aria-hidden="true"
         className={cn(
           'absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full',
-          'bg-gradient-to-br from-primary-500/10 via-secondary-500/5 to-transparent',
+          'bg-gradient-to-br from-primary-500/12 via-secondary-500/10 to-transparent',
           'blur-3xl pointer-events-none',
         )}
       />
@@ -137,7 +137,7 @@ export default function Commitment() {
         aria-hidden="true"
         className={cn(
           'absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full',
-          'bg-gradient-to-tr from-secondary-500/10 via-primary-500/5 to-transparent',
+          'bg-gradient-to-tr from-secondary-500/12 via-primary-500/8 to-transparent',
           'blur-3xl pointer-events-none',
         )}
       />
@@ -145,13 +145,13 @@ export default function Commitment() {
       <div className="container-custom relative z-10">
         {/* ---- Header ---- */}
         <div className="commitment-header text-center max-w-2xl mx-auto mb-16">
-          <span className="badge-primary mb-4 inline-flex">Our Promise</span>
-          <h2 className="text-display-sm lg:text-display-md font-bold text-white mt-4 mb-5">
-            Committed to Excellence
+          <span className="badge-primary mb-4 inline-flex bg-white/10 text-white">Our Promise</span>
+          <h2 className="text-display-sm lg:text-display-md font-heading text-white mt-4 mb-5">
+            Standards that never bend
           </h2>
-          <p className="text-base lg:text-lg text-white/60 leading-relaxed">
-            Our values guide every decision we make, ensuring the highest standards
-            across safety, sustainability, and service delivery.
+          <p className="text-base lg:text-lg text-white/70 leading-relaxed">
+            Every supply decision is anchored in safety, environmental integrity,
+            and consistent service delivery.
           </p>
         </div>
 

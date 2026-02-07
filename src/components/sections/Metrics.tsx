@@ -117,14 +117,14 @@ export default function Metrics() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden section-padding-sm bg-gray-50"
+      className="relative overflow-hidden section-padding-sm bg-bg-surface"
     >
       {/* ---- Mesh-gradient overlay ---- */}
       <div
         aria-hidden="true"
         className={cn(
           'absolute inset-0 pointer-events-none',
-          'bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(11,61,145,0.06),transparent)]',
+          'bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(11,42,66,0.08),transparent)]',
         )}
       />
 
@@ -168,10 +168,13 @@ export default function Metrics() {
         <div className="metrics-inner">
           {/* ---- Header ---- */}
           <div className="text-center mb-14">
-            <h2 className="text-display-sm lg:text-display-md font-bold text-dark-500">
-              Our Impact in Numbers
+            <h2 className="text-display-sm lg:text-display-md font-heading text-text-primary">
+              Measurable momentum
             </h2>
-            <div className="mt-4 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500" />
+            <p className="mt-4 text-text-secondary max-w-2xl mx-auto">
+              Transparent performance metrics from our growing 2026 launch network.
+            </p>
+            <div className="mt-6 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500" />
           </div>
 
           {/* ---- Stats grid ---- */}

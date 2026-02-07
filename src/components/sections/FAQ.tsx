@@ -65,13 +65,13 @@ export default function FAQ() {
         {/* Section header */}
         <div ref={headingRef} className="text-center mb-16">
           <span className="badge-primary mb-4 inline-flex">FAQ</span>
-          <h2 className="text-display-sm md:text-display-md mt-4">
-            Frequently Asked{' '}
-            <span className="gradient-text">Questions</span>
+          <h2 className="text-display-sm md:text-display-md font-heading mt-4">
+            Clear answers,
+            <span className="block gradient-text">faster decisions.</span>
           </h2>
-          <p className="mt-4 text-lg text-dark-300 max-w-2xl mx-auto">
-            Everything you need to know about our petroleum products,
-            distribution network, and partnership opportunities.
+          <p className="mt-4 text-lg text-text-secondary max-w-2xl mx-auto">
+            The essentials on supply coverage, compliance, and partnership
+            requirements for 2026 and beyond.
           </p>
         </div>
 
@@ -86,10 +86,10 @@ export default function FAQ() {
                 ref={(el) => {
                   itemsRef.current[index] = el;
                 }}
-                className={`rounded-2xl border overflow-hidden transition-colors duration-300 ${
+                className={`rounded-3xl border overflow-hidden transition-colors duration-300 ${
                   isOpen
-                    ? 'border-primary-500/20 bg-primary-50/30'
-                    : 'border-gray-100 bg-white'
+                    ? 'border-primary-500/20 bg-primary-50/40'
+                    : 'border-border bg-bg-card'
                 }`}
               >
                 {/* Question row */}
@@ -101,7 +101,7 @@ export default function FAQ() {
                 >
                   <span
                     className={`font-semibold text-base md:text-lg pr-4 transition-colors duration-300 ${
-                      isOpen ? 'text-primary-500' : 'text-dark-500'
+                      isOpen ? 'text-primary-700' : 'text-text-primary'
                     }`}
                   >
                     {item.question}
@@ -110,8 +110,8 @@ export default function FAQ() {
                   <span
                     className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                       isOpen
-                        ? 'bg-primary-500 text-white rotate-180'
-                        : 'bg-gray-100 text-dark-300 rotate-0'
+                        ? 'bg-primary-700 text-white rotate-180'
+                        : 'bg-bg-muted text-text-secondary rotate-0'
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -132,7 +132,7 @@ export default function FAQ() {
                       }}
                       className="overflow-hidden"
                     >
-                      <p className="text-dark-300 leading-relaxed p-6 pt-0">
+                      <p className="text-text-secondary leading-relaxed p-6 pt-0">
                         {item.answer}
                       </p>
                     </motion.div>

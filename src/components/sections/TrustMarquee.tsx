@@ -2,11 +2,11 @@
 
 const items = [
   "OGRA Licensed",
-  "ISO 9001 Certified",
+  "ISO 9001 Process",
   "Nationwide Network",
   "24/7 Operations",
-  "HSE Compliant",
-  "Government Approved",
+  "HSE Aligned",
+  "Fleet-Scale Supply",
   "Premium Grade Fuel",
   "Real-Time Tracking",
 ];
@@ -23,7 +23,7 @@ function Row({ reverse = false }: { reverse?: boolean }) {
         {doubled.map((item, i) => (
           <span
             key={i}
-            className="text-xs font-medium uppercase tracking-[0.2em] text-text-muted whitespace-nowrap"
+            className="text-xs font-semibold uppercase tracking-[0.22em] text-text-secondary whitespace-nowrap"
           >
             {item}
           </span>

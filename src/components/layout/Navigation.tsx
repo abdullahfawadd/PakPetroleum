@@ -66,7 +66,7 @@ export default function Navigation() {
         ref={navRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-bg/80 backdrop-blur-xl border-b border-border"
+            ? "bg-bg/90 backdrop-blur-xl border-b border-border"
             : "bg-transparent"
         }`}
         style={{ opacity: 0 }}
@@ -118,7 +118,7 @@ export default function Navigation() {
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, "#contact")}
-            className="hidden lg:inline-flex items-center px-5 py-2 rounded-full text-sm font-semibold text-bg bg-text-primary transition-all duration-300 hover:opacity-90 hover:scale-[1.02]"
+            className="hidden lg:inline-flex items-center px-5 py-2 rounded-full text-sm font-semibold text-bg bg-primary-900 transition-all duration-300 hover:opacity-90 hover:scale-[1.02]"
           >
             Contact
           </a>
@@ -170,7 +170,7 @@ export default function Navigation() {
                         onClick={(e) => handleNavClick(e, item.href)}
                         className={`block py-3 px-4 rounded-xl text-base font-medium transition-all duration-300 ${
                           activeSection === item.href
-                            ? "text-text-primary bg-white/[0.04]"
+                            ? "text-text-primary bg-white/[0.6]"
                             : "text-text-muted hover:text-text-secondary"
                         }`}
                       >
@@ -184,7 +184,7 @@ export default function Navigation() {
                 <a
                   href="#contact"
                   onClick={(e) => handleNavClick(e, "#contact")}
-                  className="block text-center py-3 rounded-full text-sm font-semibold text-bg bg-text-primary"
+                  className="block text-center py-3 rounded-full text-sm font-semibold text-bg bg-primary-900"
                 >
                   Get in Touch
                 </a>

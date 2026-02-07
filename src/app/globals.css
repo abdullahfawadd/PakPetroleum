@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 /* ========================================
-   CSS CUSTOM PROPERTIES - DARK PREMIUM
+   CSS CUSTOM PROPERTIES - LIGHT EDITORIAL
    ======================================== */
 :root {
-  --bg: #050505;
-  --bg-surface: #0A0A0A;
-  --text-primary: #F5F5F5;
-  --text-secondary: #999999;
-  --brand-blue: #0B3D91;
-  --brand-green: #00703C;
-  --brand-gold: #FFC857;
+  --bg: #F7F4EF;
+  --bg-surface: #F1ECE5;
+  --text-primary: #1B1F1D;
+  --text-secondary: #4E4A44;
+  --brand-navy: #0B2A42;
+  --brand-copper: #B46B3D;
+  --brand-sand: #C39A67;
   --nav-height: 5rem;
 }
 
@@ -28,22 +28,22 @@
   html {
     scroll-behavior: auto;
     overflow-x: hidden;
-    background: #050505;
+    background: var(--bg);
   }
 
   body {
     color: var(--text-primary);
-    background: #050505;
+    background: var(--bg);
     overflow-x: hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   ::selection {
-    background: rgba(59, 123, 247, 0.25);
-    color: #fff;
+    background: rgba(11, 42, 66, 0.15);
+    color: #1B1F1D;
   }
 
-  /* Scrollbar - minimal dark */
+  /* Scrollbar - minimal light */
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -53,12 +53,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(17, 24, 39, 0.15);
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(17, 24, 39, 0.25);
   }
 }
 
@@ -71,22 +71,34 @@
     @apply max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16;
   }
 
+  .container-custom {
+    @apply max-w-[1200px] mx-auto px-6 md:px-10 lg:px-14;
+  }
+
   .container-narrow {
     @apply max-w-[1000px] mx-auto px-6 md:px-10;
   }
 
   /* Section spacing - generous like eternacloud */
   .section-spacing {
-    @apply py-32 md:py-40 lg:py-48;
+    @apply py-28 md:py-36 lg:py-44;
   }
 
   .section-spacing-sm {
-    @apply py-20 md:py-28 lg:py-36;
+    @apply py-18 md:py-24 lg:py-30;
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32 lg:py-36;
+  }
+
+  .section-padding-sm {
+    @apply py-16 md:py-20 lg:py-24;
   }
 
   /* Gradient text - brand rainbow */
   .gradient-text {
-    background: linear-gradient(135deg, #3B7BF7, #22C55E, #FBBF24, #A855F7);
+    background: linear-gradient(135deg, #0B2A42, #B46B3D, #C39A67);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -95,7 +107,7 @@
   }
 
   .gradient-text-brand {
-    background: linear-gradient(135deg, #0B3D91, #00703C, #FFC857);
+    background: linear-gradient(135deg, #0B2A42, #B46B3D, #C39A67);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -104,7 +116,7 @@
   }
 
   .gradient-text-static {
-    background: linear-gradient(135deg, #3B7BF7, #22C55E, #FBBF24);
+    background: linear-gradient(135deg, #0B2A42, #B46B3D, #C39A67);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -112,7 +124,7 @@
 
   /* Gradient bar (like eternacloud nav indicator) */
   .gradient-bar {
-    background: linear-gradient(90deg, #3B7BF7, #22C55E, #FBBF24, #A855F7);
+    background: linear-gradient(90deg, #0B2A42, #B46B3D, #C39A67);
   }
 
   /* Overline / tag */
@@ -123,10 +135,15 @@
   /* Divider */
   .divider {
     @apply h-px w-full;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    background: linear-gradient(90deg, transparent, rgba(17,24,39,0.1), transparent);
   }
 
-  /* Card - dark glass */
+  .divider-gradient {
+    @apply h-px w-full;
+    background: linear-gradient(90deg, transparent, rgba(17,24,39,0.18), transparent);
+  }
+
+  /* Card - premium paper */
   .card {
     @apply relative bg-bg-card rounded-2xl border border-border
            transition-all duration-500 ease-out-expo;
@@ -136,9 +153,36 @@
     @apply border-border-light;
   }
 
-  /* Input - dark */
+  .card-premium {
+    @apply relative rounded-3xl bg-bg-card border border-border p-8
+           shadow-soft transition-all duration-500 ease-out-expo;
+  }
+
+  .card-premium:hover {
+    @apply border-border-active;
+  }
+
+  .card-dark {
+    @apply relative rounded-3xl bg-primary-900 border border-white/10 p-6;
+  }
+
+  /* Badge */
+  .badge-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.2em];
+    background: rgba(11, 42, 66, 0.08);
+    color: #0B2A42;
+  }
+
+  /* Input */
+  .input {
+    @apply w-full px-5 py-4 bg-bg-card border border-border rounded-2xl
+           text-text-primary placeholder:text-text-muted
+           focus:outline-none focus:border-border-active
+           transition-all duration-300;
+  }
+
   .input-dark {
-    @apply w-full px-5 py-4 bg-bg-surface border border-border rounded-xl
+    @apply w-full px-5 py-4 bg-bg-surface border border-border rounded-2xl
            text-text-primary placeholder:text-text-muted
            focus:outline-none focus:border-border-active
            transition-all duration-300;
@@ -148,6 +192,13 @@
   .mask-edges {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .bg-mesh-gradient {
+    background:
+      radial-gradient(600px 400px at 20% 10%, rgba(11, 42, 66, 0.08), transparent 60%),
+      radial-gradient(500px 350px at 80% 30%, rgba(180, 107, 61, 0.08), transparent 60%),
+      radial-gradient(600px 500px at 50% 90%, rgba(195, 154, 103, 0.1), transparent 65%);
   }
 }
 

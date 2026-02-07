@@ -123,27 +123,26 @@ export default function Operations() {
       className="section-padding relative overflow-hidden"
     >
       {/* Background decorative elements */}
-      <div className="absolute inset-0 bg-mesh-gradient opacity-40 pointer-events-none" />
-      <div className="absolute top-1/4 -right-32 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-32 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 bg-mesh-gradient opacity-60 pointer-events-none" />
+      <div className="absolute top-1/4 -right-32 w-96 h-96 bg-primary-200/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 -left-32 w-96 h-96 bg-secondary-200/40 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
           <span className="badge-primary mb-6 inline-flex">
-            <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
-            What We Do
+            <span className="w-2 h-2 rounded-full bg-primary-600" />
+            Our Approach
           </span>
 
-          <h2 className="text-display-sm lg:text-display-md font-heading font-bold text-dark-500 mb-6">
-            Comprehensive{' '}
-            <span className="gradient-text">Petroleum Solutions</span>
+          <h2 className="text-display-sm lg:text-display-md font-heading text-text-primary mb-6">
+            One connected chain for
+            <span className="block gradient-text">petroleum continuity.</span>
           </h2>
 
-          <p className="text-lg text-dark-200 leading-relaxed">
-            From sourcing to delivery, we manage every link of the petroleum
-            supply chain with precision, reliability, and cutting-edge technology
-            to keep Pakistan moving forward.
+          <p className="text-lg text-text-secondary leading-relaxed">
+            We align sourcing, storage, and delivery so partners get reliable
+            fuel supply without disruption, paperwork friction, or blind spots.
           </p>
         </div>
 
@@ -157,13 +156,13 @@ export default function Operations() {
                 key={operation.title}
                 ref={setCardRef(index)}
                 className="group card-premium relative overflow-hidden cursor-pointer
-                           border border-gray-100 hover:border-primary-200
+                           border border-border hover:border-border-active
                            transition-all duration-500 ease-out-expo
-                           hover:-translate-y-2 hover:shadow-glass-lg"
+                           hover:-translate-y-1 hover:shadow-soft"
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Number indicator */}
-                <span className="absolute top-6 right-8 text-[5rem] leading-none font-heading font-bold text-gray-100/80 select-none pointer-events-none transition-colors duration-500 group-hover:text-primary-100/60">
+                <span className="absolute top-6 right-8 text-[4.5rem] leading-none font-heading text-dark-100/80 select-none pointer-events-none transition-colors duration-500 group-hover:text-primary-100/70">
                   {NUMBER_LABELS[index]}
                 </span>
 
@@ -172,17 +171,11 @@ export default function Operations() {
                   {/* Icon area */}
                   <div className="mb-6">
                     <div
-                      className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${operation.gradient}
-                                  flex items-center justify-center shadow-lg
+                      className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${operation.gradient}
+                                  flex items-center justify-center shadow-md
                                   transition-transform duration-500 ease-out-expo
-                                  group-hover:scale-110`}
+                                  group-hover:scale-105`}
                     >
-                      {/* Gradient glow behind icon */}
-                      <div
-                        className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${operation.gradient}
-                                    opacity-0 blur-xl transition-opacity duration-500
-                                    group-hover:opacity-40`}
-                      />
                       {IconComponent && (
                         <IconComponent className="w-7 h-7 text-white relative z-10" strokeWidth={1.8} />
                       )}
@@ -190,17 +183,17 @@ export default function Operations() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-heading font-bold text-xl text-dark-500 mb-3 transition-colors duration-300 group-hover:text-primary-600">
+                  <h3 className="font-heading text-xl text-text-primary mb-3 transition-colors duration-300 group-hover:text-primary-700">
                     {operation.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-dark-200 leading-relaxed mb-6">
+                  <p className="text-text-secondary leading-relaxed mb-6">
                     {operation.description}
                   </p>
 
                   {/* Learn More link */}
-                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-primary-500 transition-all duration-300 group-hover:gap-3">
+                  <div className="inline-flex items-center gap-2 text-sm font-semibold text-primary-700 transition-all duration-300 group-hover:gap-3">
                     <span>Learn More</span>
                     <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
@@ -208,7 +201,7 @@ export default function Operations() {
 
                 {/* Bottom accent line */}
                 <div
-                  className={`absolute bottom-0 left-0 h-[3px] w-0 bg-gradient-to-r ${operation.gradient}
+                  className={`absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r ${operation.gradient}
                               transition-all duration-700 ease-out-expo group-hover:w-full`}
                 />
               </div>
