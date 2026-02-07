@@ -19,6 +19,7 @@ export const NAV_ITEMS = [
   { name: "Operations", href: "#operations" },
   { name: "Continuity", href: "#continuity" },
   { name: "Framework", href: "#framework" },
+  { name: "Why Now", href: "#need" },
   { name: "Systems", href: "#systems" },
   { name: "Commitment", href: "#commitment" },
   { name: "Contact", href: "#contact" },

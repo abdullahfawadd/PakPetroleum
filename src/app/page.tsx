@@ -13,6 +13,7 @@ import Operations from "@/components/sections/Operations";
 import Continuity from "@/components/sections/Continuity";
 import Framework from "@/components/sections/Framework";
 import Systems from "@/components/sections/Systems";
+import Need from "@/components/sections/Need";
 import Commitment from "@/components/sections/Commitment";
 import Metrics from "@/components/sections/Metrics";
 import Testimonials from "@/components/sections/Testimonials";
@@ -37,6 +38,7 @@ export default function Home() {
         <Operations />
         <Continuity />
         <Framework />
+        <Need />
         <Systems />
         <Metrics />
         <Commitment />

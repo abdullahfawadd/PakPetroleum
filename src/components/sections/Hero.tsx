@@ -27,6 +27,9 @@ const SIGNAL_CARDS = [
   },
 ];
 
+const HERO_IMAGE_URL =
+  "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1600&q=80";
+
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -93,13 +96,30 @@ export default function Hero() {
       ref={sectionRef}
       className="relative min-h-screen flex items-center overflow-hidden bg-bg"
     >
-      {/* Background texture */}
+      {/* Background texture + image wash */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-paper-grid opacity-60"
+        className="absolute inset-0 bg-paper-grid opacity-40"
         style={{ backgroundSize: "48px 48px" }}
       />
       <div aria-hidden="true" className="absolute inset-0 bg-mesh-gradient" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-25"
+        style={{
+          backgroundImage: `url(${HERO_IMAGE_URL})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(120deg, rgba(247,244,239,0.92) 20%, rgba(247,244,239,0.7) 60%, rgba(247,244,239,0.4) 100%)",
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 container-main w-full pt-36 pb-24 lg:pt-44">
@@ -142,6 +162,39 @@ export default function Hero() {
 
           {/* Right column */}
           <div className="space-y-4">
+            <div
+              className="relative rounded-3xl border border-border-light overflow-hidden shadow-soft"
+              style={{ minHeight: "320px" }}
+            >
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `url(${HERO_IMAGE_URL})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(150deg, rgba(11,42,66,0.8) 0%, rgba(11,42,66,0.35) 55%, rgba(11,42,66,0.15) 100%)",
+                }}
+              />
+              <div className="relative z-10 p-6 text-white">
+                <p className="text-xs uppercase tracking-[0.3em] text-white/70">
+                  Field Snapshot
+                </p>
+                <h3 className="mt-4 text-2xl font-heading">
+                  High-throughput petroleum delivery
+                </h3>
+                <p className="mt-3 text-sm text-white/80 leading-relaxed">
+                  From terminals to stations, we orchestrate every handoff for
+                  predictable flow and compliance-ready documentation.
+                </p>
+              </div>
+            </div>
+
             {SIGNAL_CARDS.map((card, index) => (
               <div
                 key={card.title}
