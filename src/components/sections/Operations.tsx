@@ -162,7 +162,7 @@ export default function Operations() {
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Number indicator */}
-                <span className="absolute top-6 right-8 text-[4.5rem] leading-none font-heading text-dark-100/80 select-none pointer-events-none transition-colors duration-500 group-hover:text-primary-100/70">
+                <span className="absolute top-6 right-8 text-[4.5rem] leading-none font-heading text-text-muted/70 select-none pointer-events-none transition-colors duration-500 group-hover:text-primary-100/70">
                   {NUMBER_LABELS[index]}
                 </span>
 

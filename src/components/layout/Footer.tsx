@@ -6,6 +6,9 @@ const QUICK_LINKS = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
   { name: 'Operations', href: '#operations' },
+  { name: 'Continuity', href: '#continuity' },
+  { name: 'Framework', href: '#framework' },
+  { name: 'Systems', href: '#systems' },
   { name: 'Commitment', href: '#commitment' },
 ] as const;
 

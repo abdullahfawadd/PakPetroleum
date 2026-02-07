@@ -17,6 +17,9 @@ export const NAV_ITEMS = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Operations", href: "#operations" },
+  { name: "Continuity", href: "#continuity" },
+  { name: "Framework", href: "#framework" },
+  { name: "Systems", href: "#systems" },
   { name: "Commitment", href: "#commitment" },
   { name: "Contact", href: "#contact" },
 ] as const;

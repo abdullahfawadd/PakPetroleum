@@ -10,6 +10,9 @@ import Hero from "@/components/sections/Hero";
 import TrustMarquee from "@/components/sections/TrustMarquee";
 import About from "@/components/sections/About";
 import Operations from "@/components/sections/Operations";
+import Continuity from "@/components/sections/Continuity";
+import Framework from "@/components/sections/Framework";
+import Systems from "@/components/sections/Systems";
 import Commitment from "@/components/sections/Commitment";
 import Metrics from "@/components/sections/Metrics";
 import Testimonials from "@/components/sections/Testimonials";
@@ -32,6 +35,9 @@ export default function Home() {
         <TrustMarquee />
         <About />
         <Operations />
+        <Continuity />
+        <Framework />
+        <Systems />
         <Metrics />
         <Commitment />
         <Testimonials />
