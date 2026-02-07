@@ -16,8 +16,8 @@ import Systems from "@/components/sections/Systems";
 import Need from "@/components/sections/Need";
 import Commitment from "@/components/sections/Commitment";
 import Metrics from "@/components/sections/Metrics";
-import Testimonials from "@/components/sections/Testimonials";
-import FAQ from "@/components/sections/FAQ";
+import ValueCurve from "@/components/sections/ValueCurve";
+import Insights from "@/components/sections/Insights";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 
@@ -40,10 +40,10 @@ export default function Home() {
         <Framework />
         <Need />
         <Systems />
+        <ValueCurve />
         <Metrics />
         <Commitment />
-        <Testimonials />
-        <FAQ />
+        <Insights />
         <Contact />
       </main>
 

@@ -94,18 +94,12 @@ export default function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-screen flex items-center overflow-hidden bg-bg"
+      className="relative min-h-screen flex items-center overflow-hidden bg-primary-900"
     >
       {/* Background texture + image wash */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-paper-grid opacity-40"
-        style={{ backgroundSize: "48px 48px" }}
-      />
-      <div aria-hidden="true" className="absolute inset-0 bg-mesh-gradient" />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-25"
+        className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `url(${HERO_IMAGE_URL})`,
           backgroundSize: "cover",
@@ -117,7 +111,7 @@ export default function Hero() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(120deg, rgba(247,244,239,0.92) 20%, rgba(247,244,239,0.7) 60%, rgba(247,244,239,0.4) 100%)",
+            "radial-gradient(circle at 20% 10%, rgba(122,76,255,0.18), transparent 45%), radial-gradient(circle at 80% 20%, rgba(255,168,76,0.18), transparent 45%), linear-gradient(160deg, rgba(11,10,18,0.96) 10%, rgba(11,10,18,0.86) 60%, rgba(11,10,18,0.7) 100%)",
         }}
       />
 
@@ -127,8 +121,8 @@ export default function Hero() {
           {/* Left column */}
           <div>
             <div ref={headlineRef}>
-              <p className="overline-tag mb-6">Mission-Critical Energy Continuity</p>
-              <h1 className="text-hero font-heading text-text-primary">
+              <p className="overline-tag mb-6 text-white/70">Mission-Critical Energy Continuity</p>
+              <h1 className="text-hero font-heading text-white">
                 Precision petroleum
                 <span className="block gradient-text">for a nation in motion.</span>
               </h1>
@@ -136,7 +130,7 @@ export default function Hero() {
 
             <p
               ref={subtitleRef}
-              className="text-body-lg text-text-secondary max-w-xl mt-8 leading-relaxed"
+              className="text-body-lg text-white/70 max-w-xl mt-8 leading-relaxed"
             >
               PAK Petroleum is a 2026 launch focused on dependable supply, compliant
               operations, and a fast-growing distribution footprint across Pakistan&apos;s
@@ -146,14 +140,14 @@ export default function Hero() {
             <div ref={ctaRef} className="flex flex-wrap items-center gap-4 mt-10">
               <a
                 href="#operations"
-                className="group inline-flex items-center gap-3 px-7 py-4 rounded-full text-sm font-semibold text-bg bg-primary-900 transition-all duration-500 hover:shadow-glow-blue hover:scale-[1.02]"
+                className="group inline-flex items-center gap-3 px-7 py-4 rounded-full text-sm font-semibold text-primary-900 bg-white transition-all duration-500 hover:shadow-glow-blue hover:scale-[1.02]"
               >
                 <span>Explore operations</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-3 px-7 py-4 rounded-full text-sm font-semibold text-primary-900 border border-border-light transition-all duration-500 hover:border-border-active hover:bg-primary-50/40"
+                className="inline-flex items-center gap-3 px-7 py-4 rounded-full text-sm font-semibold text-white border border-white/30 transition-all duration-500 hover:border-white/60 hover:bg-white/10"
               >
                 Request a supply plan
               </a>
@@ -163,7 +157,7 @@ export default function Hero() {
           {/* Right column */}
           <div className="space-y-4">
             <div
-              className="relative rounded-3xl border border-border-light overflow-hidden shadow-soft"
+              className="relative rounded-3xl border border-white/10 overflow-hidden shadow-soft"
               style={{ minHeight: "320px" }}
             >
               <div
@@ -178,7 +172,7 @@ export default function Hero() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(150deg, rgba(11,42,66,0.8) 0%, rgba(11,42,66,0.35) 55%, rgba(11,42,66,0.15) 100%)",
+                    "linear-gradient(150deg, rgba(11,10,18,0.85) 0%, rgba(11,10,18,0.45) 55%, rgba(11,10,18,0.2) 100%)",
                 }}
               />
               <div className="relative z-10 p-6 text-white">
@@ -201,20 +195,20 @@ export default function Hero() {
                 ref={(el) => {
                   cardsRef.current[index] = el;
                 }}
-                className="card-premium border border-border-light bg-bg-card/90 backdrop-blur"
+                className="card-premium border border-white/10 bg-white/5 backdrop-blur"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-text-primary">
+                  <h3 className="text-lg font-semibold text-white">
                     {card.title}
                   </h3>
-                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
                     {card.meta}
                   </span>
                 </div>
-                <p className="mt-4 text-sm text-text-secondary leading-relaxed">
+                <p className="mt-4 text-sm text-white/70 leading-relaxed">
                   {card.detail}
                 </p>
-                <div className="mt-6 h-px w-full bg-gradient-to-r from-primary-200 via-secondary-200 to-transparent" />
+                <div className="mt-6 h-px w-full bg-gradient-to-r from-white/30 via-white/10 to-transparent" />
               </div>
             ))}
           </div>
@@ -233,18 +227,18 @@ export default function Hero() {
           if (e.key === "Enter" || e.key === " ") handleScrollDown();
         }}
       >
-        <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-text-muted">
+        <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/60">
           Scroll
         </span>
         <div className="scroll-icon">
-          <ChevronDown className="w-4 h-4 text-text-muted" />
+          <ChevronDown className="w-4 h-4 text-white/70" />
         </div>
       </div>
 
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-24 z-[1] pointer-events-none"
-        style={{ background: "linear-gradient(to top, #F7F4EF, transparent)" }}
+        style={{ background: "linear-gradient(to top, #0B0A08, transparent)" }}
         aria-hidden="true"
       />
     </section>

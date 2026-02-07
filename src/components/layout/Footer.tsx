@@ -10,7 +10,9 @@ const QUICK_LINKS = [
   { name: 'Framework', href: '#framework' },
   { name: 'Why Now', href: '#need' },
   { name: 'Systems', href: '#systems' },
+  { name: 'Value', href: '#value' },
   { name: 'Commitment', href: '#commitment' },
+  { name: 'Insights', href: '#insights' },
 ] as const;
 
 const SERVICES = [
