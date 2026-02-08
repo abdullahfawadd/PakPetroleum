@@ -27,21 +27,18 @@ const CONTACT_INFO = [
     label: 'Phone',
     value: '+92 51 234 5678',
     href: 'tel:+925123456789',
-    gradient: 'from-primary-600 to-primary-800',
   },
   {
     icon: Mail,
     label: 'Email',
     value: 'info@pakpetroleum.com',
     href: 'mailto:info@pakpetroleum.com',
-    gradient: 'from-secondary-500 to-secondary-700',
   },
   {
     icon: MapPin,
     label: 'Address',
     value: 'Blue Area, Islamabad',
     href: '#',
-    gradient: 'from-accent-500 to-accent-700',
   },
 ] as const;
 
@@ -57,7 +54,6 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
   const rightColRef = useRef<HTMLDivElement>(null);
-  const contactCardsRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -116,20 +112,15 @@ export default function Contact() {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-
-    // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1500));
-
     setIsSubmitting(false);
     setIsSubmitted(true);
     setFormData({ name: '', email: '', subject: '', message: '' });
-
     setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Left column entrance
       gsap.from(leftColRef.current, {
         x: -60,
         opacity: 0,
@@ -142,24 +133,6 @@ export default function Contact() {
         },
       });
 
-      // Contact info cards stagger
-      const cards = contactCardsRef.current?.children;
-      if (cards) {
-        gsap.from(cards, {
-          y: 30,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: contactCardsRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        });
-      }
-
-      // Right column (form card) entrance
       gsap.from(rightColRef.current, {
         x: 60,
         opacity: 0,
@@ -178,25 +151,30 @@ export default function Contact() {
   }, []);
 
   return (
-    <section id="contact" ref={sectionRef} className="section-padding" style={{ background: '#0B0A12' }}>
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="section-spacing"
+      style={{ background: '#0F0E1A' }}
+    >
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20">
           {/* Left Column */}
           <div ref={leftColRef}>
-            <span className="badge-primary mb-6">Get in Touch</span>
+            <p className="overline-tag mb-6">Get in Touch</p>
 
-            <h2 className="text-display-sm font-heading text-white mt-4 mb-6">
-              Build a supply plan
-              <span className="block gradient-text">that keeps you moving.</span>
+            <h2 className="text-display font-heading text-white mb-6">
+              Let&apos;s build your
+              <span className="block text-gradient">supply plan.</span>
             </h2>
 
-            <p className="text-lg text-white/60 leading-relaxed mb-10 max-w-lg">
-              Whether you need bulk supply, distribution coverage, or strategic
-              partnership planning, our 2026 launch team is ready to respond.
+            <p className="text-lg text-white/45 leading-relaxed mb-12 max-w-lg">
+              Whether you need bulk supply, distribution coverage, or a strategic
+              partnership, our team is ready to help.
             </p>
 
-            {/* Contact Info Cards */}
-            <div ref={contactCardsRef} className="flex flex-col gap-4">
+            {/* Contact Info */}
+            <div className="flex flex-col gap-6">
               {CONTACT_INFO.map((info) => {
                 const Icon = info.icon;
                 return (
@@ -206,13 +184,16 @@ export default function Contact() {
                     className="flex items-center gap-4 group"
                   >
                     <div
-                      className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${info.gradient} flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300`}
+                      className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(200, 111, 255, 0.15), rgba(27, 77, 254, 0.1))',
+                      }}
                     >
-                      <Icon className="w-5 h-5 text-white" />
+                      <Icon className="w-5 h-5" style={{ color: '#C86FFF' }} />
                     </div>
                     <div>
-                      <p className="text-sm text-white/40 font-medium">{info.label}</p>
-                      <p className="text-white font-semibold group-hover:text-primary-300 transition-colors duration-300">
+                      <p className="text-sm text-white/35 font-medium">{info.label}</p>
+                      <p className="text-white font-medium group-hover:text-purple-300 transition-colors duration-300">
                         {info.value}
                       </p>
                     </div>
@@ -227,7 +208,10 @@ export default function Contact() {
             <div className="card-premium !p-8 lg:!p-10">
               {isSubmitted ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-secondary-500 to-secondary-700 flex items-center justify-center mb-6">
+                  <div
+                    className="w-16 h-16 rounded-full flex items-center justify-center mb-6"
+                    style={{ background: 'linear-gradient(135deg, rgba(200, 111, 255, 0.2), rgba(27, 77, 254, 0.15))' }}
+                  >
                     <svg
                       className="w-8 h-8 text-white"
                       fill="none"
@@ -242,25 +226,19 @@ export default function Contact() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    Message Sent Successfully!
-                  </h3>
-                  <p className="text-white/60">
-                    Thank you for reaching out. We&apos;ll get back to you within 24 hours.
+                  <h3 className="text-xl font-bold text-white mb-2">Message Sent</h3>
+                  <p className="text-white/45">
+                    We&apos;ll get back to you within 24 hours.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
-                  <h3 className="text-xl font-bold text-white mb-6">
-                    Send us a Message
+                  <h3 className="text-xl font-bold text-white mb-8">
+                    Send us a message
                   </h3>
 
-                  {/* Name Field */}
                   <div className="mb-5">
-                    <label
-                      htmlFor="contact-name"
-                      className="block text-sm font-medium text-white/60 mb-2"
-                    >
+                    <label htmlFor="contact-name" className="block text-sm font-medium text-white/50 mb-2">
                       Full Name
                     </label>
                     <input
@@ -272,17 +250,11 @@ export default function Contact() {
                       placeholder="Your full name"
                       className={`input ${errors.name ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`}
                     />
-                    {errors.name && (
-                      <p className="mt-1.5 text-sm text-red-500">{errors.name}</p>
-                    )}
+                    {errors.name && <p className="mt-1.5 text-sm text-red-500">{errors.name}</p>}
                   </div>
 
-                  {/* Email Field */}
                   <div className="mb-5">
-                    <label
-                      htmlFor="contact-email"
-                      className="block text-sm font-medium text-white/60 mb-2"
-                    >
+                    <label htmlFor="contact-email" className="block text-sm font-medium text-white/50 mb-2">
                       Email Address
                     </label>
                     <input
@@ -294,17 +266,11 @@ export default function Contact() {
                       placeholder="you@example.com"
                       className={`input ${errors.email ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`}
                     />
-                    {errors.email && (
-                      <p className="mt-1.5 text-sm text-red-500">{errors.email}</p>
-                    )}
+                    {errors.email && <p className="mt-1.5 text-sm text-red-500">{errors.email}</p>}
                   </div>
 
-                  {/* Subject Field */}
                   <div className="mb-5">
-                    <label
-                      htmlFor="contact-subject"
-                      className="block text-sm font-medium text-white/60 mb-2"
-                    >
+                    <label htmlFor="contact-subject" className="block text-sm font-medium text-white/50 mb-2">
                       Subject
                     </label>
                     <select
@@ -312,25 +278,17 @@ export default function Contact() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className={`input ${!formData.subject ? 'text-white/40' : ''} ${errors.subject ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`}
+                      className={`input ${!formData.subject ? 'text-white/30' : ''} ${errors.subject ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`}
                     >
                       {SUBJECT_OPTIONS.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
+                        <option key={option.value} value={option.value}>{option.label}</option>
                       ))}
                     </select>
-                    {errors.subject && (
-                      <p className="mt-1.5 text-sm text-red-500">{errors.subject}</p>
-                    )}
+                    {errors.subject && <p className="mt-1.5 text-sm text-red-500">{errors.subject}</p>}
                   </div>
 
-                  {/* Message Field */}
-                  <div className="mb-6">
-                    <label
-                      htmlFor="contact-message"
-                      className="block text-sm font-medium text-white/60 mb-2"
-                    >
+                  <div className="mb-8">
+                    <label htmlFor="contact-message" className="block text-sm font-medium text-white/50 mb-2">
                       Message
                     </label>
                     <textarea
@@ -342,39 +300,20 @@ export default function Contact() {
                       rows={4}
                       className={`input resize-none ${errors.message ? 'border-red-400 focus:ring-red-500/20 focus:border-red-500' : ''}`}
                     />
-                    {errors.message && (
-                      <p className="mt-1.5 text-sm text-red-500">{errors.message}</p>
-                    )}
+                    {errors.message && <p className="mt-1.5 text-sm text-red-500">{errors.message}</p>}
                   </div>
 
-                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn-primary w-full disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                    className="btn-primary w-full disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     <span className="flex items-center justify-center gap-2">
                       {isSubmitting ? (
                         <>
-                          <svg
-                            className="animate-spin h-5 w-5 text-white"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            />
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            />
+                          <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                           </svg>
                           Sending...
                         </>

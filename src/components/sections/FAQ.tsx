@@ -2,54 +2,106 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap } from '@/lib/gsap';
 import { FAQ_ITEMS } from '@/lib/constants';
 
-gsap.registerPlugin(ScrollTrigger);
-
-export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  const toggle = (index: number) => {
-    setOpenIndex((prev) => (prev === index ? null : index));
-  };
+function FAQItem({
+  question,
+  answer,
+  isOpen,
+  onToggle,
+}: {
+  question: string;
+  answer: string;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header entrance
-      gsap.from(headingRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
+    if (!contentRef.current) return;
+    if (isOpen) {
+      gsap.to(contentRef.current, {
+        height: 'auto',
+        opacity: 1,
+        duration: 0.4,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
       });
+    } else {
+      gsap.to(contentRef.current, {
+        height: 0,
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power3.inOut',
+      });
+    }
+  }, [isOpen]);
 
-      // Staggered FAQ items entrance
-      gsap.from(
-        itemsRef.current.filter(Boolean),
-        {
-          y: 30,
+  return (
+    <div
+      className="border-b transition-colors duration-300"
+      style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}
+    >
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between py-7 text-left group"
+      >
+        <span className="text-lg font-medium text-white pr-8 group-hover:text-purple-300 transition-colors duration-300">
+          {question}
+        </span>
+        <ChevronDown
+          className={`w-5 h-5 text-white/30 flex-shrink-0 transition-transform duration-300 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+        />
+      </button>
+      <div ref={contentRef} className="overflow-hidden" style={{ height: 0, opacity: 0 }}>
+        <p className="pb-7 text-white/45 leading-relaxed max-w-3xl">
+          {answer}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default function FAQ() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      if (headerRef.current) {
+        gsap.from(headerRef.current.children, {
           opacity: 0,
-          duration: 0.6,
-          stagger: 0.1,
+          y: 40,
+          duration: 0.8,
+          ease: 'power3.out',
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        });
+      }
+
+      if (listRef.current) {
+        gsap.from(listRef.current, {
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: itemsRef.current[0],
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            trigger: listRef.current,
+            start: 'top 88%',
+            toggleActions: 'play none none none',
           },
-        }
-      );
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -59,88 +111,34 @@ export default function FAQ() {
     <section
       id="faq"
       ref={sectionRef}
-      className="section-padding relative overflow-hidden"
+      className="section-spacing relative overflow-hidden"
+      style={{ background: '#13101C' }}
     >
-      <div className="container-custom">
-        {/* Section header */}
-        <div ref={headingRef} className="text-center mb-16">
-          <span className="badge-primary mb-4 inline-flex">FAQ</span>
-          <h2 className="text-display-sm md:text-display-md font-heading mt-4">
-            Clear answers,
-            <span className="block gradient-text">faster decisions.</span>
+      <div className="container-custom relative z-10">
+        <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-20 lg:mb-24">
+          <p className="overline-tag mb-6">FAQ</p>
+          <h2 className="text-display font-heading text-white">
+            Common questions.
           </h2>
-          <p className="mt-4 text-lg text-text-secondary max-w-2xl mx-auto">
-            The essentials on supply coverage, compliance, and partnership
-            requirements for 2026 and beyond.
-          </p>
         </div>
 
-        {/* FAQ accordion */}
-        <div className="max-w-3xl mx-auto space-y-4">
-          {FAQ_ITEMS.map((item, index) => {
-            const isOpen = openIndex === index;
-
-            return (
-              <div
-                key={index}
-                ref={(el) => {
-                  itemsRef.current[index] = el;
-                }}
-                className={`rounded-3xl border overflow-hidden transition-colors duration-300 ${
-                  isOpen
-                    ? 'border-primary-500/20 bg-primary-50/40'
-                    : 'border-border bg-bg-card'
-                }`}
-              >
-                {/* Question row */}
-                <button
-                  type="button"
-                  onClick={() => toggle(index)}
-                  className="flex w-full items-center justify-between p-6 text-left cursor-pointer"
-                  aria-expanded={isOpen}
-                >
-                  <span
-                    className={`font-semibold text-base md:text-lg pr-4 transition-colors duration-300 ${
-                      isOpen ? 'text-primary-700' : 'text-text-primary'
-                    }`}
-                  >
-                    {item.question}
-                  </span>
-
-                  <span
-                    className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      isOpen
-                        ? 'bg-primary-700 text-white rotate-180'
-                        : 'bg-bg-muted text-text-secondary rotate-0'
-                    }`}
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                  </span>
-                </button>
-
-                {/* Answer (animated reveal) */}
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key={`answer-${index}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{
-                        height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
-                        opacity: { duration: 0.25, delay: 0.05 },
-                      }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-text-secondary leading-relaxed p-6 pt-0">
-                        {item.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+        <div ref={listRef} className="max-w-3xl mx-auto">
+          <div
+            className="border-t"
+            style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}
+          >
+            {FAQ_ITEMS.map((item, index) => (
+              <FAQItem
+                key={item.question}
+                question={item.question}
+                answer={item.answer}
+                isOpen={openIndex === index}
+                onToggle={() =>
+                  setOpenIndex(openIndex === index ? null : index)
+                }
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -2,24 +2,19 @@ import Link from 'next/link';
 import { Linkedin, Twitter, Facebook } from 'lucide-react';
 import { SITE_CONFIG } from '@/lib/constants';
 
-const QUICK_LINKS = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Operations', href: '#operations' },
-  { name: 'Continuity', href: '#continuity' },
-  { name: 'Framework', href: '#framework' },
-  { name: 'Why Now', href: '#need' },
-  { name: 'Systems', href: '#systems' },
-  { name: 'Value', href: '#value' },
-  { name: 'Commitment', href: '#commitment' },
-  { name: 'Insights', href: '#insights' },
+const FOOTER_LINKS = [
+  { name: 'What We Do', href: '/services' },
+  { name: 'Our Approach', href: '/approach' },
+  { name: 'About Us', href: '/about' },
+  { name: 'Insights', href: '/insights' },
+  { name: 'Contact', href: '/contact' },
 ] as const;
 
 const SERVICES = [
-  { name: 'Fuel Distribution', href: '#operations' },
-  { name: 'Storage Solutions', href: '#operations' },
-  { name: 'Trading', href: '#operations' },
-  { name: 'Logistics', href: '#operations' },
+  { name: 'Fuel Distribution', href: '/services' },
+  { name: 'Storage Solutions', href: '/services' },
+  { name: 'Trading', href: '/services' },
+  { name: 'Logistics', href: '/services' },
 ] as const;
 
 const SOCIAL_LINKS = [
@@ -39,14 +34,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Column 1 - Brand */}
           <div className="lg:col-span-1">
-            <Link href="#home" className="inline-block mb-5">
+            <Link href="/" className="inline-block mb-5">
               <span className="text-2xl font-bold tracking-tight">
                 <span className="text-white">PAK</span>
-                <span className="text-white/60 ml-1">Petroleum</span>
+                <span className="text-white/50 ml-1">Petroleum</span>
               </span>
             </Link>
 
-            <p className="text-white/50 leading-relaxed mb-6 max-w-xs">
+            <p className="text-white/40 leading-relaxed mb-6 max-w-xs text-sm">
               {SITE_CONFIG.tagline}. {SITE_CONFIG.description}
             </p>
 
@@ -61,7 +56,11 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-10 h-10 rounded-lg bg-white/[0.06] flex items-center justify-center text-white/50 hover:bg-primary-600 hover:text-white transition-all duration-300"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center text-white/40 hover:text-white transition-all duration-300"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.04)',
+                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                    }}
                   >
                     <Icon className="w-4 h-4" />
                   </a>
@@ -70,15 +69,15 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 - Quick Links */}
+          {/* Column 2 - Links */}
           <div>
-            <h4 className="text-white font-semibold text-lg mb-5">Quick Links</h4>
+            <h4 className="text-white font-semibold mb-5">Company</h4>
             <ul className="space-y-3">
-              {QUICK_LINKS.map((link) => (
+              {FOOTER_LINKS.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-white/50 hover:text-primary-400 transition-colors duration-300 text-sm"
+                    className="text-white/40 hover:text-purple-300 transition-colors duration-300 text-sm"
                   >
                     {link.name}
                   </Link>
@@ -89,13 +88,13 @@ export default function Footer() {
 
           {/* Column 3 - Services */}
           <div>
-            <h4 className="text-white font-semibold text-lg mb-5">Services</h4>
+            <h4 className="text-white font-semibold mb-5">Services</h4>
             <ul className="space-y-3">
               {SERVICES.map((service) => (
                 <li key={service.name}>
                   <Link
                     href={service.href}
-                    className="text-white/50 hover:text-primary-400 transition-colors duration-300 text-sm"
+                    className="text-white/40 hover:text-purple-300 transition-colors duration-300 text-sm"
                   >
                     {service.name}
                   </Link>
@@ -106,17 +105,17 @@ export default function Footer() {
 
           {/* Column 4 - Contact */}
           <div>
-            <h4 className="text-white font-semibold text-lg mb-5">Contact</h4>
+            <h4 className="text-white font-semibold mb-5">Contact</h4>
             <ul className="space-y-3">
               <li>
-                <p className="text-white/50 text-sm leading-relaxed">
+                <p className="text-white/40 text-sm leading-relaxed">
                   {SITE_CONFIG.address}
                 </p>
               </li>
               <li>
                 <a
                   href={`tel:${SITE_CONFIG.phone.replace(/\s/g, '')}`}
-                  className="text-white/50 hover:text-primary-400 transition-colors duration-300 text-sm"
+                  className="text-white/40 hover:text-purple-300 transition-colors duration-300 text-sm"
                 >
                   {SITE_CONFIG.phone}
                 </a>
@@ -124,7 +123,7 @@ export default function Footer() {
               <li>
                 <a
                   href={`mailto:${SITE_CONFIG.email}`}
-                  className="text-white/50 hover:text-primary-400 transition-colors duration-300 text-sm"
+                  className="text-white/40 hover:text-purple-300 transition-colors duration-300 text-sm"
                 >
                   {SITE_CONFIG.email}
                 </a>
@@ -138,11 +137,11 @@ export default function Footer() {
       <div className="divider-gradient" />
       <div className="container-custom py-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/40 text-sm">
+          <p className="text-white/30 text-sm">
             &copy; 2026 {SITE_CONFIG.name}. All rights reserved.
           </p>
-          <p className="text-white/40 text-sm">
-            Mission-critical energy continuity
+          <p className="text-white/30 text-sm">
+            {SITE_CONFIG.tagline}
           </p>
         </div>
       </div>

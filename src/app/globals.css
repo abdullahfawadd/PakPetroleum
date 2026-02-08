@@ -46,7 +46,7 @@
   }
 
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
   }
 
   ::-webkit-scrollbar-track {
@@ -54,16 +54,17 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(200, 111, 255, 0.25);
+    background: rgba(200, 111, 255, 0.2);
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(200, 111, 255, 0.4);
+    background: rgba(200, 111, 255, 0.35);
   }
 }
 
 @layer components {
+  /* ========== Containers ========== */
   .container-main {
     @apply max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16;
   }
@@ -76,12 +77,13 @@
     @apply max-w-[900px] mx-auto px-6 md:px-10;
   }
 
+  /* ========== Section Spacing ========== */
   .section-spacing {
-    @apply py-28 md:py-36 lg:py-44;
+    @apply py-32 md:py-40 lg:py-48;
   }
 
   .section-spacing-sm {
-    @apply py-20 md:py-28 lg:py-32;
+    @apply py-24 md:py-32 lg:py-36;
   }
 
   .section-padding {
@@ -92,6 +94,7 @@
     @apply py-16 md:py-24 lg:py-28;
   }
 
+  /* ========== Text Gradients ========== */
   .text-gradient {
     background: linear-gradient(135deg, #C86FFF 0%, #E59DFA 40%, #FFD600 100%);
     -webkit-background-clip: text;
@@ -122,6 +125,7 @@
     animation: gradientShift 8s ease infinite;
   }
 
+  /* ========== Gradient Bars ========== */
   .gradient-bar {
     background: linear-gradient(90deg, #1B4DFE, #AC24FF, #C86FFF);
   }
@@ -130,11 +134,13 @@
     background: linear-gradient(90deg, #C86FFF, #FE881B, #FFD600);
   }
 
+  /* ========== Overline Tag ========== */
   .overline-tag {
     @apply text-overline uppercase tracking-[0.2em];
     color: var(--purple);
   }
 
+  /* ========== Dividers ========== */
   .divider {
     @apply h-px w-full;
     background: linear-gradient(90deg, transparent, rgba(200, 111, 255, 0.12), transparent);
@@ -142,9 +148,10 @@
 
   .divider-gradient {
     @apply h-px w-full;
-    background: linear-gradient(90deg, transparent, rgba(200, 111, 255, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(200, 111, 255, 0.15), transparent);
   }
 
+  /* ========== Cards ========== */
   .card-glass {
     @apply relative rounded-2xl border transition-all duration-500;
     background: rgba(255, 255, 255, 0.02);
@@ -158,28 +165,29 @@
   }
 
   .card-dark {
-    @apply relative rounded-3xl p-6 md:p-8 transition-all duration-500;
+    @apply relative rounded-3xl p-8 md:p-10 transition-all duration-500;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .card-dark:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(200, 111, 255, 0.15);
-    box-shadow: 0 0 40px rgba(200, 111, 255, 0.08);
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(200, 111, 255, 0.12);
+    box-shadow: 0 0 40px rgba(200, 111, 255, 0.06);
   }
 
   .card-premium {
-    @apply relative rounded-3xl border p-8 transition-all duration-500;
+    @apply relative rounded-3xl border p-8 lg:p-10 transition-all duration-500;
     background: rgba(255, 255, 255, 0.02);
     border-color: rgba(255, 255, 255, 0.06);
   }
 
   .card-premium:hover {
-    border-color: rgba(200, 111, 255, 0.2);
-    box-shadow: 0 8px 40px rgba(200, 111, 255, 0.1);
+    border-color: rgba(200, 111, 255, 0.15);
+    box-shadow: 0 8px 40px rgba(200, 111, 255, 0.08);
   }
 
+  /* ========== Badge ========== */
   .badge-primary {
     @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.2em];
     background: rgba(200, 111, 255, 0.1);
@@ -187,72 +195,77 @@
     border: 1px solid rgba(200, 111, 255, 0.2);
   }
 
+  /* ========== Buttons ========== */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-sm font-semibold text-white;
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-white;
     background: linear-gradient(135deg, #AC24FF, #C86FFF);
     transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-primary:hover {
-    box-shadow: 0 20px 50px rgba(200, 111, 255, 0.35);
+    box-shadow: 0 20px 50px rgba(200, 111, 255, 0.3);
     transform: translateY(-2px);
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-sm font-semibold text-white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-outline:hover {
-    border-color: rgba(200, 111, 255, 0.5);
-    background: rgba(200, 111, 255, 0.08);
-    box-shadow: 0 0 30px rgba(200, 111, 255, 0.15);
+    border-color: rgba(200, 111, 255, 0.4);
+    background: rgba(200, 111, 255, 0.06);
+    box-shadow: 0 0 30px rgba(200, 111, 255, 0.12);
   }
 
+  /* ========== Inputs ========== */
   .input {
-    @apply w-full px-5 py-4 rounded-2xl text-white placeholder:text-white/30 focus:outline-none transition-all duration-300;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    @apply w-full px-5 py-4 rounded-2xl text-white placeholder:text-white/25 focus:outline-none transition-all duration-300;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .input:focus {
-    border-color: rgba(200, 111, 255, 0.4);
-    box-shadow: 0 0 0 3px rgba(200, 111, 255, 0.1);
+    border-color: rgba(200, 111, 255, 0.35);
+    box-shadow: 0 0 0 3px rgba(200, 111, 255, 0.08);
   }
 
+  /* ========== Marquee ========== */
   .mask-edges {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
 
+  /* ========== Background Effects ========== */
   .bg-mesh {
     background:
-      radial-gradient(600px 400px at 20% 10%, rgba(200, 111, 255, 0.08), transparent 60%),
-      radial-gradient(500px 350px at 80% 30%, rgba(27, 77, 254, 0.06), transparent 60%),
-      radial-gradient(600px 500px at 50% 90%, rgba(172, 36, 255, 0.05), transparent 65%);
+      radial-gradient(600px 400px at 20% 10%, rgba(200, 111, 255, 0.06), transparent 60%),
+      radial-gradient(500px 350px at 80% 30%, rgba(27, 77, 254, 0.04), transparent 60%),
+      radial-gradient(600px 500px at 50% 90%, rgba(172, 36, 255, 0.04), transparent 65%);
   }
 
   .bg-glow-purple {
-    background: radial-gradient(ellipse at center, rgba(200, 111, 255, 0.15), transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(200, 111, 255, 0.12), transparent 70%);
   }
 
   .glow-divider {
     @apply h-px w-full;
-    background: linear-gradient(90deg, transparent 0%, rgba(200, 111, 255, 0.3) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(200, 111, 255, 0.25) 50%, transparent 100%);
   }
 
   .section-glow {
     background: linear-gradient(180deg,
       transparent 0%,
-      rgba(200, 111, 255, 0.06) 30%,
-      rgba(172, 36, 255, 0.08) 50%,
-      rgba(200, 111, 255, 0.06) 70%,
+      rgba(200, 111, 255, 0.05) 30%,
+      rgba(172, 36, 255, 0.06) 50%,
+      rgba(200, 111, 255, 0.05) 70%,
       transparent 100%
     );
   }
 }
 
+/* ========== Text Animation Classes ========== */
 .split-char {
   display: inline-block;
   will-change: transform, opacity;
@@ -267,6 +280,7 @@
   overflow: hidden;
 }
 
+/* ========== Lenis Smooth Scroll ========== */
 html.lenis, html.lenis body {
   height: auto;
 }
@@ -287,6 +301,7 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+/* ========== Animations ========== */
 @keyframes gradientShift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }

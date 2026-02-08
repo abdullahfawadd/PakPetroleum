@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,31 +11,23 @@ import { NAV_ITEMS } from "@/lib/constants";
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("#home");
   const navRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         navRef.current,
         { y: -100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 3.5 }
+        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: pathname === "/" ? 3.5 : 0.3 }
       );
     });
     return () => ctx.revert();
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
-      const sections = NAV_ITEMS.map((item) => item.href.replace("#", ""));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.getBoundingClientRect().top <= 120) {
-          setActiveSection(`#${sections[i]}`);
-          break;
-        }
-      }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -44,15 +38,9 @@ export default function Navigation() {
     return () => { document.body.style.overflow = ""; };
   }, [isMobileOpen]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setIsMobileOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      const top = target.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
-    setActiveSection(href);
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
   };
 
   return (
@@ -73,9 +61,8 @@ export default function Navigation() {
         }}
       >
         <div className="container-main flex items-center justify-between h-20">
-          <a
-            href="#home"
-            onClick={(e) => handleNavClick(e, "#home")}
+          <Link
+            href="/"
             className="flex items-center gap-1 group"
           >
             <span className="text-xl font-extrabold tracking-tight text-white transition-transform duration-300 group-hover:scale-105">
@@ -84,41 +71,39 @@ export default function Navigation() {
             <span className="text-xl font-medium tracking-tight text-white/50">
               Petroleum
             </span>
-          </a>
+          </Link>
 
           <ul className="hidden lg:flex items-center gap-1">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
-                <a
+                <Link
                   href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
                   className={`relative px-4 py-2 text-[13px] font-medium transition-colors duration-300 ${
-                    activeSection === item.href
+                    isActive(item.href)
                       ? "text-white"
                       : "text-white/35 hover:text-white/65"
                   }`}
                 >
                   {item.name}
-                  {activeSection === item.href && (
+                  {isActive(item.href) && (
                     <motion.span
                       layoutId="nav-indicator"
                       className="absolute -bottom-px left-2 right-2 h-[2px] gradient-bar rounded-full"
                       transition={{ type: "spring" as const, bounce: 0.15, duration: 0.5 }}
                     />
                   )}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
 
-          <a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, "#contact")}
+          <Link
+            href="/contact"
             className="hidden lg:inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:shadow-glow-sm hover:scale-[1.02]"
             style={{ background: 'linear-gradient(135deg, #AC24FF, #C86FFF)' }}
           >
             Contact
-          </a>
+          </Link>
 
           <button
             className="lg:hidden p-2 text-white/50 hover:text-white transition-colors"
@@ -158,30 +143,30 @@ export default function Navigation() {
                 <ul className="space-y-1">
                   {NAV_ITEMS.map((item) => (
                     <li key={item.href}>
-                      <a
+                      <Link
                         href={item.href}
-                        onClick={(e) => handleNavClick(e, item.href)}
+                        onClick={() => setIsMobileOpen(false)}
                         className={`block py-3 px-4 rounded-xl text-base font-medium transition-all duration-300 ${
-                          activeSection === item.href
+                          isActive(item.href)
                             ? "text-white bg-white/[0.06]"
                             : "text-white/35 hover:text-white/65"
                         }`}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
               </nav>
               <div className="p-6" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
-                <a
-                  href="#contact"
-                  onClick={(e) => handleNavClick(e, "#contact")}
+                <Link
+                  href="/contact"
+                  onClick={() => setIsMobileOpen(false)}
                   className="block text-center py-3 rounded-full text-sm font-semibold text-white"
                   style={{ background: 'linear-gradient(135deg, #AC24FF, #C86FFF)' }}
                 >
                   Get in Touch
-                </a>
+                </Link>
               </div>
             </motion.div>
           </>

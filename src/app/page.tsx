@@ -10,14 +10,9 @@ import Hero from "@/components/sections/Hero";
 import TrustMarquee from "@/components/sections/TrustMarquee";
 import About from "@/components/sections/About";
 import Operations from "@/components/sections/Operations";
-import Continuity from "@/components/sections/Continuity";
-import Framework from "@/components/sections/Framework";
-import Systems from "@/components/sections/Systems";
-import Need from "@/components/sections/Need";
+import Approach from "@/components/sections/Approach";
 import Commitment from "@/components/sections/Commitment";
-import Metrics from "@/components/sections/Metrics";
-import ValueCurve from "@/components/sections/ValueCurve";
-import Insights from "@/components/sections/Insights";
+import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 
@@ -34,22 +29,11 @@ export default function Home() {
       <main>
         <Hero />
         <TrustMarquee />
-        {/* Purple glow band transition */}
-        <div className="h-32 glow-band" aria-hidden="true" />
         <About />
         <Operations />
-        {/* Purple glow band transition */}
-        <div className="h-24 glow-band" aria-hidden="true" />
-        <Continuity />
-        <Framework />
-        <Need />
-        <Systems />
-        {/* Purple glow band transition */}
-        <div className="h-24 glow-band" aria-hidden="true" />
-        <ValueCurve />
-        <Metrics />
+        <Approach />
         <Commitment />
-        <Insights />
+        <FAQ />
         <Contact />
       </main>
 

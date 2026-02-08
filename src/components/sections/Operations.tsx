@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
-import { ShoppingCart, Database, Truck, TrendingUp, ArrowRight } from 'lucide-react';
+import { ShoppingCart, Database, Truck, TrendingUp } from 'lucide-react';
 import { gsap } from '@/lib/gsap';
 import { OPERATIONS } from '@/lib/constants';
 
@@ -49,66 +49,31 @@ export default function Operations() {
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
-    const cleanups: (() => void)[] = [];
-
-    cards.forEach((card) => {
-      const handleMouseMove = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -6;
-        const rotateY = ((x - centerX) / centerX) * 6;
-        gsap.to(card, { rotateX, rotateY, duration: 0.4, ease: 'power2.out', transformPerspective: 800 });
-      };
-
-      const handleMouseLeave = () => {
-        gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
-      };
-
-      card.addEventListener('mousemove', handleMouseMove);
-      card.addEventListener('mouseleave', handleMouseLeave);
-      cleanups.push(() => {
-        card.removeEventListener('mousemove', handleMouseMove);
-        card.removeEventListener('mouseleave', handleMouseLeave);
-      });
-    });
-
-    return () => cleanups.forEach((fn) => fn());
-  }, []);
-
   return (
     <section
-      id="operations"
+      id="services"
       ref={sectionRef}
-      className="section-padding relative overflow-hidden"
-      style={{ background: '#13101C' }}
+      className="section-spacing relative overflow-hidden"
+      style={{ background: '#1A1726' }}
     >
-      <div className="absolute inset-0 bg-mesh opacity-60 pointer-events-none" />
       <div
         aria-hidden="true"
         className="absolute top-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: 'rgba(200, 111, 255, 0.08)', filter: 'blur(80px)' }}
+        style={{ background: 'rgba(200, 111, 255, 0.06)', filter: 'blur(80px)' }}
       />
 
       <div className="container-custom relative z-10">
-        <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
-          <span className="badge-primary mb-6 inline-flex">
-            <span className="w-2 h-2 rounded-full" style={{ background: '#C86FFF' }} />
-            Our Approach
-          </span>
+        <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-20 lg:mb-28">
+          <p className="overline-tag mb-6">What We Do</p>
 
-          <h2 className="text-display-sm lg:text-display-md font-heading text-white mb-6">
+          <h2 className="text-display font-heading text-white mb-6">
             One connected chain for
             <span className="block text-gradient">petroleum continuity.</span>
           </h2>
 
-          <p className="text-lg text-white/50 leading-relaxed">
+          <p className="text-lg text-white/45 leading-relaxed max-w-2xl mx-auto">
             We align sourcing, storage, and delivery so partners get reliable
-            fuel supply without disruption, paperwork friction, or blind spots.
+            fuel supply without disruption or blind spots.
           </p>
         </div>
 
@@ -120,10 +85,9 @@ export default function Operations() {
               <div
                 key={operation.title}
                 ref={setCardRef(index)}
-                className="group card-dark relative overflow-hidden cursor-pointer hover:-translate-y-1"
-                style={{ transformStyle: 'preserve-3d' }}
+                className="group card-dark relative overflow-hidden"
               >
-                <span className="absolute top-6 right-8 text-[4.5rem] leading-none font-heading text-white/[0.04] select-none pointer-events-none transition-colors duration-500 group-hover:text-white/[0.08]">
+                <span className="absolute top-6 right-8 text-[4.5rem] leading-none font-heading text-white/[0.03] select-none pointer-events-none transition-colors duration-500 group-hover:text-white/[0.06]">
                   {NUMBER_LABELS[index]}
                 </span>
 
@@ -131,7 +95,7 @@ export default function Operations() {
                   <div className="mb-6">
                     <div
                       className="relative w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-105"
-                      style={{ background: 'linear-gradient(135deg, rgba(200, 111, 255, 0.2), rgba(27, 77, 254, 0.15))' }}
+                      style={{ background: 'linear-gradient(135deg, rgba(200, 111, 255, 0.15), rgba(27, 77, 254, 0.1))' }}
                     >
                       {IconComponent && (
                         <IconComponent className="w-7 h-7 text-purple-400 relative z-10" strokeWidth={1.8} />
@@ -143,14 +107,9 @@ export default function Operations() {
                     {operation.title}
                   </h3>
 
-                  <p className="text-white/50 leading-relaxed mb-6">
+                  <p className="text-white/45 leading-relaxed">
                     {operation.description}
                   </p>
-
-                  <div className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300 group-hover:gap-3" style={{ color: '#C86FFF' }}>
-                    <span>Learn More</span>
-                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </div>
                 </div>
 
                 <div
