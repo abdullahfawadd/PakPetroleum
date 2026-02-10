@@ -109,22 +109,14 @@ export default function About() {
         {/* Stats */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden"
-          style={{ border: "1px solid rgba(255, 255, 255, 0.06)" }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.06)]"
         >
           {STATS.map((stat, index) => {
             const decimals = stat.value % 1 !== 0 ? 1 : 0;
             return (
               <div
                 key={stat.label}
-                className="flex flex-col items-center text-center px-6 py-10 lg:py-14"
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  borderRight:
-                    index < STATS.length - 1
-                      ? "1px solid rgba(255, 255, 255, 0.06)"
-                      : "none",
-                }}
+                className="flex flex-col items-center text-center px-6 py-10 lg:py-14 bg-[rgba(255,255,255,0.02)]"
               >
                 <div className="flex items-baseline gap-1">
                   <CountUp
