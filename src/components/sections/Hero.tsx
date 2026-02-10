@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useCallback } from "react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@/hooks/useGSAP";
 
@@ -16,22 +16,22 @@ export default function Hero() {
     // Initial states
     gsap.set([tagRef.current, headlineRef.current, subtitleRef.current, ctaRef.current], {
       opacity: 0,
-      y: 50,
+      y: 40,
     });
     gsap.set(scrollRef.current, { opacity: 0 });
 
     // Intro timeline
-    const tl = gsap.timeline({ delay: 0.5, defaults: { ease: "power4.out" } });
+    const tl = gsap.timeline({ delay: 0.5, defaults: { ease: "power3.out" } });
     tl.to(tagRef.current, { opacity: 1, y: 0, duration: 0.8 });
-    tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 1.2 }, 0.15);
-    tl.to(subtitleRef.current, { opacity: 1, y: 0, duration: 0.9 }, 0.35);
-    tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.9 }, 0.5);
-    tl.to(scrollRef.current, { opacity: 1, duration: 0.6 }, 1.2);
+    tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 1 }, 0.2);
+    tl.to(subtitleRef.current, { opacity: 1, y: 0, duration: 1 }, 0.4);
+    tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 1 }, 0.6);
+    tl.to(scrollRef.current, { opacity: 1, duration: 0.8 }, 1.5);
 
     // Parallax effect
     if (sectionRef.current) {
       gsap.to(sectionRef.current, {
-        yPercent: 8,
+        yPercent: 10,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -47,7 +47,7 @@ export default function Hero() {
       const el = scrollRef.current.querySelector(".scroll-icon");
       if (el) {
         gsap.to(el, {
-          y: 8,
+          y: 6,
           duration: 1.5,
           repeat: -1,
           yoyo: true,
@@ -66,56 +66,54 @@ export default function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#13101C]"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#020c1b]"
     >
-      {/* Background orbs */}
+      {/* Background Mesh/Grid - Industrial Look */}
+      <div className="absolute inset-0 bg-mesh opacity-20 pointer-events-none" />
+
+      {/* Subtle Dark Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020c1b]/80 via-transparent to-[#020c1b] pointer-events-none" />
+
+      {/* Abstract Energy Flow (Placeholder for 3D/Video) */}
       <div
-        aria-hidden="true"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full pointer-events-none blur-[100px]"
+        className="absolute top-0 right-0 w-[80vw] h-[80vh] opacity-10 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(circle, rgba(200,111,255,0.12) 0%, rgba(172,36,255,0.06) 30%, transparent 55%)",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full pointer-events-none blur-[60px]"
-        style={{
-          background: "radial-gradient(circle, rgba(27,77,254,0.08) 0%, transparent 55%)",
+          background: "radial-gradient(circle at 70% 30%, #64FFDA 0%, transparent 60%)",
+          filter: "blur(120px)"
         }}
       />
 
       {/* Content */}
-      <div className="relative z-10 container-main w-full text-center pt-32 pb-24 lg:pt-52 lg:pb-40">
-        <div className="max-w-4xl mx-auto">
-          <p ref={tagRef} className="overline-tag mb-8">
-            Petroleum Trading &amp; Distribution
+      <div className="relative z-10 container-main w-full pt-32 pb-24 lg:pt-52 lg:pb-40">
+        <div className="max-w-5xl">
+          <p ref={tagRef} className="text-teal-400 font-mono text-sm tracking-widest mb-6 uppercase">
+            National Energy Infrastructure
           </p>
 
           <h1
             ref={headlineRef}
-            className="text-hero font-heading text-white leading-[0.95] mb-8"
+            className="text-hero font-display text-slate-light leading-tight mb-8"
           >
-            Dependable energy
-            <span className="block text-gradient">for a nation in motion.</span>
+            Powering a <br />
+            <span className="text-teal-400">Nation in Motion.</span>
           </h1>
 
           <p
             ref={subtitleRef}
-            className="text-body-lg text-white/45 max-w-2xl mx-auto leading-relaxed mb-12"
+            className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-12"
           >
-            PAK Petroleum delivers reliable fuel supply, compliant operations,
-            and a growing distribution network across Pakistan&apos;s most
-            critical corridors.
+            PAK Petroleum ensures the continuity of Pakistan&apos;s critical energy supply.
+            From strategic reserves to last-mile distribution, we are the backbone of
+            industrial and commercial mobility.
           </p>
 
-          <div ref={ctaRef} className="flex flex-wrap items-center justify-center gap-4">
+          <div ref={ctaRef} className="flex flex-wrap items-center gap-6">
             <a href="#services" className="btn-primary group">
-              <span>Explore our services</span>
+              <span>Our Capabilities</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
             <a href="#contact" className="btn-outline">
-              Get in touch
+              Partner With Us
             </a>
           </div>
         </div>
@@ -124,28 +122,18 @@ export default function Hero() {
       {/* Scroll indicator */}
       <div
         ref={scrollRef}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 cursor-pointer opacity-0"
+        className="absolute bottom-12 left-10 md:left-16 z-10 flex items-center gap-4 cursor-pointer opacity-0 group"
         onClick={handleScrollDown}
         role="button"
         tabIndex={0}
-        aria-label="Scroll down"
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") handleScrollDown();
-        }}
       >
-        <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/30">
-          Scroll
-        </span>
-        <div className="scroll-icon">
-          <ChevronDown className="w-4 h-4 text-purple-400/60" />
+        <div className="scroll-icon w-px h-12 bg-teal-400/50 relative overflow-hidden">
+             <div className="absolute top-0 left-0 w-full h-1/2 bg-teal-400 animate-pulse" />
         </div>
+        <span className="text-xs font-mono uppercase tracking-[0.2em] text-slate-500 group-hover:text-teal-400 transition-colors">
+          Scroll Down
+        </span>
       </div>
-
-      {/* Bottom fade */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-40 z-[1] pointer-events-none bg-gradient-to-t from-[#13101C] to-transparent"
-        aria-hidden="true"
-      />
     </section>
   );
 }

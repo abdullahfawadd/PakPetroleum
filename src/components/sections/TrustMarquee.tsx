@@ -2,13 +2,13 @@
 
 const items = [
   "OGRA Licensed",
-  "ISO 9001 Process",
-  "Nationwide Network",
-  "24/7 Operations",
-  "HSE Aligned",
-  "Fleet-Scale Supply",
-  "Premium Grade Fuel",
-  "Real-Time Tracking",
+  "ISO 9001:2015",
+  "Nationwide Logistics",
+  "Strategic Reserves",
+  "HSE Compliant",
+  "Fleet Management",
+  "Industrial Supply",
+  "Quality Assurance",
 ];
 
 function Row({ reverse = false }: { reverse?: boolean }) {
@@ -16,15 +16,14 @@ function Row({ reverse = false }: { reverse?: boolean }) {
   return (
     <div className="flex overflow-hidden mask-edges">
       <div
-        className={`flex shrink-0 items-center gap-10 ${
+        className={`flex shrink-0 items-center gap-12 md:gap-24 ${
           reverse ? "animate-marquee-reverse" : "animate-marquee"
         }`}
       >
         {doubled.map((item, i) => (
           <span
             key={i}
-            className="text-xs font-semibold uppercase tracking-[0.22em] whitespace-nowrap"
-            style={{ color: 'rgba(200, 111, 255, 0.25)' }}
+            className="text-sm font-mono font-semibold uppercase tracking-[0.15em] whitespace-nowrap text-slate-500 hover:text-teal-400 transition-colors duration-300 cursor-default"
           >
             {item}
           </span>
@@ -37,10 +36,10 @@ function Row({ reverse = false }: { reverse?: boolean }) {
 export default function TrustMarquee() {
   return (
     <section
-      className="py-8 overflow-hidden"
-      style={{ background: '#1A1726', borderTop: '1px solid rgba(200, 111, 255, 0.06)', borderBottom: '1px solid rgba(200, 111, 255, 0.06)' }}
+      className="py-12 overflow-hidden border-y border-[#1e2d4d]"
+      style={{ background: '#0a192f' }}
     >
-      <div className="space-y-5">
+      <div className="space-y-8">
         <Row />
         <Row reverse />
       </div>
