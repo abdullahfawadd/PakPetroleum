@@ -54,8 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${fraunces.variable} ${geistMono.variable}`}
-        style={{ background: '#13101C', color: '#FFFFFF' }}
+        className={`${spaceGrotesk.variable} ${fraunces.variable} ${geistMono.variable} bg-body text-primary antialiased`}
       >
         {children}
       </body>

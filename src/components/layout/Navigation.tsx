@@ -42,7 +42,7 @@ export default function Navigation() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-[#0a192f]/95 shadow-lg backdrop-blur-sm py-4"
+            ? "bg-surface/95 shadow-lg backdrop-blur-sm py-4"
             : "bg-transparent py-6"
         )}
         style={{
@@ -60,7 +60,7 @@ export default function Navigation() {
             </div>
 
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight text-white leading-none group-hover:text-teal-400 transition-colors">
+              <span className="text-xl font-bold tracking-tight text-primary leading-none group-hover:text-teal-400 transition-colors">
                 PAK
               </span>
               <span className="text-sm font-medium tracking-wide text-slate-400 leading-none">
@@ -78,7 +78,7 @@ export default function Navigation() {
                     "relative py-1 text-sm font-medium transition-colors duration-300",
                     isActive(item.href)
                       ? "text-teal-400"
-                      : "text-slate-light hover:text-teal-400"
+                      : "text-primary hover:text-teal-400"
                   )}
                 >
                   {item.name}
@@ -97,7 +97,7 @@ export default function Navigation() {
           <div className="flex items-center gap-4">
              <Link
               href="/contact"
-              className="hidden lg:inline-flex items-center px-6 py-2.5 rounded text-sm font-semibold text-[#0a192f] transition-all duration-300 hover:-translate-y-1 bg-teal-400 hover:bg-teal-300"
+              className="hidden lg:inline-flex items-center px-6 py-3 rounded text-sm font-semibold text-navy-900 transition-all duration-300 hover:-translate-y-1 bg-teal-400 hover:bg-teal-300"
             >
               Contact Us
             </Link>

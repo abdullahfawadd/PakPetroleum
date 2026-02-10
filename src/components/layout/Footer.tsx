@@ -26,7 +26,7 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#020c1b] border-t border-[#1e2d4d] text-slate-400">
+    <footer className="bg-navy-950 border-t border-white/5 text-slate-400">
 
       {/* Main Footer Content */}
       <div className="container-custom py-20 lg:py-24">
@@ -35,7 +35,7 @@ export default function Footer() {
           {/* Brand Column (Span 4) */}
           <div className="lg:col-span-4 pr-8">
             <Link href="/" className="inline-flex flex-col gap-1 mb-6 group">
-              <span className="text-2xl font-display font-bold text-slate-light tracking-tight group-hover:text-teal-400 transition-colors">
+              <span className="text-2xl font-display font-bold text-primary tracking-tight group-hover:text-teal-400 transition-colors">
                 PAK Petroleum
               </span>
               <span className="text-xs font-mono tracking-widest text-teal-500 uppercase">
@@ -58,7 +58,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-10 h-10 rounded flex items-center justify-center border border-[#1e2d4d] hover:border-teal-500/50 hover:text-teal-400 transition-all duration-300"
+                    className="w-10 h-10 rounded flex items-center justify-center border border-white/10 hover:border-teal-500/50 hover:text-teal-400 transition-all duration-300"
                   >
                     <Icon className="w-4 h-4" />
                   </a>
@@ -69,7 +69,7 @@ export default function Footer() {
 
           {/* Links Column (Span 2) */}
           <div className="lg:col-span-2 lg:col-start-6">
-            <h4 className="text-white font-semibold mb-6 text-sm uppercase tracking-wider">Company</h4>
+            <h4 className="text-primary font-semibold mb-6 text-sm uppercase tracking-wider">Company</h4>
             <ul className="space-y-4">
               {FOOTER_LINKS.map((link) => (
                 <li key={link.name}>
@@ -86,7 +86,7 @@ export default function Footer() {
 
           {/* Services Column (Span 2) */}
           <div className="lg:col-span-2">
-            <h4 className="text-white font-semibold mb-6 text-sm uppercase tracking-wider">Operations</h4>
+            <h4 className="text-primary font-semibold mb-6 text-sm uppercase tracking-wider">Operations</h4>
             <ul className="space-y-4">
               {SERVICES.map((service) => (
                 <li key={service.name}>
@@ -103,7 +103,7 @@ export default function Footer() {
 
           {/* Contact Column (Span 3) */}
           <div className="lg:col-span-3">
-            <h4 className="text-white font-semibold mb-6 text-sm uppercase tracking-wider">Headquarters</h4>
+            <h4 className="text-primary font-semibold mb-6 text-sm uppercase tracking-wider">Headquarters</h4>
             <ul className="space-y-5">
               <li className="flex gap-3 items-start">
                 <MapPin className="w-5 h-5 text-teal-500 shrink-0 mt-0.5" />
@@ -137,7 +137,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-[#1e2d4d] bg-[#01060f]">
+      <div className="border-t border-white/5 bg-black/20">
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-600">
             <p>
