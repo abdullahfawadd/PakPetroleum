@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { ShoppingCart, Database, Truck, TrendingUp } from 'lucide-react';
 import { gsap } from '@/lib/gsap';
 import { OPERATIONS } from '@/lib/constants';
@@ -19,10 +19,11 @@ export default function Operations() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const headerRef = useRef<HTMLDivElement>(null);
 
-  const setCardRef = useCallback(
-    (index: number) => (el: HTMLDivElement | null) => {
-      cardsRef.current[index] = el;
-    },
+  const setCardRefs = useMemo(
+    () =>
+      OPERATIONS.map((_, index) => (el: HTMLDivElement | null) => {
+        cardsRef.current[index] = el;
+      }),
     []
   );
 
@@ -84,7 +85,7 @@ export default function Operations() {
             return (
               <div
                 key={operation.title}
-                ref={setCardRef(index)}
+                ref={setCardRefs[index]}
                 className="group card-dark relative overflow-hidden"
               >
                 <span className="absolute top-6 right-8 text-[4.5rem] leading-none font-heading text-white/[0.03] select-none pointer-events-none transition-colors duration-500 group-hover:text-white/[0.06]">
