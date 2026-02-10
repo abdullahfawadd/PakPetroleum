@@ -48,6 +48,9 @@ const config: Config = {
           DEFAULT: "#0a192f",
           500: "#112240",
         },
+        primary: "#ccd6f6", // Text Primary
+        secondary: "#8892b0", // Text Secondary
+        muted: "#495670", // Text Muted
       },
       fontFamily: {
         sans: ["var(--font-space-grotesk)", "system-ui", "sans-serif"], // Keep for now
