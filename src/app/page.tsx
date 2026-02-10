@@ -7,12 +7,12 @@ import ScrollProgress from "@/components/layout/ScrollProgress";
 import CustomCursor from "@/components/effects/CustomCursor";
 import Preloader from "@/components/effects/Preloader";
 import Hero from "@/components/sections/Hero";
-import TrustMarquee from "@/components/sections/TrustMarquee";
-import About from "@/components/sections/About";
-import Operations from "@/components/sections/Operations";
-import Approach from "@/components/sections/Approach";
-import Commitment from "@/components/sections/Commitment";
-import FAQ from "@/components/sections/FAQ";
+import NationalFootprint from "@/components/sections/NationalFootprint";
+import CoreOperations from "@/components/sections/CoreOperations";
+import TechnologySafety from "@/components/sections/TechnologySafety";
+import Sustainability from "@/components/sections/Sustainability";
+import MetricsTrust from "@/components/sections/MetricsTrust";
+import Leadership from "@/components/sections/Leadership";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 
@@ -28,12 +28,12 @@ export default function Home() {
 
       <main>
         <Hero />
-        <TrustMarquee />
-        <About />
-        <Operations />
-        <Approach />
-        <Commitment />
-        <FAQ />
+        <NationalFootprint />
+        <CoreOperations />
+        <TechnologySafety />
+        <Sustainability />
+        <MetricsTrust />
+        <Leadership />
         <Contact />
       </main>
 
