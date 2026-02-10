@@ -11,28 +11,36 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   const quickToXOuter = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
   const quickToYOuter = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
   const quickToXInner = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
   const quickToYInner = useRef<ReturnType<typeof gsap.quickTo> | null>(null);
 
-  // Detect touch device on mount
+  // Detect touch device and reduced motion on mount
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
-    setIsTouchDevice(!mediaQuery.matches);
+    const touchQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsTouchDevice(!e.matches);
+    setIsTouchDevice(!touchQuery.matches);
+    setPrefersReducedMotion(motionQuery.matches);
+
+    const handleTouchChange = (e: MediaQueryListEvent) => setIsTouchDevice(!e.matches);
+    const handleMotionChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+
+    touchQuery.addEventListener('change', handleTouchChange);
+    motionQuery.addEventListener('change', handleMotionChange);
+
+    return () => {
+      touchQuery.removeEventListener('change', handleTouchChange);
+      motionQuery.removeEventListener('change', handleMotionChange);
     };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   // Initialize GSAP quickTo functions
   useEffect(() => {
-    if (isTouchDevice || !outerRef.current || !innerRef.current) return;
+    if (isTouchDevice || prefersReducedMotion || !outerRef.current || !innerRef.current) return;
 
     // Outer circle follows with lag (slower, springy)
     quickToXOuter.current = gsap.quickTo(outerRef.current, 'x', {
@@ -53,11 +61,11 @@ export default function CustomCursor() {
       duration: 0.15,
       ease: 'power2.out',
     });
-  }, [isTouchDevice]);
+  }, [isTouchDevice, prefersReducedMotion]);
 
   // Handle hover state changes with GSAP animations
   useEffect(() => {
-    if (isTouchDevice || !outerRef.current || !innerRef.current) return;
+    if (isTouchDevice || prefersReducedMotion || !outerRef.current || !innerRef.current) return;
 
     if (isHovering) {
       gsap.to(outerRef.current, {
@@ -86,7 +94,7 @@ export default function CustomCursor() {
         ease: 'power2.out',
       });
     }
-  }, [isHovering, isTouchDevice]);
+  }, [isHovering, isTouchDevice, prefersReducedMotion]);
 
   // Mouse move handler
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -124,7 +132,7 @@ export default function CustomCursor() {
 
   // Attach/detach event listeners
   useEffect(() => {
-    if (isTouchDevice) return;
+    if (isTouchDevice || prefersReducedMotion) return;
 
     document.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseenter', handleMouseEnter);
@@ -139,10 +147,10 @@ export default function CustomCursor() {
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseout', handleMouseOut);
     };
-  }, [isTouchDevice, handleMouseMove, handleMouseEnter, handleMouseLeave, handleMouseOver, handleMouseOut]);
+  }, [isTouchDevice, prefersReducedMotion, handleMouseMove, handleMouseEnter, handleMouseLeave, handleMouseOver, handleMouseOut]);
 
-  // Do not render on touch devices
-  if (isTouchDevice) return null;
+  // Do not render on touch devices or if reduced motion is preferred
+  if (isTouchDevice || prefersReducedMotion) return null;
 
   return (
     <>

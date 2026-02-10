@@ -69,7 +69,9 @@ export default function Preloader() {
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
           style={{ background: '#13101C' }}
+          aria-hidden="true"
         >
+          <div className="sr-only" role="status">Loading application...</div>
           <div
             className="absolute inset-0 opacity-[0.06]"
             style={{ background: 'radial-gradient(circle, rgba(200,111,255,0.4) 1px, transparent 1px)', backgroundSize: '32px 32px' }}

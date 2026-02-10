@@ -63,7 +63,7 @@ export default function Navigation() {
         <div className="container-main flex items-center justify-between h-20">
           <Link
             href="/"
-            className="flex items-center gap-1 group"
+            className="flex items-center gap-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:rounded-lg px-2 py-1"
           >
             <span className="text-xl font-extrabold tracking-tight text-white transition-transform duration-300 group-hover:scale-105">
               PAK
@@ -78,7 +78,7 @@ export default function Navigation() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`relative px-4 py-2 text-[13px] font-medium transition-colors duration-300 ${
+                  className={`relative px-4 py-2 text-[13px] font-medium transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:rounded-md ${
                     isActive(item.href)
                       ? "text-white"
                       : "text-white/35 hover:text-white/65"
@@ -99,15 +99,16 @@ export default function Navigation() {
 
           <Link
             href="/contact"
-            className="hidden lg:inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:shadow-glow-sm hover:scale-[1.02]"
+            className="hidden lg:inline-flex items-center px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:shadow-glow-sm hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#13101C]"
             style={{ background: 'linear-gradient(135deg, #AC24FF, #C86FFF)' }}
           >
             Contact
           </Link>
 
           <button
-            className="lg:hidden p-2 text-white/50 hover:text-white transition-colors"
+            className="lg:hidden p-2 text-white/50 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:rounded-md"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
+            aria-expanded={isMobileOpen}
             aria-label={isMobileOpen ? "Close menu" : "Open menu"}
           >
             {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

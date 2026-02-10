@@ -119,23 +119,29 @@ export default function About() {
                 className="flex flex-col items-center text-center px-6 py-10 lg:py-14 bg-[rgba(255,255,255,0.02)]"
               >
                 <div className="flex items-baseline gap-1">
-                  <CountUp
-                    end={stat.value}
-                    decimals={decimals}
-                    duration={2.5}
-                    enableScrollSpy
-                    scrollSpyOnce
-                    scrollSpyDelay={index * 150}
-                  >
-                    {({ countUpRef }) => (
-                      <span
-                        ref={countUpRef}
-                        className="text-4xl lg:text-5xl font-bold text-gradient"
-                      />
-                    )}
-                  </CountUp>
-                  <span className="text-2xl lg:text-3xl font-bold text-gradient">
+                  <span className="sr-only">
+                    {stat.value}
                     {stat.suffix}
+                  </span>
+                  <span aria-hidden="true" className="flex items-baseline gap-1">
+                    <CountUp
+                      end={stat.value}
+                      decimals={decimals}
+                      duration={2.5}
+                      enableScrollSpy
+                      scrollSpyOnce
+                      scrollSpyDelay={index * 150}
+                    >
+                      {({ countUpRef }) => (
+                        <span
+                          ref={countUpRef}
+                          className="text-4xl lg:text-5xl font-bold text-gradient"
+                        />
+                      )}
+                    </CountUp>
+                    <span className="text-2xl lg:text-3xl font-bold text-gradient">
+                      {stat.suffix}
+                    </span>
                   </span>
                 </div>
                 <p className="mt-3 text-sm font-medium text-white/40 uppercase tracking-widest">

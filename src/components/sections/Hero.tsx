@@ -15,7 +15,7 @@ export default function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -133,16 +133,11 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div
+      <button
         ref={scrollRef}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 cursor-pointer opacity-0"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3 cursor-pointer opacity-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:rounded-lg p-2"
         onClick={handleScrollDown}
-        role="button"
-        tabIndex={0}
         aria-label="Scroll down"
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") handleScrollDown();
-        }}
       >
         <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/30">
           Scroll
@@ -150,7 +145,7 @@ export default function Hero() {
         <div className="scroll-icon">
           <ChevronDown className="w-4 h-4 text-purple-400/60" />
         </div>
-      </div>
+      </button>
 
       {/* Bottom fade */}
       <div
