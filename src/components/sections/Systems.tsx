@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 
@@ -27,6 +27,14 @@ export default function Systems() {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const setCardRefs = useMemo(
+    () =>
+      SYSTEM_LAYERS.map((_, index) => (el: HTMLDivElement | null) => {
+        cardsRef.current[index] = el;
+      }),
+    []
+  );
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -71,7 +79,7 @@ export default function Systems() {
             {SYSTEM_LAYERS.map((layer, index) => (
               <div
                 key={layer.title}
-                ref={(el) => { cardsRef.current[index] = el; }}
+                ref={setCardRefs[index]}
                 className="card-premium"
               >
                 <p className="text-xs uppercase tracking-[0.2em] text-white/35">Layer {index + 1}</p>
