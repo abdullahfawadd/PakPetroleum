@@ -1,84 +1,78 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import CountUp from "react-countup";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { STATS } from "@/lib/constants";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { useGSAP } from "@/hooks/useGSAP";
 
 export default function About() {
-  const sectionRef = useRef<HTMLElement>(null);
   const headRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    const ctx = gsap.context(() => {
-      if (headRef.current) {
-        gsap.from(headRef.current.children, {
-          opacity: 0,
-          y: 50,
-          duration: 1,
-          ease: "power3.out",
-          stagger: 0.15,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
-      if (contentRef.current) {
-        gsap.from(contentRef.current, {
-          opacity: 0,
-          y: 40,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: contentRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
-      if (statsRef.current) {
-        gsap.from(statsRef.current.children, {
-          opacity: 0,
-          y: 30,
-          duration: 0.7,
-          ease: "power3.out",
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: statsRef.current,
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        });
-      }
-    }, sectionRef);
-    return () => ctx.revert();
+  const sectionRef = useGSAP<HTMLElement>(() => {
+    // Animate Header
+    if (headRef.current) {
+      gsap.from(headRef.current.children, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power3.out",
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
+    }
+
+    // Animate Content
+    if (contentRef.current) {
+      gsap.from(contentRef.current, {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+      });
+    }
+
+    // Animate Stats
+    if (statsRef.current) {
+      gsap.from(statsRef.current.children, {
+        opacity: 0,
+        y: 30,
+        duration: 0.7,
+        ease: "power3.out",
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: statsRef.current,
+          start: "top 88%",
+          toggleActions: "play none none none",
+        },
+      });
+    }
   }, []);
 
   return (
     <section
       ref={sectionRef}
       id="about"
-      className="section-spacing relative overflow-hidden"
-      style={{ background: "#13101C" }}
+      className="section-spacing relative overflow-hidden bg-[#13101C]"
     >
       {/* Background orb */}
       <div
         aria-hidden="true"
-        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
+        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none blur-[60px]"
         style={{
           background:
             "radial-gradient(circle, rgba(200,111,255,0.05) 0%, transparent 60%)",
-          filter: "blur(60px)",
         }}
       />
 
@@ -109,14 +103,14 @@ export default function About() {
         {/* Stats */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.06)]"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden bg-white/[0.06] border border-white/[0.06]"
         >
           {STATS.map((stat, index) => {
             const decimals = stat.value % 1 !== 0 ? 1 : 0;
             return (
               <div
                 key={stat.label}
-                className="flex flex-col items-center text-center px-6 py-10 lg:py-14 bg-[rgba(255,255,255,0.02)]"
+                className="flex flex-col items-center text-center px-6 py-10 lg:py-14 bg-white/[0.02]"
               >
                 <div className="flex items-baseline gap-1">
                   <CountUp

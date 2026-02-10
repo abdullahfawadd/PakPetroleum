@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, RefObject } from "react";
+import { useEffect, useLayoutEffect, useRef, DependencyList, RefObject } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
@@ -8,18 +8,31 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export function useGSAP(callback: (ctx: gsap.Context) => void, deps: unknown[] = []) {
-  const ref = useRef<HTMLElement>(null);
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-  useEffect(() => {
+export function useGSAP<T extends HTMLElement>(
+  callback: (ctx: gsap.Context) => void,
+  deps: DependencyList = []
+) {
+  const ref = useRef<T>(null);
+  const savedCallback = useRef(callback);
+
+  // Update saved callback if it changes
+  useIsomorphicLayoutEffect(() => {
+    savedCallback.current = callback;
+  });
+
+  useIsomorphicLayoutEffect(() => {
     if (!ref.current) return;
-    const ctx = gsap.context(() => {
-      callback(ctx);
+
+    const ctx = gsap.context((context) => {
+      if (savedCallback.current) {
+        savedCallback.current(context);
+      }
     }, ref);
 
     return () => ctx.revert();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
+  }, deps); // Only re-run if deps change
 
   return ref;
 }
@@ -28,7 +41,13 @@ export function useScrollReveal(
   ref: RefObject<HTMLElement | null>,
   options: gsap.TweenVars = {}
 ) {
-  useEffect(() => {
+  const savedOptions = useRef(options);
+
+  useIsomorphicLayoutEffect(() => {
+    savedOptions.current = options;
+  });
+
+  useIsomorphicLayoutEffect(() => {
     if (!ref.current) return;
 
     const ctx = gsap.context(() => {
@@ -37,7 +56,7 @@ export function useScrollReveal(
         y: 50,
         duration: 0.8,
         ease: "power3.out",
-        ...options,
+        ...savedOptions.current,
         scrollTrigger: {
           trigger: ref.current,
           start: "top 85%",
@@ -47,6 +66,5 @@ export function useScrollReveal(
     });
 
     return () => ctx.revert();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
