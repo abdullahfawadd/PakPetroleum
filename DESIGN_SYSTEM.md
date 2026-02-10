@@ -139,6 +139,55 @@ All spacing (padding, margin, gap) must be a multiple of **4px** (0.25rem), with
 ### **Don't**
 *   ❌ Do not use pure black (`#000000`).
 *   ❌ Do not use bright red or green for decoration (reserve for status).
-*   ❌ Do not mix Serif and Sans-serif arbitrarily (stick to hierarchy).
-*   ❌ Do not use drop shadows that are too heavy or opaque (use subtle glows).
 *   ❌ Do not use rounded corners larger than `rounded-lg` (keep it industrial).
+*   ❌ Do not use drop shadows that are too heavy or opaque (use subtle glows).
+*   ❌ Do not mix Serif and Sans-serif arbitrarily.
+
+---
+
+## 8. Component Library & Layout Patterns
+
+### **Core Components**
+
+#### **Section Containers**
+*   **Concept:** Cinematic Spacing. Sections should feel expansive, not cramped.
+*   **Rule:** Use generous top/bottom padding (`py-24` or `py-32`).
+*   **Structure:** Sections should always be wrapped in a container that controls max-width and horizontal padding.
+
+#### **KPI Data Blocks**
+*   **Concept:** Data-First Visual Storytelling.
+*   **Style:** Minimalist, high-contrast numbers. Use `font-mono` for values.
+*   **Motion:** Subtle count-up animations on scroll. No bouncing or excessive easing.
+*   **Border:** Use thin, semi-transparent borders or gradients to separate data points.
+
+#### **Enterprise Cards**
+*   **Concept:** Industrial Strength. Avoid "SaaS bubbles" (highly rounded, soft shadows).
+*   **Style:** Sharp or slightly rounded corners (`rounded-lg` max). Dark backgrounds (`bg-navy-900` or `bg-navy-950`).
+*   **Interactivity:** Subtle hover effects (border color change, slight lift).
+*   **Content:** Focus on content hierarchy. Icon -> Title -> Description -> Action.
+
+#### **Divider Systems**
+*   **Concept:** Structured Separation.
+*   **Style:** Use gradients (`from-transparent via-teal-500/20 to-transparent`) or light strokes (`border-white/10`).
+*   **Usage:** Separate major sections or distinct content blocks within a section.
+
+#### **Sticky Section Headers**
+*   **Concept:** Contextual Awareness.
+*   **Behavior:** Section titles should stick to the top of the viewport while scrolling through long content, providing context.
+*   **Style:** `font-display`, large size, often paired with a smaller `font-mono` label.
+
+### **Layout Patterns**
+
+#### **Asymmetric Grids**
+*   **Concept:** Controlled Chaos. Break the monotony of symmetric grids.
+*   **Implementation:** Use CSS Grid with varying column spans (e.g., `col-span-4` next to `col-span-8`).
+*   **Purpose:** To guide the eye through content in a deliberate path.
+
+#### **Large Typography + Restrained Body**
+*   **Concept:** Scale Contrast.
+*   **Implementation:** Use massive headings (`text-display` or `text-hero`) paired with concise, constrained body text (`max-w-prose`).
+*   **Effect:** Creates a sense of confidence and authority.
+
+#### **Data-First Visual Storytelling**
+*   **Concept:** Show, don't just tell.
+*   **Implementation:** Lead with numbers and charts. Text supports the data, not the other way around.
