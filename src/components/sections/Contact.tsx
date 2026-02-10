@@ -186,14 +186,14 @@ export default function Contact() {
                     <div
                       className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(200, 111, 255, 0.15), rgba(27, 77, 254, 0.1))',
+                        background: 'linear-gradient(135deg, rgba(100, 255, 218, 0.15), rgba(10, 25, 47, 0.1))',
                       }}
                     >
-                      <Icon className="w-5 h-5" style={{ color: '#C86FFF' }} />
+                      <Icon className="w-5 h-5 text-teal-400" />
                     </div>
                     <div>
                       <p className="text-sm text-white/35 font-medium">{info.label}</p>
-                      <p className="text-white font-medium group-hover:text-purple-300 transition-colors duration-300">
+                      <p className="text-white font-medium group-hover:text-teal-400 transition-colors duration-300">
                         {info.value}
                       </p>
                     </div>
@@ -210,7 +210,7 @@ export default function Contact() {
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <div
                     className="w-16 h-16 rounded-full flex items-center justify-center mb-6"
-                    style={{ background: 'linear-gradient(135deg, rgba(200, 111, 255, 0.2), rgba(27, 77, 254, 0.15))' }}
+                    style={{ background: 'linear-gradient(135deg, rgba(100, 255, 218, 0.2), rgba(10, 25, 47, 0.15))' }}
                   >
                     <svg
                       className="w-8 h-8 text-white"

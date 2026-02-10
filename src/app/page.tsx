@@ -1,30 +1,42 @@
-"use client";
+import dynamic from "next/dynamic";
 
-import { useLenis } from "@/hooks/useLenis";
-
-import Navigation from "@/components/layout/Navigation";
-import ScrollProgress from "@/components/layout/ScrollProgress";
-import CustomCursor from "@/components/effects/CustomCursor";
-import Preloader from "@/components/effects/Preloader";
 import Hero from "@/components/sections/Hero";
-import NationalFootprint from "@/components/sections/NationalFootprint";
-import CoreOperations from "@/components/sections/CoreOperations";
-import TechnologySafety from "@/components/sections/TechnologySafety";
-import Sustainability from "@/components/sections/Sustainability";
-import MetricsTrust from "@/components/sections/MetricsTrust";
-import Leadership from "@/components/sections/Leadership";
-import Contact from "@/components/sections/Contact";
-import Footer from "@/components/layout/Footer";
+
+const NationalFootprint = dynamic(() => import("@/components/sections/NationalFootprint"));
+const CoreOperations = dynamic(() => import("@/components/sections/CoreOperations"));
+const TechnologySafety = dynamic(() => import("@/components/sections/TechnologySafety"));
+const Sustainability = dynamic(() => import("@/components/sections/Sustainability"));
+const MetricsTrust = dynamic(() => import("@/components/sections/MetricsTrust"));
+const Leadership = dynamic(() => import("@/components/sections/Leadership"));
+const Contact = dynamic(() => import("@/components/sections/Contact"));
 
 export default function Home() {
-  useLenis();
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "PAK Petroleum",
+    url: "https://pakpetroleum.com",
+    logo: "https://pakpetroleum.com/logo.png",
+    sameAs: [
+      "https://www.facebook.com/pakpetroleum",
+      "https://twitter.com/pakpetroleum",
+      "https://www.linkedin.com/company/pakpetroleum",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+92-51-1234567",
+      contactType: "customer service",
+      areaServed: "PK",
+      availableLanguage: "en",
+    },
+  };
 
   return (
     <>
-      <Preloader />
-      <CustomCursor />
-      <ScrollProgress />
-      <Navigation />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       <main>
         <Hero />
@@ -36,8 +48,6 @@ export default function Home() {
         <Leadership />
         <Contact />
       </main>
-
-      <Footer />
     </>
   );
 }
