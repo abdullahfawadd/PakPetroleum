@@ -97,7 +97,7 @@ export default function Hero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 container-main w-full text-center pt-40 pb-32 lg:pt-52 lg:pb-40">
+      <div className="relative z-10 container-main w-full text-center pt-32 pb-24 lg:pt-52 lg:pb-40">
         <div className="max-w-4xl mx-auto">
           <p ref={tagRef} className="overline-tag mb-8">
             Petroleum Trading &amp; Distribution
