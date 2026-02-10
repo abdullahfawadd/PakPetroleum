@@ -1,91 +1,93 @@
-"use client";
+'use client';
 
-import { TrendingUp, Database, Truck, ArrowUpRight } from "lucide-react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@/hooks/useGSAP";
-import { CORE_OPERATIONS } from "@/lib/constants";
+import React from 'react';
+import { TrendingUp, Database, Truck, LucideIcon } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@/hooks/useGSAP';
+import { Section } from '@/components/ui/Section';
+import { EnterpriseCard } from '@/components/ui/EnterpriseCard';
+import { StickyHeader } from '@/components/ui/StickyHeader';
+import { Divider } from '@/components/ui/Divider';
+import { CORE_OPERATIONS } from '@/lib/constants';
 
-const ICONS = {
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+const ICONS: Record<string, LucideIcon> = {
   trading: TrendingUp,
   storage: Database,
   distribution: Truck,
 };
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function CoreOperations() {
   const containerRef = useGSAP<HTMLElement>(() => {
-    // Reveal animation
+    // Reveal animation for cards
     gsap.from(".operation-card", {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 75%",
+      },
+      y: 50,
+      opacity: 0,
+      stagger: 0.2,
+      duration: 1,
+      ease: "power3.out"
+    });
+
+    // Reveal animation for header
+    gsap.from(".sticky-header-content", {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top 80%",
       },
-      y: 50,
+      x: -30,
       opacity: 0,
-      stagger: 0.15,
-      duration: 0.8,
-      ease: "power3.out"
-    });
-
-    gsap.from(".section-header", {
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 85%",
-      },
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
+      duration: 1,
       ease: "power3.out"
     });
   });
 
   return (
-    <section className="py-24 bg-navy-900 relative overflow-hidden" ref={containerRef}>
-      <div className="container-main">
-        <div className="section-header mb-16 max-w-2xl">
-           <span className="text-teal-400 font-mono text-sm tracking-wider uppercase block mb-2">Capabilities</span>
-           <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
-             End-to-End <span className="text-slate-400">Petroleum Logistics</span>
-           </h2>
-           <p className="text-slate-400 text-lg leading-relaxed">
-             We manage the complete lifecycle of energy distribution, from global trading desks to local retail stations, ensuring quality and continuity at every node.
-           </p>
+    <Section ref={containerRef} variant="large" className="relative z-10" containerClassName="py-12">
+      <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-start relative">
+
+        {/* Sticky Header - Left Column */}
+        <div className="lg:w-1/3 sticky-header-content">
+          <StickyHeader
+            label="Capabilities"
+            title="End-to-End Petroleum Logistics"
+            description="We manage the complete lifecycle of energy distribution, from global trading desks to local retail stations, ensuring quality and continuity at every node of the supply chain."
+          >
+            <div className="mt-8 hidden lg:block">
+              <div className="flex items-center gap-4 text-sm text-slate-400 font-mono">
+                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                <span>Operational Status: Normal</span>
+              </div>
+            </div>
+          </StickyHeader>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {CORE_OPERATIONS.map((op, idx) => {
-            const Icon = ICONS[op.icon as keyof typeof ICONS];
+        {/* Operations Grid - Right Column */}
+        <div className="lg:w-2/3 flex flex-col gap-6 w-full">
+          {CORE_OPERATIONS.map((op) => {
+            const Icon = ICONS[op.icon as string] || TrendingUp;
             return (
-              <div
-                key={idx}
-                className="operation-card group relative p-8 bg-navy-950/50 border border-white/5 hover:border-teal-500/30 transition-all duration-300 rounded-2xl overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                   <ArrowUpRight className="w-6 h-6 text-teal-400" />
-                </div>
-
-                <div className="w-14 h-14 rounded-xl bg-navy-800 flex items-center justify-center mb-8 group-hover:bg-teal-400/10 transition-colors">
-                  {Icon && <Icon className="w-7 h-7 text-teal-400" strokeWidth={1.5} />}
-                </div>
-
-                <h3 className="text-2xl font-display font-bold text-white mb-4 group-hover:text-teal-400 transition-colors">
-                  {op.title}
-                </h3>
-
-                <p className="text-slate-400 leading-relaxed mb-8">
-                  {op.description}
-                </p>
-
-                <div className="w-full h-1 bg-navy-800 rounded-full overflow-hidden">
-                   <div className="h-full w-0 bg-teal-400 group-hover:w-full transition-all duration-700 ease-out" />
-                </div>
-              </div>
+              <EnterpriseCard
+                key={op.title}
+                icon={Icon}
+                title={op.title}
+                description={op.description}
+                className="operation-card w-full"
+                actionLabel="Explore Capability"
+              />
             );
           })}
         </div>
       </div>
-    </section>
+
+      <Divider gradient className="mt-24" />
+    </Section>
   );
 }
