@@ -1,9 +1,23 @@
 "use client";
 
 import { useRef, useCallback } from "react";
+import dynamic from "next/dynamic";
 import { ArrowRight } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@/hooks/useGSAP";
+
+const SplineScene = dynamic(() => import("@/components/3d/SplineScene"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="absolute top-0 right-0 w-[80vw] h-[80vh] opacity-10 pointer-events-none"
+      style={{
+        background: "radial-gradient(circle at 70% 30%, #64FFDA 0%, transparent 60%)",
+        filter: "blur(120px)",
+      }}
+    />
+  ),
+});
 
 export default function Hero() {
   const tagRef = useRef<HTMLParagraphElement>(null);
@@ -74,14 +88,8 @@ export default function Hero() {
       {/* Subtle Dark Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#020c1b]/80 via-transparent to-[#020c1b] pointer-events-none" />
 
-      {/* Abstract Energy Flow (Placeholder for 3D/Video) */}
-      <div
-        className="absolute top-0 right-0 w-[80vw] h-[80vh] opacity-10 pointer-events-none"
-        style={{
-          background: "radial-gradient(circle at 70% 30%, #64FFDA 0%, transparent 60%)",
-          filter: "blur(120px)"
-        }}
-      />
+      {/* Abstract Energy Flow (3D Scene) */}
+      <SplineScene className="absolute top-0 right-0 w-full h-full z-0 pointer-events-none opacity-60 mix-blend-screen" />
 
       {/* Content */}
       <div className="relative z-10 container-main w-full pt-32 pb-24 lg:pt-52 lg:pb-40">
