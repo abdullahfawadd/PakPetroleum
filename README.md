@@ -17,45 +17,111 @@ A premium, high-performance web platform for **PAK Petroleum** — Pakistan's tr
 
 ---
 
+## 📖 Overview
+
+**PAK Petroleum** is designed to be more than just a corporate website; it is a digital manifestation of the company's scale, reliability, and operational depth. The platform serves as a central hub for stakeholders, partners, and customers, offering a seamless experience that reflects the company's commitment to excellence.
+
+Built with a **"Dark-Mode-First"** philosophy, the interface prioritizes low-light efficiency and reduces eye strain, aligning with modern energy-saving principles. The design language, **"Energy-Grade Minimalism,"** ensures that essential information stands out instantly, free from clutter and distraction.
+
+### Core Objectives
+- **Scale:** Demonstrate national reach and infrastructure volume through interactive maps and data visualizations.
+- **Trust:** Highlight safety records, compliance certifications, and years of operation.
+- **Operational Depth:** Showcase the complexity of logistics, trading, and technology integration.
+
+---
+
+## 📊 Key Metrics
+
+| Metric | Value |
+|---|---|
+| **Fuel Stations** | 150+ |
+| **Litres Distributed** | 12M+ |
+| **Cities Covered** | 25+ |
+| **Uptime Reliability** | 99.9% |
+
+---
+
 ## 🎬 Demo
 
 https://github.com/user-attachments/assets/demo.mp4
 
 > *A walkthrough of the PAK Petroleum website showcasing animations, smooth scrolling, and responsive design.*
 
-https://github.com/abdullahfawadd/PakPetroleum/raw/main/pak-fuel/assets/demo.mp4
-
 ---
 
-## ✨ Features
+## ✨ Key Features
 
 | Feature | Description |
 |---|---|
-| **Cinematic Preloader** | Custom animated preloader with brand reveal sequence |
-| **Custom Cursor** | Interactive cursor that reacts to hoverable elements |
-| **Smooth Scrolling** | Lenis-powered buttery smooth scroll experience |
-| **Scroll Progress** | Visual indicator showing page scroll position |
-| **GSAP Animations** | Scroll-triggered animations using GSAP & ScrollTrigger |
-| **Framer Motion** | Fluid component transitions and micro-interactions |
-| **3D Elements** | Three.js / React Three Fiber powered 3D visuals |
-| **Responsive Design** | Fully responsive across all device sizes |
-| **Dark Theme** | Elegant dark UI with purple/gold accent palette |
-| **SEO Optimized** | Full Open Graph and Twitter Card meta configuration |
+| **Cinematic Experience** | Custom animated preloader with brand reveal sequence and smooth transitions. |
+| **Interactive Cursor** | Custom cursor that reacts to hoverable elements, enhancing user engagement. |
+| **Smooth Scrolling** | `Lenis`-powered buttery smooth scroll experience for fluid navigation. |
+| **GSAP Animations** | Scroll-triggered animations using GSAP & ScrollTrigger for dynamic storytelling. |
+| **3D Visualization** | `Three.js` and `React Three Fiber` powered 3D visuals representing energy infrastructure. |
+| **Responsive Design** | Fully responsive layout optimized for all device sizes, from mobile to desktop. |
+| **Performance Optimized** | Lazy loading, optimized assets, and efficient code splitting for fast load times. |
+| **SEO Ready** | Full Open Graph and Twitter Card meta configuration for better social sharing. |
 
 ---
 
 ## 🏗️ Tech Stack
 
-```
-Frontend Framework  →  Next.js 14 (App Router)
-Language            →  TypeScript 5
-Styling             →  Tailwind CSS 3.4 + Custom Design System
-Animation           →  GSAP 3.14 + Framer Motion 12
-3D Graphics         →  Three.js + React Three Fiber + Drei
-Smooth Scroll       →  Lenis
-Icons               →  Lucide React
-Fonts               →  Space Grotesk · Fraunces · Geist Mono
-```
+The project leverages a modern, robust technology stack to deliver a high-performance experience.
+
+### Core
+- **Framework:** [Next.js 14 (App Router)](https://nextjs.org/)
+- **Language:** [TypeScript 5](https://www.typescriptlang.org/)
+- **State Management:** React Context & Hooks
+
+### Styling & Design
+- **CSS Framework:** [Tailwind CSS 3.4](https://tailwindcss.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Fonts:** Space Grotesk (Body), Fraunces (Display), Geist Mono (Data)
+
+### Animation & 3D
+- **Animation Engine:** [GSAP 3.14](https://gsap.com/)
+- **Micro-interactions:** [Framer Motion 12](https://www.framer.com/motion/)
+- **3D Graphics:** [Three.js](https://threejs.org/) + [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) + [Drei](https://github.com/pmndrs/drei)
+- **Smooth Scroll:** [Lenis](https://lenis.studiofreight.com/)
+
+---
+
+## 🎨 Design System
+
+The project strictly adheres to the **PAK Petroleum Design System**, which emphasizes authority, innovation, and industrial strength.
+
+> **Note:** The design system has evolved from the legacy **Purple/Gold** palette to the current **Navy/Teal** theme to align with modern energy aesthetics, as configured in `tailwind.config.ts`.
+
+### Color Palette
+- **Deep Navy (`#020c1b`)**: The foundation of the interface, representing the depth of the ocean and the night sky.
+- **Teal (`#64FFDA`)**: The primary accent, symbolizing clean energy, nature, and technological precision.
+- **Slate (`#8892b0`)**: Used for body text and secondary information, providing excellent readability against dark backgrounds.
+- **Amber (`#f59e0b`)**: Used sparingly for warnings and energy indicators.
+
+### Typography
+- **Fraunces**: A variable serif font used for headlines to convey heritage and authority.
+- **Space Grotesk**: A geometric sans-serif for UI text, reflecting innovation and industrial strength.
+- **Geist Mono**: A monospaced font for data tables and technical specifications, ensuring precision.
+
+### Spacing & Grid
+- **8pt Grid System**: All spacing is a multiple of 8px (0.5rem) to ensure visual rhythm and consistency.
+- **12-Column Grid**: Layouts are structured on a flexible 12-column grid.
+
+---
+
+## 🎥 Motion Guidelines
+
+Our motion philosophy is defined by **Power, Stability, and Precision**.
+
+- **Power:** Animations feel substantial and deliberate. Elements arrive with weight.
+- **Stability:** Avoid erratic or bouncy movements. The interface feels grounded.
+- **Precision:** Timing is mathematical and exact. Transitions are clean and intentional.
+
+**Key Rules:**
+- No bouncing or playful easing.
+- Use `power3.out` or `expo.out` for impactful reveals.
+- Use `linear` easing for continuous loops and parallax effects.
+- Motion is functional, not decorative. "If it moves, it has a purpose."
 
 ---
 
@@ -64,42 +130,23 @@ Fonts               →  Space Grotesk · Fraunces · Geist Mono
 ```
 pak-fuel/
 ├── src/
-│   ├── app/
-│   │   ├── globals.css          # Global styles & Tailwind directives
-│   │   ├── layout.tsx           # Root layout with fonts & metadata
-│   │   ├── page.tsx             # Homepage orchestrating all sections
-│   │   ├── fonts/               # Local font files
-│   │   └── insights/
-│   │       └── page.tsx         # Insights page
-│   ├── components/
-│   │   ├── effects/
-│   │   │   ├── CustomCursor.tsx # Interactive custom cursor
-│   │   │   └── Preloader.tsx    # Brand preloader animation
-│   │   ├── layout/
-│   │   │   ├── Footer.tsx       # Site footer
-│   │   │   ├── Navigation.tsx   # Main navigation bar
-│   │   │   └── ScrollProgress.tsx # Scroll progress indicator
-│   │   └── sections/
-│   │       ├── Hero.tsx         # Hero section with parallax
-│   │       ├── TrustMarquee.tsx # Partner/trust logo marquee
-│   │       ├── About.tsx        # About the company
-│   │       ├── Operations.tsx   # Operations overview
-│   │       ├── Approach.tsx     # Business approach
-│   │       ├── Commitment.tsx   # Commitment & values
-│   │       ├── FAQ.tsx          # Frequently asked questions
-│   │       ├── Contact.tsx      # Contact form/info
-│   │       └── ...              # Additional sections
-│   ├── hooks/
-│   │   ├── useGSAP.ts          # GSAP integration hook
-│   │   └── useLenis.ts         # Lenis smooth scroll hook
-│   └── lib/
-│       ├── constants.ts         # Site config, stats & data
-│       ├── gsap.ts              # GSAP setup & registration
-│       └── utils.ts             # Utility functions
-├── tailwind.config.ts           # Tailwind + custom design tokens
-├── next.config.mjs              # Next.js configuration
-├── tsconfig.json                # TypeScript configuration
-└── package.json                 # Dependencies & scripts
+│   ├── app/                 # Next.js App Router pages & layouts
+│   │   ├── globals.css      # Global styles & Tailwind directives
+│   │   ├── layout.tsx       # Root layout with fonts & metadata
+│   │   ├── page.tsx         # Homepage orchestrating all sections
+│   │   └── ...
+│   ├── components/          # Reusable React components
+│   │   ├── effects/         # Visual effects (Cursor, Preloader)
+│   │   ├── layout/          # Layout components (Nav, Footer)
+│   │   └── sections/        # Page sections (Hero, About, Operations)
+│   ├── hooks/               # Custom React hooks (useGSAP, useLenis)
+│   ├── lib/                 # Utility functions & configurations
+│   └── ...
+├── public/                  # Static assets
+├── tailwind.config.ts       # Tailwind configuration
+├── next.config.mjs          # Next.js configuration
+├── tsconfig.json            # TypeScript configuration
+└── package.json             # Dependencies & scripts
 ```
 
 ---
@@ -113,69 +160,53 @@ pak-fuel/
 
 ### Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/abdullahfawadd/PakPetroleum.git
-cd PakPetroleum/pak-fuel
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/abdullahfawadd/PakPetroleum.git
+    cd PakPetroleum/pak-fuel
+    ```
 
-# Install dependencies
-npm install
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    # or
+    bun install
+    ```
 
-# Start the development server
-npm run dev
-```
+3.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the site.
+4.  **Open your browser:**
+    Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
 ### Build for Production
 
-```bash
-# Create an optimized production build
-npm run build
+To create an optimized production build:
 
-# Start the production server
+```bash
+npm run build
 npm start
 ```
 
 ---
 
-## 🎨 Design System
-
-The project uses a custom dark-themed design system built on Tailwind CSS:
-
-| Token | Value | Usage |
-|---|---|---|
-| `body` | `#13101C` | Page background |
-| `surface` | `#1A1726` | Card backgrounds |
-| `elevated` | `#211D30` | Elevated surfaces |
-| `purple` | `#C86FFF` | Primary accent |
-| `purple-deep` | `#AC24FF` | CTA & highlights |
-| `blue` | `#1B4DFE` | Secondary accent |
-| `gold` | `#FFD600` | Tertiary accent |
-| `orange` | `#FE881B` | Warning / emphasis |
-
----
-
-## 📊 Key Metrics
-
-| Metric | Value |
-|---|---|
-| Fuel Stations | 150+ |
-| Litres Distributed | 12M+ |
-| Cities Covered | 25+ |
-| Uptime Reliability | 99.9% |
-
----
-
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
+We welcome contributions to improve the platform! Please follow these steps:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1.  Fork the repository.
+2.  Create a feature branch: `git checkout -b feature/amazing-feature`
+3.  Commit your changes: `git commit -m 'Add amazing feature'`
+4.  Push to the branch: `git push origin feature/amazing-feature`
+5.  Open a Pull Request.
+
+Please ensure your code follows the project's coding standards and design guidelines.
 
 ---
 
@@ -192,9 +223,3 @@ This project is proprietary software owned by **PAK Petroleum**. All rights rese
 [Report Bug](https://github.com/abdullahfawadd/PakPetroleum/issues) · [Request Feature](https://github.com/abdullahfawadd/PakPetroleum/issues)
 
 </div>
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
