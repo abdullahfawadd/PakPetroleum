@@ -14,10 +14,44 @@ export const SITE_CONFIG = {
 } as const;
 
 export const NAV_ITEMS = [
-  { name: "What We Do", href: "/services" },
-  { name: "Our Approach", href: "/approach" },
-  { name: "About Us", href: "/about" },
-  { name: "Insights", href: "/insights" },
+  {
+    name: "Operations",
+    href: "/operations",
+    items: [
+      { name: "Trading & Supply", href: "/operations/trading", description: "Global procurement and hedging strategies." },
+      { name: "Distribution Network", href: "/operations/distribution", description: "Nationwide fleet and logistics." },
+      { name: "Storage Infrastructure", href: "/operations/storage", description: "Strategic terminals and safety reserves." },
+      { name: "Retail & Commercial", href: "/operations/retail", description: "Fuel stations and B2B supply." },
+    ],
+  },
+  {
+    name: "Company",
+    href: "/company",
+    items: [
+      { name: "Our Story", href: "/company/story", description: "Building Pakistan's energy backbone since 2026." },
+      { name: "Leadership", href: "/company/leadership", description: "Governance and executive direction." },
+      { name: "Careers", href: "/careers", description: "Join the future of energy." },
+      { name: "Locations", href: "/company/locations", description: "Our national footprint." },
+    ],
+  },
+  {
+    name: "Sustainability",
+    href: "/sustainability",
+    items: [
+      { name: "HSE Standards", href: "/sustainability/hse", description: "Health, Safety, and Environment protocols." },
+      { name: "Community Impact", href: "/sustainability/community", description: "Investing in the communities we serve." },
+      { name: "Compliance", href: "/sustainability/compliance", description: "OGRA and ISO certifications." },
+    ],
+  },
+  {
+    name: "Insights",
+    href: "/insights",
+    items: [
+      { name: "Market Analysis", href: "/insights/market", description: "Trends in global energy markets." },
+      { name: "Company News", href: "/insights/news", description: "Latest updates from PAK Petroleum." },
+      { name: "Reports", href: "/insights/reports", description: "Quarterly and annual performance." },
+    ],
+  },
 ] as const;
 
 export const STATS = [
@@ -27,52 +61,66 @@ export const STATS = [
   { value: 99.9, suffix: "%", label: "Uptime Reliability" },
 ] as const;
 
-export const OPERATIONS = [
+export const CORE_OPERATIONS = [
   {
-    title: "Procurement",
-    description:
-      "Strategic supplier partnerships and allocation planning for stable, high-quality supply at competitive rates.",
-    icon: "procurement",
+    title: "Trading & Supply",
+    description: "Securing Pakistan's energy future through strategic global procurement and advanced hedging mechanisms.",
+    icon: "trading",
   },
   {
-    title: "Storage",
-    description:
-      "Modern facilities with real-time monitoring, batch testing, and safety-first inventory controls.",
+    title: "Storage Infrastructure",
+    description: "State-of-the-art terminals ensuring national reserve security with real-time automated monitoring.",
     icon: "storage",
   },
   {
-    title: "Distribution",
-    description:
-      "GPS-tracked delivery operations connecting fuel stations and fleet operators across 25+ cities.",
+    title: "Distribution Logistics",
+    description: "A precision-managed fleet delivering critical fuel supplies to every corner of the nation, 24/7.",
     icon: "distribution",
-  },
-  {
-    title: "Trading",
-    description:
-      "Market intelligence and trading discipline that protect supply continuity and margins.",
-    icon: "trading",
   },
 ] as const;
 
-export const COMMITMENTS = [
+export const SAFETY_METRICS = [
+  { value: "5M+", label: "Safe Man-Hours" },
+  { value: "0", label: "Lost Time Injuries (LTI)" },
+  { value: "100%", label: "OGRA Compliance" },
+  { value: "24/7", label: "Real-time Monitoring" },
+] as const;
+
+export const FOOTPRINT_LOCATIONS = [
+  { city: "Islamabad", type: "Headquarters & Hub" },
+  { city: "Karachi", type: "Port Terminal" },
+  { city: "Lahore", type: "Distribution Center" },
+  { city: "Peshawar", type: "Regional Office" },
+  { city: "Multan", type: "Storage Depot" },
+  { city: "Quetta", type: "Strategic Reserve" },
+] as const;
+
+export const LEADERSHIP_TEAM = [
   {
-    title: "Safety & Compliance",
-    description:
-      "Rigorous safety protocols, regular audits, and full adherence to OGRA regulatory requirements across all operations.",
-    icon: "shield",
+    name: "Sarah Ahmed",
+    role: "Chief Executive Officer",
+    image: "/assets/leadership/ceo.jpg",
+    bio: "20+ years in global energy markets. Former VP at PetroGlobal.",
   },
   {
-    title: "Sustainable Operations",
-    description:
-      "Committed to reducing our environmental footprint through cleaner logistics, responsible sourcing, and community investment.",
-    icon: "leaf",
+    name: "Kamran Khan",
+    role: "Director of Operations",
+    image: "/assets/leadership/coo.jpg",
+    bio: "Expert in supply chain logistics and infrastructure development.",
   },
   {
-    title: "Operational Excellence",
-    description:
-      "Leveraging technology for smarter fuel management—real-time tracking, predictive analytics, and continuous improvement.",
-    icon: "lightbulb",
+    name: "Bilal Rossi",
+    role: "Chief Financial Officer",
+    image: "/assets/leadership/cfo.jpg",
+    bio: "Strategic finance leader with a focus on sustainable growth.",
   },
+] as const;
+
+export const CERTIFICATIONS = [
+  "ISO 9001:2015",
+  "ISO 14001:2015",
+  "OGRA Licensed",
+  "HSE Certified",
 ] as const;
 
 export const FAQ_ITEMS = [
@@ -100,29 +148,5 @@ export const FAQ_ITEMS = [
     question: "What are your delivery timelines?",
     answer:
       "Standard deliveries within Islamabad-Rawalpindi complete within 24 hours. Other cities maintain a 48-72 hour window. Emergency priority supply can be arranged through our 24/7 operations desk.",
-  },
-] as const;
-
-export const TESTIMONIALS = [
-  {
-    name: "Ahmed Rashid",
-    role: "Fleet Manager, TransPak Logistics",
-    content:
-      "PAK Petroleum keeps our fleet on schedule. Their communication and delivery reliability are exceptional.",
-    rating: 5,
-  },
-  {
-    name: "Fatima Zahra",
-    role: "Operations Director, CityFuel Stations",
-    content:
-      "The distribution team is precise and consistent. We have full visibility on delivery windows.",
-    rating: 5,
-  },
-  {
-    name: "Usman Malik",
-    role: "CEO, Karachi Transport Co.",
-    content:
-      "They simplified our supply planning and helped us reduce fuel spend while improving quality.",
-    rating: 5,
   },
 ] as const;
