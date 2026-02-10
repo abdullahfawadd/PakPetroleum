@@ -1,39 +1,35 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useRef, useCallback } from "react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { useGSAP } from "@/hooks/useGSAP";
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
   const tagRef = useRef<HTMLParagraphElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
+  const sectionRef = useGSAP<HTMLElement>(() => {
+    // Initial states
+    gsap.set([tagRef.current, headlineRef.current, subtitleRef.current, ctaRef.current], {
+      opacity: 0,
+      y: 50,
+    });
+    gsap.set(scrollRef.current, { opacity: 0 });
 
-    const ctx = gsap.context(() => {
-      gsap.set([tagRef.current, headlineRef.current, subtitleRef.current, ctaRef.current], {
-        opacity: 0,
-        y: 50,
-      });
-      gsap.set(scrollRef.current, { opacity: 0 });
+    // Intro timeline
+    const tl = gsap.timeline({ delay: 0.5, defaults: { ease: "power4.out" } });
+    tl.to(tagRef.current, { opacity: 1, y: 0, duration: 0.8 });
+    tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 1.2 }, 0.15);
+    tl.to(subtitleRef.current, { opacity: 1, y: 0, duration: 0.9 }, 0.35);
+    tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.9 }, 0.5);
+    tl.to(scrollRef.current, { opacity: 1, duration: 0.6 }, 1.2);
 
-      const tl = gsap.timeline({ delay: 0.5, defaults: { ease: "power4.out" } });
-      tl.to(tagRef.current, { opacity: 1, y: 0, duration: 0.8 });
-      tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 1.2 }, 0.15);
-      tl.to(subtitleRef.current, { opacity: 1, y: 0, duration: 0.9 }, 0.35);
-      tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.9 }, 0.5);
-      tl.to(scrollRef.current, { opacity: 1, duration: 0.6 }, 1.2);
-
+    // Parallax effect
+    if (sectionRef.current) {
       gsap.to(sectionRef.current, {
         yPercent: 8,
         ease: "none",
@@ -44,25 +40,21 @@ export default function Hero() {
           scrub: true,
         },
       });
-    }, sectionRef);
+    }
 
-    return () => ctx.revert();
-  }, []);
-
-  useEffect(() => {
-    if (!scrollRef.current) return;
-    const el = scrollRef.current.querySelector(".scroll-icon");
-    if (!el) return;
-    const anim = gsap.to(el, {
-      y: 8,
-      duration: 1.5,
-      repeat: -1,
-      yoyo: true,
-      ease: "power1.inOut",
-    });
-    return () => {
-      anim.kill();
-    };
+    // Scroll icon animation
+    if (scrollRef.current) {
+      const el = scrollRef.current.querySelector(".scroll-icon");
+      if (el) {
+        gsap.to(el, {
+          y: 8,
+          duration: 1.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+        });
+      }
+    }
   }, []);
 
   const handleScrollDown = useCallback(() => {
@@ -74,25 +66,22 @@ export default function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ background: "#13101C" }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#13101C]"
     >
       {/* Background orbs */}
       <div
         aria-hidden="true"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full pointer-events-none blur-[100px]"
         style={{
           background:
             "radial-gradient(circle, rgba(200,111,255,0.12) 0%, rgba(172,36,255,0.06) 30%, transparent 55%)",
-          filter: "blur(100px)",
         }}
       />
       <div
         aria-hidden="true"
-        className="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full pointer-events-none"
+        className="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full pointer-events-none blur-[60px]"
         style={{
           background: "radial-gradient(circle, rgba(27,77,254,0.08) 0%, transparent 55%)",
-          filter: "blur(60px)",
         }}
       />
 
@@ -154,8 +143,7 @@ export default function Hero() {
 
       {/* Bottom fade */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-40 z-[1] pointer-events-none"
-        style={{ background: "linear-gradient(to top, #13101C, transparent)" }}
+        className="absolute bottom-0 left-0 right-0 h-40 z-[1] pointer-events-none bg-gradient-to-t from-[#13101C] to-transparent"
         aria-hidden="true"
       />
     </section>
