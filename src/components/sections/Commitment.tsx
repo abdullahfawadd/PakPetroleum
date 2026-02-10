@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Shield, Leaf, Lightbulb, type LucideIcon } from 'lucide-react';
+import { Shield, Leaf, Activity, type LucideIcon } from 'lucide-react';
 import { gsap } from '@/lib/gsap';
 import { COMMITMENTS } from '@/lib/constants';
 
 const ICON_MAP: Record<string, LucideIcon> = {
   shield: Shield,
   leaf: Leaf,
-  lightbulb: Lightbulb,
+  lightbulb: Activity, // Changed to Activity for "Standards"
 };
 
 export default function Commitment() {
@@ -29,7 +29,7 @@ export default function Commitment() {
 
       if (cardsRef.current) {
         gsap.from(cardsRef.current.children, {
-          opacity: 0, y: 50, scale: 0.97, duration: 0.7, ease: 'power3.out', stagger: 0.12,
+          opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', stagger: 0.1,
           scrollTrigger: { trigger: cardsRef.current, start: 'top 85%', toggleActions: 'play none none none' },
         });
       }
@@ -41,50 +41,36 @@ export default function Commitment() {
   return (
     <section
       ref={sectionRef}
-      className="section-spacing relative overflow-hidden"
-      style={{ background: '#1A1726' }}
+      className="section-spacing relative bg-[#020c1b] border-t border-[#1e2d4d]"
     >
-      <div
-        aria-hidden="true"
-        className="absolute -top-32 -right-32 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(200, 111, 255, 0.06) 0%, transparent 60%)',
-          filter: 'blur(60px)',
-        }}
-      />
-
       <div className="container-custom relative z-10">
         <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-20 lg:mb-28">
-          <p className="overline-tag mb-6">Our Promise</p>
-          <h2 className="text-display font-heading text-white mb-6">
-            Standards that never bend.
+          <p className="overline-tag mb-6 text-teal-400">Our Standards</p>
+          <h2 className="text-heading font-display text-slate-light mb-6">
+            Uncompromising <br/>
+            <span className="text-teal-400">Compliance & Safety.</span>
           </h2>
-          <p className="text-lg text-white/45 leading-relaxed max-w-2xl mx-auto">
-            Every supply decision is anchored in safety, environmental integrity,
-            and consistent service delivery.
+          <p className="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto">
+            We operate under the strictest international guidelines for environmental protection,
+            occupational health, and product quality.
           </p>
         </div>
 
-        <div ref={cardsRef} className="grid md:grid-cols-3 gap-6">
+        <div ref={cardsRef} className="grid md:grid-cols-3 gap-px bg-[#1e2d4d] border border-[#1e2d4d]">
           {COMMITMENTS.map((item) => {
             const Icon = ICON_MAP[item.icon] ?? Shield;
 
             return (
               <div
                 key={item.title}
-                className="group card-dark flex flex-col items-start gap-6"
+                className="group p-10 bg-[#0a192f] hover:bg-[#112240] transition-colors duration-300 flex flex-col items-center text-center"
               >
-                <div
-                  className="flex items-center justify-center w-14 h-14 rounded-xl transition-transform duration-500 group-hover:scale-110"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(200, 111, 255, 0.15), rgba(27, 77, 254, 0.1))',
-                  }}
-                >
-                  <Icon className="w-7 h-7" style={{ color: '#C86FFF' }} strokeWidth={1.8} />
+                <div className="mb-6 w-16 h-16 rounded-full bg-[#020c1b] flex items-center justify-center border border-[#1e2d4d] group-hover:border-teal-400/30 transition-colors">
+                  <Icon className="w-8 h-8 text-teal-400" strokeWidth={1.5} />
                 </div>
 
-                <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-white/45">{item.description}</p>
+                <h3 className="text-xl font-bold font-display text-slate-light mb-4">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-slate-400">{item.description}</p>
               </div>
             );
           })}

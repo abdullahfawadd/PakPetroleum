@@ -1,20 +1,21 @@
 import Link from 'next/link';
-import { Linkedin, Twitter, Facebook } from 'lucide-react';
+import { Linkedin, Twitter, Facebook, MapPin, Phone, Mail } from 'lucide-react';
 import { SITE_CONFIG } from '@/lib/constants';
 
 const FOOTER_LINKS = [
-  { name: 'What We Do', href: '/services' },
-  { name: 'Our Approach', href: '/approach' },
   { name: 'About Us', href: '/about' },
-  { name: 'Insights', href: '/insights' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Leadership', href: '/about#leadership' },
+  { name: 'Careers', href: '/careers' },
+  { name: 'Investor Relations', href: '/investors' },
+  { name: 'Press & Media', href: '/media' },
 ] as const;
 
 const SERVICES = [
-  { name: 'Fuel Distribution', href: '/services' },
-  { name: 'Storage Solutions', href: '/services' },
-  { name: 'Trading', href: '/services' },
+  { name: 'Fuel Trading', href: '/services' },
+  { name: 'Retail Network', href: '/services' },
+  { name: 'Industrial Supply', href: '/services' },
   { name: 'Logistics', href: '/services' },
+  { name: 'Storage Terminals', href: '/services' },
 ] as const;
 
 const SOCIAL_LINKS = [
@@ -25,28 +26,29 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#0F0E1A' }} className="text-white">
-      {/* Top Divider */}
-      <div className="divider-gradient" />
+    <footer className="bg-[#020c1b] border-t border-[#1e2d4d] text-slate-400">
 
       {/* Main Footer Content */}
-      <div className="container-custom py-16 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          {/* Column 1 - Brand */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-5">
-              <span className="text-2xl font-bold tracking-tight">
-                <span className="text-white">PAK</span>
-                <span className="text-white/50 ml-1">Petroleum</span>
+      <div className="container-custom py-20 lg:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+
+          {/* Brand Column (Span 4) */}
+          <div className="lg:col-span-4 pr-8">
+            <Link href="/" className="inline-flex flex-col gap-1 mb-6 group">
+              <span className="text-2xl font-display font-bold text-slate-light tracking-tight group-hover:text-teal-400 transition-colors">
+                PAK Petroleum
+              </span>
+              <span className="text-xs font-mono tracking-widest text-teal-500 uppercase">
+                Energy for Motion
               </span>
             </Link>
 
-            <p className="text-white/40 leading-relaxed mb-6 max-w-xs text-sm">
-              {SITE_CONFIG.tagline}. {SITE_CONFIG.description}
+            <p className="text-sm leading-relaxed mb-8 max-w-xs text-slate-500">
+              A leading integrated energy company powering Pakistan&apos;s future through
+              reliable supply, strategic infrastructure, and sustainable growth.
             </p>
 
-            {/* Social Icons */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               {SOCIAL_LINKS.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -56,11 +58,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-10 h-10 rounded-lg flex items-center justify-center text-white/40 hover:text-white transition-all duration-300"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.04)',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
-                    }}
+                    className="w-10 h-10 rounded flex items-center justify-center border border-[#1e2d4d] hover:border-teal-500/50 hover:text-teal-400 transition-all duration-300"
                   >
                     <Icon className="w-4 h-4" />
                   </a>
@@ -69,15 +67,15 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 - Links */}
-          <div>
-            <h4 className="text-white font-semibold mb-5">Company</h4>
-            <ul className="space-y-3">
+          {/* Links Column (Span 2) */}
+          <div className="lg:col-span-2 lg:col-start-6">
+            <h4 className="text-white font-semibold mb-6 text-sm uppercase tracking-wider">Company</h4>
+            <ul className="space-y-4">
               {FOOTER_LINKS.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-white/40 hover:text-purple-300 transition-colors duration-300 text-sm"
+                    className="text-sm hover:text-teal-400 transition-colors duration-300"
                   >
                     {link.name}
                   </Link>
@@ -86,15 +84,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3 - Services */}
-          <div>
-            <h4 className="text-white font-semibold mb-5">Services</h4>
-            <ul className="space-y-3">
+          {/* Services Column (Span 2) */}
+          <div className="lg:col-span-2">
+            <h4 className="text-white font-semibold mb-6 text-sm uppercase tracking-wider">Operations</h4>
+            <ul className="space-y-4">
               {SERVICES.map((service) => (
                 <li key={service.name}>
                   <Link
                     href={service.href}
-                    className="text-white/40 hover:text-purple-300 transition-colors duration-300 text-sm"
+                    className="text-sm hover:text-teal-400 transition-colors duration-300"
                   >
                     {service.name}
                   </Link>
@@ -103,46 +101,54 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 - Contact */}
-          <div>
-            <h4 className="text-white font-semibold mb-5">Contact</h4>
-            <ul className="space-y-3">
-              <li>
-                <p className="text-white/40 text-sm leading-relaxed">
-                  {SITE_CONFIG.address}
-                </p>
+          {/* Contact Column (Span 3) */}
+          <div className="lg:col-span-3">
+            <h4 className="text-white font-semibold mb-6 text-sm uppercase tracking-wider">Headquarters</h4>
+            <ul className="space-y-5">
+              <li className="flex gap-3 items-start">
+                <MapPin className="w-5 h-5 text-teal-500 shrink-0 mt-0.5" />
+                <span className="text-sm leading-relaxed">
+                  {SITE_CONFIG.address} <br/>
+                  Islamabad, Pakistan
+                </span>
               </li>
-              <li>
+              <li className="flex gap-3 items-center">
+                <Phone className="w-4 h-4 text-teal-500 shrink-0" />
                 <a
                   href={`tel:${SITE_CONFIG.phone.replace(/\s/g, '')}`}
-                  className="text-white/40 hover:text-purple-300 transition-colors duration-300 text-sm"
+                  className="text-sm hover:text-teal-400 transition-colors"
                 >
                   {SITE_CONFIG.phone}
                 </a>
               </li>
-              <li>
+              <li className="flex gap-3 items-center">
+                <Mail className="w-4 h-4 text-teal-500 shrink-0" />
                 <a
                   href={`mailto:${SITE_CONFIG.email}`}
-                  className="text-white/40 hover:text-purple-300 transition-colors duration-300 text-sm"
+                  className="text-sm hover:text-teal-400 transition-colors"
                 >
                   {SITE_CONFIG.email}
                 </a>
               </li>
             </ul>
           </div>
+
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="divider-gradient" />
-      <div className="container-custom py-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-sm">
-            &copy; 2026 {SITE_CONFIG.name}. All rights reserved.
-          </p>
-          <p className="text-white/30 text-sm">
-            {SITE_CONFIG.tagline}
-          </p>
+      <div className="border-t border-[#1e2d4d] bg-[#01060f]">
+        <div className="container-custom py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-600">
+            <p>
+              &copy; {new Date().getFullYear()} PAK Petroleum Ltd. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+               <Link href="/privacy" className="hover:text-slate-400">Privacy Policy</Link>
+               <Link href="/terms" className="hover:text-slate-400">Terms of Service</Link>
+               <Link href="/sitemap" className="hover:text-slate-400">Sitemap</Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

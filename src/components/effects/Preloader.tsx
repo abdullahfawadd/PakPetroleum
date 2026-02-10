@@ -11,52 +11,56 @@ export default function Preloader() {
   const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!counterRef.current || !brandRef.current || !lineRef.current) return;
+    // Prevent scrolling while loading
+    document.body.style.overflow = "hidden";
 
     const obj = { val: 0 };
-
     const tl = gsap.timeline({
-      onComplete: () => setIsLoading(false),
+      onComplete: () => {
+        setIsLoading(false);
+        document.body.style.overflow = "";
+      },
     });
 
-    tl.fromTo(
-      brandRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
-      0
-    );
+    if (brandRef.current) {
+        tl.fromTo(
+        brandRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
+        0
+        );
+    }
 
-    tl.to(
-      obj,
-      {
-        val: 100,
-        duration: 2.2,
-        ease: "power2.inOut",
-        onUpdate: () => {
-          if (counterRef.current) {
-            counterRef.current.textContent = Math.round(obj.val).toString();
-          }
+    if (counterRef.current) {
+        tl.to(
+        obj,
+        {
+            val: 100,
+            duration: 2.5,
+            ease: "expo.inOut",
+            onUpdate: () => {
+            if (counterRef.current) {
+                counterRef.current.textContent = Math.round(obj.val).toString();
+            }
+            },
         },
-      },
-      0.3
-    );
+        0.2
+        );
+    }
 
-    tl.fromTo(
-      lineRef.current,
-      { scaleX: 0 },
-      { scaleX: 1, duration: 2.2, ease: "power2.inOut" },
-      0.3
-    );
+    if (lineRef.current) {
+        tl.fromTo(
+        lineRef.current,
+        { scaleX: 0 },
+        { scaleX: 1, duration: 2.5, ease: "expo.inOut" },
+        0.2
+        );
+    }
 
-    tl.to(
-      [brandRef.current, counterRef.current.parentElement],
-      {
-        opacity: 0, y: -30, duration: 0.4, ease: "power2.in", stagger: 0.05,
-      },
-      "+=0.3"
-    );
-
-    return () => { tl.kill(); };
+    return () => {
+        tl.kill();
+        document.body.style.overflow = "";
+    };
   }, []);
 
   return (
@@ -67,22 +71,13 @@ export default function Preloader() {
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
-          style={{ background: '#13101C' }}
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020c1b]"
         >
-          <div
-            className="absolute inset-0 opacity-[0.06]"
-            style={{ background: 'radial-gradient(circle, rgba(200,111,255,0.4) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
-          />
+          {/* Background Grid */}
+          <div className="absolute inset-0 bg-mesh opacity-10" />
 
-          <div
-            aria-hidden="true"
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(200,111,255,0.1) 0%, transparent 60%)', filter: 'blur(60px)' }}
-          />
-
-          <div ref={brandRef} className="relative mb-12 opacity-0">
-            <span className="text-overline tracking-[0.3em]" style={{ color: 'rgba(200, 111, 255, 0.6)' }}>
+          <div ref={brandRef} className="relative mb-8 opacity-0">
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-teal-400 font-semibold">
               PAK PETROLEUM
             </span>
           </div>
@@ -90,20 +85,20 @@ export default function Preloader() {
           <div className="relative flex items-baseline">
             <span
               ref={counterRef}
-              className="text-[clamp(5rem,20vw,12rem)] font-extrabold leading-none tracking-tighter text-white tabular-nums"
+              className="text-[clamp(4rem,15vw,8rem)] font-bold leading-none tracking-tighter text-slate-light tabular-nums font-mono"
             >
               0
             </span>
-            <span className="text-[clamp(1.5rem,4vw,3rem)] font-light text-white/20 ml-1 self-start mt-[0.15em]">
+            <span className="text-[clamp(1.5rem,4vw,3rem)] font-light text-slate-500 ml-2 self-start mt-[0.1em]">
               %
             </span>
           </div>
 
-          <div className="relative mt-10 w-48 md:w-64 h-[2px] overflow-hidden" style={{ background: 'rgba(255, 255, 255, 0.06)' }}>
+          <div className="relative mt-8 w-48 md:w-64 h-[2px] bg-[#112240] overflow-hidden rounded-full">
             <div
               ref={lineRef}
-              className="absolute inset-0 origin-left"
-              style={{ transform: "scaleX(0)", background: 'linear-gradient(90deg, #1B4DFE, #AC24FF, #C86FFF)' }}
+              className="absolute inset-0 origin-left bg-teal-400"
+              style={{ transform: "scaleX(0)" }}
             />
           </div>
         </motion.div>

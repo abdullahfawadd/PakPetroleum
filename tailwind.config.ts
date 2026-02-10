@@ -9,66 +9,62 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        body: "#13101C",
-        surface: "#1A1726",
-        elevated: "#211D30",
+        body: "#020c1b", // Deepest Navy
+        surface: "#0a192f", // Navy
+        elevated: "#112240", // Light Navy
+        navy: {
+          DEFAULT: "#0a192f",
+          950: "#020c1b",
+          900: "#0a192f",
+          800: "#112240",
+          700: "#233554",
+          600: "#303C55",
+        },
+        teal: {
+          DEFAULT: "#64FFDA",
+          400: "#64FFDA",
+          500: "#14b8a6", // Darker teal for backgrounds
+          900: "#0f2e2b", // Very dark teal for badges
+        },
+        slate: {
+          DEFAULT: "#8892b0",
+          light: "#ccd6f6", // Primary text
+          muted: "#8892b0", // Secondary text
+          dark: "#495670", // Borders/lines
+        },
+        amber: {
+          DEFAULT: "#fbbf24", // Fuel/Warning
+          500: "#f59e0b",
+        },
+        // Legacy support (mapped to new system to prevent crashes before full refactor)
         purple: {
-          DEFAULT: "#C86FFF",
-          deep: "#AC24FF",
-          light: "#E59DFA",
-          50: "#FAF0FF",
-          100: "#F3DEFF",
-          200: "#E8BDFF",
-          300: "#D99AFF",
-          400: "#C86FFF",
-          500: "#AC24FF",
-          600: "#9B1FE6",
-          700: "#7A18B5",
-          800: "#5C1287",
-          900: "#3D0C5A",
+          DEFAULT: "#64FFDA", // Map to teal
+          deep: "#0a192f", // Map to navy
+          light: "#ccd6f6", // Map to white-ish
+          400: "#64FFDA",
+          500: "#14b8a6",
         },
         blue: {
-          DEFAULT: "#1B4DFE",
-          400: "#5B7FFF",
-          500: "#1B4DFE",
-          600: "#1540D4",
-          700: "#1033AA",
-        },
-        gold: {
-          DEFAULT: "#FFD600",
-          400: "#FFE033",
-          500: "#FFD600",
-        },
-        orange: {
-          DEFAULT: "#FE881B",
-          400: "#FFA04D",
-          500: "#FE881B",
-        },
-        pink: {
-          DEFAULT: "#E59DFA",
-          400: "#EDBDFC",
-          500: "#E59DFA",
+          DEFAULT: "#0a192f",
+          500: "#112240",
         },
       },
       fontFamily: {
-        sans: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        sans: ["var(--font-space-grotesk)", "system-ui", "sans-serif"], // Keep for now
         display: ["var(--font-fraunces)", "Georgia", "serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
         heading: ["var(--font-fraunces)", "Georgia", "serif"],
       },
       fontSize: {
-        "hero": ["clamp(2.75rem, 10vw, 8.5rem)", { lineHeight: "0.98", letterSpacing: "-0.035em", fontWeight: "700" }],
-        "display": ["clamp(2.5rem, 7vw, 6rem)", { lineHeight: "1.02", letterSpacing: "-0.03em", fontWeight: "700" }],
-        "display-lg": ["clamp(2.75rem, 7.5vw, 6.5rem)", { lineHeight: "1.02", letterSpacing: "-0.03em", fontWeight: "700" }],
-        "display-md": ["clamp(2.25rem, 6vw, 4.5rem)", { lineHeight: "1.05", letterSpacing: "-0.025em", fontWeight: "700" }],
-        "display-sm": ["clamp(1.85rem, 4.5vw, 3.25rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
-        "heading": ["clamp(2rem, 5vw, 3.75rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
-        "subheading": ["clamp(1.4rem, 3.2vw, 2.25rem)", { lineHeight: "1.2", letterSpacing: "-0.015em", fontWeight: "600" }],
-        "body-lg": ["1.25rem", { lineHeight: "1.7" }],
-        "body": ["1.0625rem", { lineHeight: "1.7" }],
-        "body-sm": ["0.9375rem", { lineHeight: "1.6" }],
-        "caption": ["0.8125rem", { lineHeight: "1.5" }],
-        "overline": ["0.75rem", { lineHeight: "1.5", letterSpacing: "0.15em", fontWeight: "500" }],
+        "hero": ["clamp(3rem, 8vw, 6rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }], // More solid
+        "display": ["clamp(2.5rem, 6vw, 5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "heading": ["clamp(2rem, 4vw, 3.5rem)", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "600" }],
+        "subheading": ["clamp(1.25rem, 2.5vw, 1.75rem)", { lineHeight: "1.4", letterSpacing: "0", fontWeight: "500" }],
+        "body-lg": ["1.125rem", { lineHeight: "1.6" }],
+        "body": ["1rem", { lineHeight: "1.6" }],
+        "body-sm": ["0.875rem", { lineHeight: "1.5" }],
+        "caption": ["0.75rem", { lineHeight: "1.5" }],
+        "overline": ["0.75rem", { lineHeight: "1.5", letterSpacing: "0.15em", fontWeight: "600" }],
       },
       spacing: {
         18: "4.5rem",
@@ -79,30 +75,28 @@ const config: Config = {
         38: "9.5rem",
       },
       borderRadius: {
-        "2xl": "1rem",
-        "3xl": "1.5rem",
-        "4xl": "2rem",
+        "2xl": "0.75rem", // Sharper corners for enterprise
+        "3xl": "1rem",
+        "4xl": "1.5rem",
       },
       backgroundImage: {
-        "gradient-brand": "linear-gradient(135deg, #AC24FF, #C86FFF, #E59DFA)",
-        "gradient-full": "linear-gradient(135deg, #1B4DFE, #AC24FF, #E59DFA, #FFD600, #FE881B)",
-        "gradient-glow": "radial-gradient(ellipse at center, rgba(200,111,255,0.15), transparent 70%)",
-        "gradient-orb": "radial-gradient(circle, rgba(200,111,255,0.3) 0%, rgba(172,36,255,0.15) 40%, transparent 70%)",
+        "gradient-energy": "linear-gradient(135deg, #0a192f 0%, #112240 100%)", // Navy Gradient
+        "gradient-teal": "linear-gradient(135deg, #64FFDA 0%, #14b8a6 100%)",
+        "gradient-glow": "radial-gradient(ellipse at center, rgba(100, 255, 218, 0.15), transparent 70%)",
+        // Legacy
+        "gradient-brand": "linear-gradient(135deg, #0a192f 0%, #112240 100%)",
       },
       boxShadow: {
-        "glow-purple": "0 0 80px rgba(200, 111, 255, 0.25)",
-        "glow-blue": "0 0 80px rgba(27, 77, 254, 0.2)",
-        "glow-sm": "0 0 30px rgba(200, 111, 255, 0.25)",
-        "soft": "0 20px 60px rgba(0, 0, 0, 0.3)",
-        "card": "0 8px 40px rgba(200, 111, 255, 0.1)",
+        "glow-teal": "0 0 40px rgba(100, 255, 218, 0.15)",
+        "soft": "0 10px 30px rgba(2, 12, 27, 0.7)",
+        "card": "0 10px 30px -10px rgba(2, 12, 27, 0.7)",
       },
       animation: {
-        "marquee": "marquee 40s linear infinite",
-        "marquee-reverse": "marquee-reverse 40s linear infinite",
+        "marquee": "marquee 60s linear infinite", // Slower
+        "marquee-reverse": "marquee-reverse 60s linear infinite",
         "fade-in": "fadeIn 0.8s ease-out forwards",
-        "float": "float 6s ease-in-out infinite",
+        "float": "float 8s ease-in-out infinite", // Slower float
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "gradient-shift": "gradientShift 8s ease infinite",
       },
       keyframes: {
         marquee: {
@@ -119,17 +113,8 @@ const config: Config = {
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-20px)" },
+          "50%": { transform: "translateY(-10px)" }, // Less movement
         },
-        gradientShift: {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-      },
-      transitionTimingFunction: {
-        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "in-expo": "cubic-bezier(0.7, 0, 0.84, 0)",
-        "out-quart": "cubic-bezier(0.25, 1, 0.5, 1)",
       },
     },
   },

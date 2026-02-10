@@ -16,10 +16,10 @@ export default function About() {
     if (headRef.current) {
       gsap.from(headRef.current.children, {
         opacity: 0,
-        y: 50,
-        duration: 1,
+        y: 40,
+        duration: 0.8,
         ease: "power3.out",
-        stagger: 0.15,
+        stagger: 0.1,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
@@ -32,8 +32,8 @@ export default function About() {
     if (contentRef.current) {
       gsap.from(contentRef.current, {
         opacity: 0,
-        y: 40,
-        duration: 1,
+        y: 30,
+        duration: 0.8,
         ease: "power3.out",
         scrollTrigger: {
           trigger: contentRef.current,
@@ -47,13 +47,13 @@ export default function About() {
     if (statsRef.current) {
       gsap.from(statsRef.current.children, {
         opacity: 0,
-        y: 30,
-        duration: 0.7,
+        y: 20,
+        duration: 0.6,
         ease: "power3.out",
-        stagger: 0.12,
+        stagger: 0.05,
         scrollTrigger: {
           trigger: statsRef.current,
-          start: "top 88%",
+          start: "top 90%",
           toggleActions: "play none none none",
         },
       });
@@ -64,75 +64,74 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="section-spacing relative overflow-hidden bg-[#13101C]"
+      className="section-spacing relative overflow-hidden bg-[#020c1b]"
     >
-      {/* Background orb */}
-      <div
-        aria-hidden="true"
-        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none blur-[60px]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(200,111,255,0.05) 0%, transparent 60%)",
-        }}
-      />
+      {/* Background Grid */}
+      <div className="absolute inset-0 bg-mesh opacity-10 pointer-events-none" />
 
       <div className="container-custom relative z-10">
-        {/* Header */}
-        <div ref={headRef} className="text-center max-w-3xl mx-auto mb-20 lg:mb-28">
-          <p className="overline-tag mb-6">About Us</p>
-          <h2 className="text-display font-heading text-white">
-            Petroleum, engineered for
-            <span className="block text-gradient">reliability at scale.</span>
-          </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-24">
+
+            {/* Header Column */}
+            <div ref={headRef}>
+              <p className="overline-tag mb-8 flex items-center gap-3">
+                 <span className="w-8 h-px bg-teal-400"></span>
+                 Corporate Profile
+              </p>
+              <h2 className="text-display font-display text-slate-light leading-none">
+                Petroleum <br/>
+                <span className="text-teal-400">Reliability</span> <br/>
+                at Scale.
+              </h2>
+            </div>
+
+            {/* Content Column */}
+            <div ref={contentRef} className="flex flex-col justify-end">
+              <p className="text-xl text-slate-300 leading-relaxed mb-8 font-light">
+                PAK Petroleum is engineered for mission-critical fuel continuity.
+                We align procurement, storage, and distribution into a single,
+                resilient supply chain.
+              </p>
+              <p className="text-base text-slate-400 leading-relaxed font-mono">
+                {`// From the port to the pump, our operations cover the nation's
+                highest-demand corridors, ensuring that industry never stops.`}
+              </p>
+            </div>
         </div>
 
-        {/* Content */}
-        <div ref={contentRef} className="max-w-3xl mx-auto text-center mb-24 lg:mb-32">
-          <p className="text-xl lg:text-2xl text-white/50 leading-relaxed mb-6">
-            PAK Petroleum is built for mission-critical fuel continuity. We align
-            procurement, storage, and distribution so operators, fleets, and
-            partners move with confidence.
-          </p>
-          <p className="text-lg text-white/35 leading-relaxed">
-            From Islamabad-Rawalpindi to the nation&apos;s highest-demand
-            corridors, we deliver dependable supply with rigorous compliance and
-            a modern logistics backbone designed for growth.
-          </p>
-        </div>
-
-        {/* Stats */}
+        {/* Stats Grid - Technical Look */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden bg-white/[0.06] border border-white/[0.06]"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-[#1e2d4d] border border-[#1e2d4d]"
         >
           {STATS.map((stat, index) => {
             const decimals = stat.value % 1 !== 0 ? 1 : 0;
             return (
               <div
                 key={stat.label}
-                className="flex flex-col items-center text-center px-6 py-10 lg:py-14 bg-white/[0.02]"
+                className="flex flex-col justify-center px-8 py-12 bg-[#0a192f] hover:bg-[#112240] transition-colors duration-300 group"
               >
-                <div className="flex items-baseline gap-1">
+                <div className="flex items-baseline gap-1 mb-2">
                   <CountUp
                     end={stat.value}
                     decimals={decimals}
                     duration={2.5}
                     enableScrollSpy
                     scrollSpyOnce
-                    scrollSpyDelay={index * 150}
+                    scrollSpyDelay={index * 100}
                   >
                     {({ countUpRef }) => (
                       <span
                         ref={countUpRef}
-                        className="text-4xl lg:text-5xl font-bold text-gradient"
+                        className="text-4xl lg:text-5xl font-bold text-teal-400 font-mono tracking-tighter"
                       />
                     )}
                   </CountUp>
-                  <span className="text-2xl lg:text-3xl font-bold text-gradient">
+                  <span className="text-2xl font-bold text-teal-500/50">
                     {stat.suffix}
                   </span>
                 </div>
-                <p className="mt-3 text-sm font-medium text-white/40 uppercase tracking-widest">
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest group-hover:text-slate-300 transition-colors">
                   {stat.label}
                 </p>
               </div>

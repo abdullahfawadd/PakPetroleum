@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useMemo } from 'react';
-import { ShoppingCart, Database, Truck, TrendingUp } from 'lucide-react';
+import { ShoppingCart, Database, Truck, TrendingUp, ArrowUpRight } from 'lucide-react';
 import { gsap } from '@/lib/gsap';
 import { OPERATIONS } from '@/lib/constants';
 
@@ -41,8 +41,8 @@ export default function Operations() {
       const validCards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
       if (validCards.length > 0) {
         gsap.from(validCards, {
-          opacity: 0, y: 80, duration: 0.9, ease: 'power3.out', stagger: 0.15,
-          scrollTrigger: { trigger: validCards[0], start: 'top 88%', toggleActions: 'play none none none' },
+          opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', stagger: 0.1,
+          scrollTrigger: { trigger: validCards[0], start: 'top 90%', toggleActions: 'play none none none' },
         });
       }
     }, sectionRef);
@@ -54,31 +54,22 @@ export default function Operations() {
     <section
       id="services"
       ref={sectionRef}
-      className="section-spacing relative overflow-hidden"
-      style={{ background: '#1A1726' }}
+      className="section-spacing relative overflow-hidden bg-[#0a192f]"
     >
-      <div
-        aria-hidden="true"
-        className="absolute top-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: 'rgba(200, 111, 255, 0.06)', filter: 'blur(80px)' }}
-      />
-
       <div className="container-custom relative z-10">
-        <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-20 lg:mb-28">
-          <p className="overline-tag mb-6">What We Do</p>
-
-          <h2 className="text-display font-heading text-white mb-6">
-            One connected chain for
-            <span className="block text-gradient">petroleum continuity.</span>
-          </h2>
-
-          <p className="text-lg text-white/45 leading-relaxed max-w-2xl mx-auto">
-            We align sourcing, storage, and delivery so partners get reliable
-            fuel supply without disruption or blind spots.
-          </p>
+        <div ref={headerRef} className="flex flex-col md:flex-row justify-between items-end mb-20 lg:mb-28 gap-8 border-b border-[#1e2d4d] pb-8">
+            <div>
+              <p className="overline-tag mb-4">Core Operations</p>
+              <h2 className="text-heading font-display text-slate-light max-w-2xl">
+                End-to-End <span className="text-teal-400">Petroleum Logistics</span>
+              </h2>
+            </div>
+            <p className="text-slate-400 max-w-sm mb-2 text-sm leading-relaxed">
+               We manage the complete lifecycle of energy distribution, ensuring quality and continuity at every node.
+            </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {OPERATIONS.map((operation, index) => {
             const IconComponent = ICON_MAP[operation.icon];
 
@@ -86,37 +77,30 @@ export default function Operations() {
               <div
                 key={operation.title}
                 ref={setCardRefs[index]}
-                className="group card-dark relative overflow-hidden"
+                className="group relative overflow-hidden p-8 lg:p-10 border border-[#1e2d4d] bg-[#020c1b] hover:border-teal-500/30 transition-all duration-500"
               >
-                <span className="absolute top-6 right-8 text-[4.5rem] leading-none font-heading text-white/[0.03] select-none pointer-events-none transition-colors duration-500 group-hover:text-white/[0.06]">
-                  {NUMBER_LABELS[index]}
-                </span>
-
-                <div className="relative z-10">
-                  <div className="mb-6">
-                    <div
-                      className="relative w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-500 group-hover:scale-105"
-                      style={{ background: 'linear-gradient(135deg, rgba(200, 111, 255, 0.15), rgba(27, 77, 254, 0.1))' }}
-                    >
+                <div className="flex justify-between items-start mb-8">
+                   <div className="w-12 h-12 rounded bg-[#112240] flex items-center justify-center group-hover:bg-teal-900/20 transition-colors">
                       {IconComponent && (
-                        <IconComponent className="w-7 h-7 text-purple-400 relative z-10" strokeWidth={1.8} />
+                        <IconComponent className="w-6 h-6 text-teal-400" strokeWidth={1.5} />
                       )}
-                    </div>
-                  </div>
-
-                  <h3 className="font-heading text-xl text-white mb-3 transition-colors duration-300 group-hover:text-purple-300">
-                    {operation.title}
-                  </h3>
-
-                  <p className="text-white/45 leading-relaxed">
-                    {operation.description}
-                  </p>
+                   </div>
+                   <span className="font-mono text-xs text-slate-600 font-bold">
+                      {NUMBER_LABELS[index]}
+                   </span>
                 </div>
 
-                <div
-                  className="absolute bottom-0 left-0 h-[2px] w-0 transition-all duration-700 group-hover:w-full"
-                  style={{ background: 'linear-gradient(90deg, #AC24FF, #C86FFF, #E59DFA)' }}
-                />
+                <h3 className="font-display text-2xl text-slate-light mb-4 group-hover:text-teal-400 transition-colors">
+                  {operation.title}
+                </h3>
+
+                <p className="text-slate-400 leading-relaxed text-sm mb-8 pr-8">
+                  {operation.description}
+                </p>
+
+                <div className="absolute bottom-6 right-6 opacity-0 transform translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                   <ArrowUpRight className="w-5 h-5 text-teal-400" />
+                </div>
               </div>
             );
           })}
