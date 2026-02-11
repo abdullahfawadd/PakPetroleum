@@ -1,46 +1,104 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
-import { Float, MeshDistortMaterial, Icosahedron, AdaptiveDpr } from "@react-three/drei";
+import { useRef, useMemo } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Float, Stars, Line, PerspectiveCamera } from "@react-three/drei";
+import * as THREE from "three";
 
-function SceneContent() {
+function NetworkGraph() {
+  const groupRef = useRef<THREE.Group>(null);
+
+  // Generate nodes on a sphere surface
+  const nodes = useMemo(() => {
+    const temp = [];
+    const count = 40;
+    const radius = 3.5;
+
+    for (let i = 0; i < count; i++) {
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      const x = radius * Math.sin(phi) * Math.cos(theta);
+      const y = radius * Math.sin(phi) * Math.sin(theta);
+      const z = radius * Math.cos(phi);
+      temp.push(new THREE.Vector3(x, y, z));
+    }
+    return temp;
+  }, []);
+
+  // Create connections based on distance
+  const connections = useMemo(() => {
+    const lines: THREE.Vector3[] = [];
+    nodes.forEach((node, i) => {
+      nodes.forEach((other, j) => {
+        if (i < j) {
+          const dist = node.distanceTo(other);
+          if (dist < 2.5) {
+            lines.push(node);
+            lines.push(other);
+          }
+        }
+      });
+    });
+    return lines;
+  }, [nodes]);
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
+      groupRef.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 0.1) * 0.1;
+    }
+  });
+
   return (
-    <>
-      <Float
-        speed={1} // Animation speed
-        rotationIntensity={0.5} // XYZ rotation intensity
-        floatIntensity={0.5} // Up/down float intensity
-      >
-        <Icosahedron args={[1, 1]} scale={2.5}>
-          <MeshDistortMaterial
-            color="#64FFDA" // Teal
-            attach="material"
-            distort={0.4} // Strength, 0 disables the effect
-            speed={2} // Speed
-            roughness={0.2}
-            metalness={0.9}
-            flatShading
-          />
-        </Icosahedron>
-      </Float>
-      {/* Lighting for Industrial/Metallic Look */}
-      <ambientLight intensity={0.5} color="#0a192f" />
-      <directionalLight position={[10, 10, 5]} intensity={2} color="#64FFDA" />
-      <pointLight position={[-10, -10, -5]} intensity={1} color="#f59e0b" />
-    </>
+    <group ref={groupRef}>
+      {/* Nodes */}
+      {nodes.map((pos, i) => (
+        <mesh key={i} position={pos}>
+          <sphereGeometry args={[0.04, 8, 8]} />
+          <meshBasicMaterial color="#64FFDA" />
+        </mesh>
+      ))}
+
+      {/* Connections - using simple Line for performance/style */}
+      <Line
+        points={connections}
+        color="#112240" // Light Navy connection
+        opacity={0.3}
+        transparent
+        lineWidth={1} // Pixel width
+        segments // Treat points as segments (pairs)
+      />
+
+      {/* Highlighted Connections - a few brighter lines for "energy" flow */}
+       <Line
+        points={connections.slice(0, 20)} // Just a subset
+        color="#64FFDA"
+        opacity={0.6}
+        transparent
+        lineWidth={1.5}
+        segments
+      />
+    </group>
   );
 }
 
 export default function SplineScene({ className }: { className?: string }) {
   return (
     <div className={className}>
-      <Canvas
-        camera={{ position: [0, 0, 5], fov: 45 }}
-        dpr={[1, 2]} // Clamp pixel ratio for performance
-        gl={{ antialias: true, alpha: true }}
-      >
-        <SceneContent />
-        <AdaptiveDpr pixelated />
+      <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
+        <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={50} />
+
+        {/* Environment / Lighting */}
+        <ambientLight intensity={0.2} color="#0a192f" />
+        <pointLight position={[10, 10, 10]} intensity={1} color="#64FFDA" />
+
+        {/* Floating Network */}
+        <Float speed={1} rotationIntensity={0.2} floatIntensity={0.2}>
+          <NetworkGraph />
+        </Float>
+
+        {/* Background Particles */}
+        <Stars radius={50} depth={50} count={2000} factor={3} saturation={0} fade speed={0.5} />
       </Canvas>
     </div>
   );

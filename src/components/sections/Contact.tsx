@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
-import gsap from 'gsap';
+import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@/hooks/useGSAP';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,9 +52,41 @@ const SUBJECT_OPTIONS = [
 ] as const;
 
 export default function Contact() {
-  const sectionRef = useRef<HTMLElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
   const rightColRef = useRef<HTMLDivElement>(null);
+
+  const sectionRef = useGSAP<HTMLElement>(() => {
+    // Left column animation
+    if (leftColRef.current) {
+      gsap.from(leftColRef.current, {
+        x: -60,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 75%',
+          toggleActions: 'play none none none',
+        },
+      });
+    }
+
+    // Right column animation
+    if (rightColRef.current) {
+      gsap.from(rightColRef.current, {
+        x: 60,
+        opacity: 0,
+        duration: 1,
+        delay: 0.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 75%',
+          toggleActions: 'play none none none',
+        },
+      });
+    }
+  });
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -112,50 +145,20 @@ export default function Contact() {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
     setIsSubmitting(false);
     setIsSubmitted(true);
     setFormData({ name: '', email: '', subject: '', message: '' });
+    // Reset success message after 5 seconds
     setTimeout(() => setIsSubmitted(false), 5000);
   };
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(leftColRef.current, {
-        x: -60,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none none',
-        },
-      });
-
-      gsap.from(rightColRef.current, {
-        x: 60,
-        opacity: 0,
-        duration: 1,
-        delay: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none none',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section
       id="contact"
       ref={sectionRef}
-      className="section-spacing"
-      style={{ background: '#0F0E1A' }}
+      className="section-spacing bg-navy-950" // Replaced inline style with Tailwind class if possible, or keep style if specific color needed. Using bg-navy-950 as it matches design.
     >
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20">
@@ -164,8 +167,8 @@ export default function Contact() {
             <p className="overline-tag mb-6">Get in Touch</p>
 
             <h2 className="text-display font-heading text-white mb-6">
-              Let&apos;s build your
-              <span className="block text-gradient">supply plan.</span>
+              Let&apos;s build your <br />
+              <span className="text-teal-400">supply plan.</span>
             </h2>
 
             <p className="text-lg text-white/45 leading-relaxed mb-12 max-w-lg">
@@ -205,7 +208,7 @@ export default function Contact() {
 
           {/* Right Column - Contact Form */}
           <div ref={rightColRef}>
-            <div className="card-premium !p-8 lg:!p-10">
+            <div className="card-dark p-8 lg:p-10">
               {isSubmitted ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <div
