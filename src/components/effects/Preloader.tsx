@@ -14,52 +14,62 @@ export default function Preloader() {
     // Prevent scrolling while loading
     document.body.style.overflow = "hidden";
 
-    const obj = { val: 0 };
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setIsLoading(false);
-        document.body.style.overflow = "";
-      },
-    });
+    // Use a GSAP context for cleanup safety
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setIsLoading(false);
+          document.body.style.overflow = "";
+        },
+      });
 
-    if (brandRef.current) {
+      // Brand/Logo Intro
+      if (brandRef.current) {
         tl.fromTo(
-        brandRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
-        0
+          brandRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+          0.2
         );
-    }
+      }
 
-    if (counterRef.current) {
+      // Counter Animation (0 -> 100)
+      // Duration set to 3.5s to meet "3-4s" requirement
+      const counterObj = { val: 0 };
+      if (counterRef.current) {
         tl.to(
-        obj,
-        {
+          counterObj,
+          {
             val: 100,
-            duration: 2.5,
+            duration: 3.5,
             ease: "expo.inOut",
             onUpdate: () => {
-            if (counterRef.current) {
-                counterRef.current.textContent = Math.round(obj.val).toString();
-            }
+              if (counterRef.current) {
+                counterRef.current.textContent = Math.round(counterObj.val).toString();
+              }
             },
-        },
-        0.2
+          },
+          0.5
         );
-    }
+      }
 
-    if (lineRef.current) {
+      // Progress Line Animation
+      if (lineRef.current) {
         tl.fromTo(
-        lineRef.current,
-        { scaleX: 0 },
-        { scaleX: 1, duration: 2.5, ease: "expo.inOut" },
-        0.2
+          lineRef.current,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 3.5, ease: "expo.inOut" },
+          0.5
         );
-    }
+      }
+
+      // Small delay at 100% before exit
+      tl.to({}, { duration: 0.5 });
+    });
 
     return () => {
-        tl.kill();
-        document.body.style.overflow = "";
+      ctx.revert();
+      document.body.style.overflow = "";
     };
   }, []);
 
@@ -69,12 +79,11 @@ export default function Preloader() {
         <motion.div
           key="preloader"
           initial={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          exit={{ y: "-100%", transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#020c1b]"
         >
-          {/* Background Grid */}
-          <div className="absolute inset-0 bg-mesh opacity-10" />
+          {/* Background Grid - ensuring bg-mesh class is used if available, or fallback */}
+          <div className="absolute inset-0 bg-mesh opacity-10 pointer-events-none" />
 
           <div ref={brandRef} className="relative mb-8 opacity-0">
             <span className="font-mono text-xs uppercase tracking-[0.3em] text-teal-400 font-semibold">

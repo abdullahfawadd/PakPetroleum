@@ -1,33 +1,30 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap } from "@/lib/gsap"; // Use shared gsap instance
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@/hooks/useGSAP";
 import { STATS, CERTIFICATIONS } from "@/lib/constants";
 import { EASINGS } from "@/lib/motion";
 
-export default function MetricsTrust() {
-  const containerRef = useRef<HTMLElement>(null);
+gsap.registerPlugin(ScrollTrigger);
 
-  useGSAP(() => {
+export default function MetricsTrust() {
+  const containerRef = useGSAP<HTMLElement>(() => {
     // Initial fade in for the stats
-    const items = containerRef.current?.querySelectorAll(".stat-item");
-    if (items) {
-       gsap.from(items, {
-         opacity: 0,
-         y: 30,
-         duration: 0.8,
-         stagger: 0.1,
-         ease: EASINGS.POWER,
-         scrollTrigger: {
-           trigger: containerRef.current,
-           start: "top 80%",
-         }
-       });
-    }
+    gsap.from(".stat-item", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: EASINGS.POWER,
+        scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+        }
+    });
 
     // Count up animation
-    const numbers = containerRef.current?.querySelectorAll(".stat-value");
+    const numbers = containerRef.current?.querySelectorAll<HTMLElement>(".stat-value");
     numbers?.forEach((el) => {
         const targetValue = parseFloat(el.getAttribute("data-value") || "0");
         const obj = { val: 0 };
@@ -50,7 +47,7 @@ export default function MetricsTrust() {
         });
     });
 
-  }, []);
+  });
 
   return (
     <section className="py-20 bg-navy-900 border-y border-white/5 relative" ref={containerRef}>
