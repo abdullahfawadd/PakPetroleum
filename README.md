@@ -6,8 +6,8 @@
 
 A premium, high-performance web platform for **PAK Petroleum** — Pakistan's trusted energy network for petroleum trading, distribution, and logistics across 25+ cities.
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14.2-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![GSAP](https://img.shields.io/badge/GSAP-3.14-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://gsap.com/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-FF0055?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
@@ -41,14 +41,6 @@ Built with a **"Dark-Mode-First"** philosophy, the interface prioritizes low-lig
 
 ---
 
-## 🎬 Demo
-
-https://github.com/user-attachments/assets/demo.mp4
-
-> *A walkthrough of the PAK Petroleum website showcasing animations, smooth scrolling, and responsive design.*
-
----
-
 ## ✨ Key Features
 
 | Feature | Description |
@@ -59,7 +51,7 @@ https://github.com/user-attachments/assets/demo.mp4
 | **GSAP Animations** | Scroll-triggered animations using GSAP & ScrollTrigger for dynamic storytelling. |
 | **3D Visualization** | `Three.js` and `React Three Fiber` powered 3D visuals representing energy infrastructure. |
 | **Responsive Design** | Fully responsive layout optimized for all device sizes, from mobile to desktop. |
-| **Performance Optimized** | Lazy loading, optimized assets, and efficient code splitting for fast load times. |
+| **Server-First Architecture** | Optimized for performance and SEO using Next.js Server Components. |
 | **SEO Ready** | Full Open Graph and Twitter Card meta configuration for better social sharing. |
 
 ---
@@ -69,8 +61,9 @@ https://github.com/user-attachments/assets/demo.mp4
 The project leverages a modern, robust technology stack to deliver a high-performance experience.
 
 ### Core
-- **Framework:** [Next.js 14 (App Router)](https://nextjs.org/)
+- **Framework:** [Next.js 14.2 (App Router)](https://nextjs.org/)
 - **Language:** [TypeScript 5](https://www.typescriptlang.org/)
+- **Runtime:** Node.js / Bun
 - **State Management:** React Context & Hooks
 
 ### Styling & Design
@@ -81,16 +74,17 @@ The project leverages a modern, robust technology stack to deliver a high-perfor
 ### Animation & 3D
 - **Animation Engine:** [GSAP 3.14](https://gsap.com/)
 - **Micro-interactions:** [Framer Motion 12](https://www.framer.com/motion/)
-- **3D Graphics:** [Three.js](https://threejs.org/) + [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) + [Drei](https://github.com/pmndrs/drei)
+- **3D Graphics:** [Three.js R182](https://threejs.org/) + [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) + [Drei](https://github.com/pmndrs/drei)
 - **Smooth Scroll:** [Lenis](https://lenis.studiofreight.com/)
 
 ---
 
-## 🎨 Design System
+## 📐 Architecture & Design System
 
 The project strictly adheres to the **PAK Petroleum Design System**, which emphasizes authority, innovation, and industrial strength.
 
-> **Note:** The design system has evolved from the legacy **Purple/Gold** palette to the current **Navy/Teal** theme to align with modern energy aesthetics, as configured in `tailwind.config.ts`.
+### Server-First Approach
+We utilize Next.js Server Components by default for optimal performance and SEO. Client components are used sparingly for interactivity, animations, and state management.
 
 ### Color Palette
 - **Deep Navy (`#020c1b`)**: The foundation of the interface, representing the depth of the ocean and the night sky.
@@ -131,15 +125,21 @@ Our motion philosophy is defined by **Power, Stability, and Precision**.
 pak-fuel/
 ├── src/
 │   ├── app/                 # Next.js App Router pages & layouts
+│   │   ├── careers/         # Careers page
+│   │   ├── company/         # Company profile
+│   │   ├── design-system/   # Design system showcase
+│   │   ├── operations/      # Operations overview
 │   │   ├── globals.css      # Global styles & Tailwind directives
 │   │   ├── layout.tsx       # Root layout with fonts & metadata
-│   │   ├── page.tsx         # Homepage orchestrating all sections
-│   │   └── ...
+│   │   └── page.tsx         # Homepage orchestrating all sections
 │   ├── components/          # Reusable React components
+│   │   ├── 3d/              # Three.js/Spline scenes
 │   │   ├── effects/         # Visual effects (Cursor, Preloader)
 │   │   ├── layout/          # Layout components (Nav, Footer)
-│   │   └── sections/        # Page sections (Hero, About, Operations)
-│   ├── hooks/               # Custom React hooks (useGSAP, useLenis)
+│   │   ├── providers/       # Context providers (Theme, Lenis)
+│   │   ├── sections/        # Page-specific sections (Hero, About, Operations)
+│   │   └── ui/              # Atomic UI components
+│   ├── hooks/               # Custom React hooks (useGSAP, useLenis, useMediaQuery)
 │   ├── lib/                 # Utility functions & configurations
 │   └── ...
 ├── public/                  # Static assets
@@ -156,7 +156,7 @@ pak-fuel/
 ### Prerequisites
 
 - **Node.js** 18.17 or later
-- **npm**, **yarn**, **pnpm**, or **bun**
+- **npm**, **yarn**, **pnpm**, or **bun** (recommended)
 
 ### Installation
 
@@ -168,17 +168,15 @@ pak-fuel/
 
 2.  **Install dependencies:**
     ```bash
-    npm install
-    # or
-    yarn install
-    # or
-    pnpm install
-    # or
     bun install
+    # or
+    npm install
     ```
 
 3.  **Start the development server:**
     ```bash
+    bun dev
+    # or
     npm run dev
     ```
 
@@ -190,6 +188,9 @@ pak-fuel/
 To create an optimized production build:
 
 ```bash
+bun run build
+bun start
+# or
 npm run build
 npm start
 ```
