@@ -8,42 +8,57 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      /**
+       * Color System (Dark Mode First)
+       * Reference: DESIGN_SYSTEM.md Section 2
+       */
       colors: {
-        body: "#020c1b", // Deepest Navy
-        surface: "#0a192f", // Navy
-        elevated: "#112240", // Light Navy
+        // Semantic Tokens
+        body: "#020c1b", // Deepest Navy (Main Background)
+        surface: "#0a192f", // Navy (Card/Section Background)
+        elevated: "#112240", // Light Navy (Dropdowns, Hovers)
+
+        // Color Scales
         navy: {
           DEFAULT: "#0a192f",
-          950: "#020c1b",
-          900: "#0a192f",
-          800: "#112240",
+          950: "#020c1b", // bg-body
+          900: "#0a192f", // bg-surface
+          800: "#112240", // bg-elevated
           700: "#233554",
           600: "#303C55",
         },
         teal: {
           DEFAULT: "#64FFDA",
-          400: "#64FFDA",
-          500: "#14b8a6", // Darker teal for backgrounds
-          900: "#0f2e2b", // Very dark teal for badges
+          400: "#64FFDA", // Primary Accent
+          500: "#14b8a6", // Secondary Accent (Backgrounds)
+          900: "#0f2e2b", // Badges
         },
         slate: {
           DEFAULT: "#8892b0",
-          light: "#ccd6f6", // Primary text
-          muted: "#8892b0", // Secondary text
-          dark: "#495670", // Borders/lines
+          light: "#ccd6f6", // Text Primary
+          muted: "#8892b0", // Text Secondary
+          dark: "#495670", // Borders/Lines
         },
         amber: {
-          DEFAULT: "#fbbf24", // Fuel/Warning
-          500: "#f59e0b",
+          DEFAULT: "#fbbf24",
+          500: "#f59e0b", // Warning/Fuel
         },
-        primary: "#ccd6f6", // Text Primary
-        secondary: "#8892b0", // Text Secondary
-        muted: "#495670", // Text Muted
+
+        // Legacy/Compat Tokens (mapped to new system)
+        primary: "#ccd6f6",
+        secondary: "#8892b0",
+        muted: "#495670",
       },
+
+      /**
+       * Typography System
+       * Reference: DESIGN_SYSTEM.md Section 3
+       */
       fontFamily: {
         sans: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
         display: ["var(--font-fraunces)", "Georgia", "serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
+        // Alias
         heading: ["var(--font-fraunces)", "Georgia", "serif"],
       },
       fontSize: {
@@ -57,19 +72,33 @@ const config: Config = {
         "caption": ["0.75rem", { lineHeight: "1.5" }],
         "overline": ["0.75rem", { lineHeight: "1.5", letterSpacing: "0.15em", fontWeight: "600" }],
       },
+
+      /**
+       * Spacing System (8pt Grid)
+       * Reference: DESIGN_SYSTEM.md Section 4
+       */
       spacing: {
-        18: "4.5rem",
-        22: "5.5rem",
-        26: "6.5rem",
-        30: "7.5rem",
-        34: "8.5rem",
-        38: "9.5rem",
+        18: "4.5rem", // 72px
+        22: "5.5rem", // 88px
+        26: "6.5rem", // 104px
+        30: "7.5rem", // 120px
+        34: "8.5rem", // 136px
+        38: "9.5rem", // 152px
       },
+
+      /**
+       * Border Radius (Industrial Strength = Reduced Rounding)
+       * Reference: DESIGN_SYSTEM.md Section 6
+       */
       borderRadius: {
-        "2xl": "0.75rem",
-        "3xl": "1rem",
-        "4xl": "1.5rem",
+        "2xl": "0.75rem", // 12px (Restricted)
+        "3xl": "1rem",    // 16px (Restricted)
+        "4xl": "1.5rem",  // 24px (Restricted)
       },
+
+      /**
+       * Visual Effects
+       */
       backgroundImage: {
         "gradient-energy": "linear-gradient(135deg, #0a192f 0%, #112240 100%)",
         "gradient-teal": "linear-gradient(135deg, #64FFDA 0%, #14b8a6 100%)",
@@ -80,6 +109,11 @@ const config: Config = {
         "soft": "0 10px 30px rgba(2, 12, 27, 0.7)",
         "card": "0 10px 30px -10px rgba(2, 12, 27, 0.7)",
       },
+
+      /**
+       * Motion
+       * Reference: MOTION.md
+       */
       animation: {
         "marquee": "marquee 60s linear infinite",
         "marquee-reverse": "marquee-reverse 60s linear infinite",

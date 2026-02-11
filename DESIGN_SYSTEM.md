@@ -1,6 +1,13 @@
-# PAK Petroleum Design System
+# PAK Petroleum Design System (LOCKED)
 
-## 1. Design Principles
+**Version:** 1.0.0
+**Status:** LOCKED
+
+This document serves as the authoritative source of truth for the PAK Petroleum design system. Any deviations must be approved by the design lead.
+
+---
+
+## 1. Design Philosophy: "Energy-Grade Minimalism"
 
 Our visual identity is built on four core pillars that reflect our mission as a national energy leader.
 
@@ -28,17 +35,18 @@ We operate on a **Dark-Mode-First** philosophy. Our interfaces are designed to b
 
 ### **Primary Palette**
 
-| Color Name | Token | Hex Value | Usage |
+| Token Name | Tailwind Class | Hex Value | Usage Rule |
 | :--- | :--- | :--- | :--- |
-| **Deep Navy** | `bg-body` / `navy-950` | `#020c1b` | Main background (Page body). The deepest layer. |
-| **Navy** | `bg-surface` / `navy-900` | `#0a192f` | Surface background (Cards, Sections). |
-| **Light Navy** | `bg-elevated` / `navy-800` | `#112240` | Elevated elements (Dropdowns, Modals, Hover states). |
-| **Teal** | `text-teal` / `teal-400` | `#64FFDA` | Primary accent. Links, active states, key data points. |
-| **Slate** | `text-slate` / `slate-400` | `#8892b0` | Secondary text. Body copy, descriptions. |
-| **White/Light** | `text-primary` / `slate-light` | `#ccd6f6` | Primary text. Headings, critical information. |
-| **Amber** | `text-amber` / `amber-500` | `#f59e0b` | Warning, energy, fuel indicators. |
+| **Deep Navy** | `bg-body` / `navy-950` | `#020c1b` | **Main Background**. The deepest layer (page body). |
+| **Navy** | `bg-surface` / `navy-900` | `#0a192f` | **Surface Background**. Cards, sections, elevated areas. |
+| **Light Navy** | `bg-elevated` / `navy-800` | `#112240` | **Elevated Elements**. Modals, dropdowns, hover states. |
+| **Teal** | `text-teal` / `teal-400` | `#64FFDA` | **Primary Accent**. Links, active states, key data points. |
+| **Teal Dark** | `teal-500` | `#14b8a6` | **Secondary Accent**. Backgrounds for teal elements. |
+| **Slate** | `text-slate` / `slate-400` | `#8892b0` | **Secondary Text**. Body copy, descriptions. |
+| **White/Light** | `text-primary` / `slate-light` | `#ccd6f6` | **Primary Text**. Headings, critical information. |
+| **Amber** | `text-amber` / `amber-500` | `#f59e0b` | **Warning/Status**. Energy, fuel indicators. |
 
-### **Strict Usage Rules**
+### **Usage Rules**
 1.  **Backgrounds:** MUST use the Navy scale (`#020c1b` -> `#0a192f` -> `#112240`). Pure black (`#000000`) is forbidden.
 2.  **Text:** MUST use the Slate scale (`#ccd6f6` -> `#8892b0` -> `#495670`). Pure white (`#ffffff`) is discouraged except for specific high-contrast needs.
 3.  **Accents:** MUST use Teal (`#64FFDA`) for interactive elements and primary highlights.
@@ -50,144 +58,120 @@ We operate on a **Dark-Mode-First** philosophy. Our interfaces are designed to b
 
 We use a tri-font system to balance elegance, modernity, and data precision.
 
-### **Display: Fraunces**
-*   **Role:** Headings, Hero Statements.
-*   **Characteristics:** Serif, variable weight, editorial feel.
-*   **Usage:** `font-display`. Use for H1, H2, and major callouts.
-*   **Why:** Adds a touch of "Authority" and "Heritage".
+### **Font Families**
 
-### **Body: Space Grotesk**
-*   **Role:** UI Text, Navigation, Paragraphs.
-*   **Characteristics:** Sans-serif, geometric, technical.
-*   **Usage:** `font-sans`. The default typeface for the interface.
-*   **Why:** Reflects "Innovation" and "Industrial Strength".
+1.  **Display: Fraunces** (`font-display`)
+    -   **Role:** Headings, Hero Statements.
+    -   **Characteristics:** Serif, variable weight, editorial feel.
+    -   **Usage:** H1, H2, major callouts.
+    -   **Why:** Adds "Authority" and "Heritage".
 
-### **Data: Geist Mono**
-*   **Role:** Tables, Metrics, Code, Technical Specifications.
-*   **Characteristics:** Monospace, legible, precise.
-*   **Usage:** `font-mono`. Use for numbers, financial data, and technical labels.
-*   **Why:** Ensures readability and precision for "Industrial Data".
+2.  **Body: Space Grotesk** (`font-sans`)
+    -   **Role:** UI Text, Navigation, Paragraphs.
+    -   **Characteristics:** Sans-serif, geometric, technical.
+    -   **Usage:** Default interface typeface.
+    -   **Why:** Reflects "Innovation" and "Industrial Strength".
+
+3.  **Data: Geist Mono** (`font-mono`)
+    -   **Role:** Tables, Metrics, Code, Technical Specifications.
+    -   **Characteristics:** Monospace, legible, precise.
+    -   **Usage:** Numbers, financial data, technical labels.
+    -   **Why:** Ensures readability and precision for "Industrial Data".
+
+### **Typography Scale**
+
+| Token | Size (Clamp) | Line Height | Tracking | Weight | Usage |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Hero** | `clamp(3rem, 8vw, 6rem)` | `1.1` | `-0.02em` | `700` | Homepage Hero |
+| **Display** | `clamp(2.5rem, 6vw, 5rem)` | `1.1` | `-0.02em` | `700` | Section Headers |
+| **Heading** | `clamp(2rem, 4vw, 3.5rem)` | `1.2` | `-0.01em` | `600` | Article Titles |
+| **Subheading** | `clamp(1.25rem, 2.5vw, 1.75rem)` | `1.4` | `0` | `500` | Section Subtitles |
+| **Body LG** | `1.125rem` | `1.6` | `0` | `400` | Lead Paragraphs |
+| **Body** | `1rem` | `1.6` | `0` | `400` | Standard Text |
+| **Body SM** | `0.875rem` | `1.5` | `0` | `400` | UI Labels, Footer |
+| **Caption** | `0.75rem` | `1.5` | `0` | `400` | Metadata, Hints |
+| **Overline** | `0.75rem` | `1.5` | `0.15em` | `600` | Uppercase Tags |
 
 ---
 
-## 4. Spacing & Grid System
+## 4. Spacing System (8pt Grid)
 
-We adhere to a strict **8pt / 12-Column Grid** system to ensure rhythm and consistency.
-
-### **Grid Logic**
-*   **Columns:** 12 columns.
-*   **Gutter:** 24px (1.5rem) on desktop, 16px (1rem) on mobile.
-*   **Container:** Centered, max-width 1400px.
-
-### **Spacing Scale (8pt Rule)**
-All spacing (padding, margin, gap) must be a multiple of **4px** (0.25rem), with a strong preference for **8px** (0.5rem) increments to maintain the 8pt rhythm.
+All spacing (padding, margin, gap) must align with the **8pt grid** (multiples of 8px).
 
 | Token | Rem | Px | Usage |
 | :--- | :--- | :--- | :--- |
-| `0.5` | 0.125rem | 2px | Micro adjustments. |
-| `1` | 0.25rem | 4px | Tight spacing. |
-| `2` | 0.5rem | 8px | **Base Unit.** |
-| `3` | 0.75rem | 12px | Component internal spacing. |
-| `4` | 1rem | 16px | Component padding. |
-| `6` | 1.5rem | 24px | Section separation (small). |
-| `8` | 2rem | 32px | Section separation (medium). |
-| `12` | 3rem | 48px | Layout blocking. |
-| `16` | 4rem | 64px | Major section gaps. |
+| `0.5` | 0.125rem | 2px | Micro adjustments |
+| `1` | 0.25rem | 4px | Tight grouping |
+| `2` | 0.5rem | 8px | **Base Unit** |
+| `3` | 0.75rem | 12px | Component internal spacing |
+| `4` | 1rem | 16px | Component padding |
+| `6` | 1.5rem | 24px | Small section separation |
+| `8` | 2rem | 32px | Medium section separation |
+| `12` | 3rem | 48px | Layout blocking |
+| `16` | 4rem | 64px | Large section gaps |
+| `24` | 6rem | 96px | Section vertical padding (Desktop) |
+| `32` | 8rem | 128px | Hero vertical padding |
 
-**Rule:** Avoid arbitrary values like `10px`, `15px`, `7px`. Stick to the scale.
-
----
-
-## 5. "Energy-Grade Minimalism"
-
-**Definition:** A design philosophy that prioritizes high-function, low-noise interfaces suitable for mission-critical energy operations.
-
-### **Core Tenets**
-1.  **High Contrast:** Essential information must stand out instantly.
-2.  **No Clutter:** Remove decorative elements that do not serve a function. "If it doesn't flow, cut the pipe."
-3.  **Directness:** Interfaces should be self-explanatory and efficient.
-4.  **Visual Weight:** Use negative space (dark navy void) to give content room to breathe, mimicking the vastness of energy fields.
+**Rule:** Avoid arbitrary values (e.g., `13px`). Always snap to the nearest token.
 
 ---
 
-## 6. 3D Guidance
+## 5. Grid System
 
-3D elements are used to visualize complex energy concepts, not for decoration.
+We use a standard **12-column grid**.
 
-### **Style Guide**
-*   **Symbolic:** Represent abstract concepts (flow, connection, potential) rather than literal depictions of machinery.
-*   **Abstract:** Use geometric forms, particles, and lines.
-*   **Industrial:** Materials should look like matte metal, glass, or light.
-*   **No Gaming Feel:** Avoid cartoonish shaders, excessive bloom, or "sci-fi" tropes that look like a video game. It should feel like high-end engineering software.
+-   **Columns:** 12
+-   **Gutter:** 24px (1.5rem) on Desktop, 16px (1rem) on Mobile.
+-   **Max Width:** 1400px (Centered).
 
-### **Examples**
-*   Flowing energy lines representing pipelines or grid connectivity.
-*   Fuel molecule abstractions.
-*   Silhouettes of infrastructure (rigs, terminals) in low-poly or point-cloud styles.
-
----
-
-## 7. Visual Do's and Don'ts
-
-### **Do**
-*   ✅ Use the Navy gradient for backgrounds (`bg-gradient-energy`).
-*   ✅ Use Teal for primary actions (buttons, links).
-*   ✅ Use strict 8pt spacing for layouts.
-*   ✅ Use `font-mono` for all numeric data.
-*   ✅ Use subtle borders (`border-white/10`) to define areas.
-
-### **Don't**
-*   ❌ Do not use pure black (`#000000`).
-*   ❌ Do not use bright red or green for decoration (reserve for status).
-*   ❌ Do not use rounded corners larger than `rounded-lg` (keep it industrial).
-*   ❌ Do not use drop shadows that are too heavy or opaque (use subtle glows).
-*   ❌ Do not mix Serif and Sans-serif arbitrarily.
+### **Common Layouts**
+-   **Full Width:** `col-span-12`
+-   **Half Width:** `col-span-6` (2 columns)
+-   **Thirds:** `col-span-4` (3 columns)
+-   **Asymmetric:** `col-span-4` + `col-span-8` (Sidebar + Content)
 
 ---
 
-## 8. Component Library & Layout Patterns
+## 6. Component Styling Rules
 
-### **Core Components**
+### **Buttons**
+-   **Primary:** Solid Teal background (`bg-teal-400`), Dark Text (`text-navy-950`). Sharp corners or minimal rounding (`rounded-sm` or `rounded`).
+-   **Secondary:** Outline Teal (`border-teal-400`), Transparent background.
+-   **Hover:** Subtle lift (`-translate-y-0.5`), slight shadow (`shadow-glow-teal`).
 
-#### **Section Containers**
-*   **Concept:** Cinematic Spacing. Sections should feel expansive, not cramped.
-*   **Rule:** Use generous top/bottom padding (`py-24` or `py-32`).
-*   **Structure:** Sections should always be wrapped in a container that controls max-width and horizontal padding.
+### **Cards**
+-   **Background:** Navy (`bg-navy-900`) or Glass (`bg-navy-800/80`).
+-   **Border:** Subtle, 1px solid (`border-white/10`).
+-   **Shadow:** Deep, soft shadow (`shadow-xl`).
+-   **Hover:** Border highlights to Teal (`border-teal-400/50`).
 
-#### **KPI Data Blocks**
-*   **Concept:** Data-First Visual Storytelling.
-*   **Style:** Minimalist, high-contrast numbers. Use `font-mono` for values.
-*   **Motion:** Subtle count-up animations on scroll. No bouncing or excessive easing.
-*   **Border:** Use thin, semi-transparent borders or gradients to separate data points.
+### **Inputs**
+-   **Background:** Light Navy (`bg-navy-800`).
+-   **Border:** `border-white/10`.
+-   **Focus:** `border-teal-400`, `ring-1 ring-teal-400`.
+-   **Text:** `text-slate-light`.
 
-#### **Enterprise Cards**
-*   **Concept:** Industrial Strength. Avoid "SaaS bubbles" (highly rounded, soft shadows).
-*   **Style:** Sharp or slightly rounded corners (`rounded-lg` max). Dark backgrounds (`bg-navy-900` or `bg-navy-950`).
-*   **Interactivity:** Subtle hover effects (border color change, slight lift).
-*   **Content:** Focus on content hierarchy. Icon -> Title -> Description -> Action.
+### **Dividers**
+-   **Style:** `h-px`, Gradient or solid subtle color.
+-   **Color:** `bg-white/10` or `from-transparent via-teal-500/20 to-transparent`.
 
-#### **Divider Systems**
-*   **Concept:** Structured Separation.
-*   **Style:** Use gradients (`from-transparent via-teal-500/20 to-transparent`) or light strokes (`border-white/10`).
-*   **Usage:** Separate major sections or distinct content blocks within a section.
+---
 
-#### **Sticky Section Headers**
-*   **Concept:** Contextual Awareness.
-*   **Behavior:** Section titles should stick to the top of the viewport while scrolling through long content, providing context.
-*   **Style:** `font-display`, large size, often paired with a smaller `font-mono` label.
+## 7. Motion Guidelines (Summary)
 
-### **Layout Patterns**
+Based on `MOTION.md`.
 
-#### **Asymmetric Grids**
-*   **Concept:** Controlled Chaos. Break the monotony of symmetric grids.
-*   **Implementation:** Use CSS Grid with varying column spans (e.g., `col-span-4` next to `col-span-8`).
-*   **Purpose:** To guide the eye through content in a deliberate path.
+-   **Philosophy:** Power, Stability, Precision.
+-   **Easing:** `power3.out`, `power4.out` (Standard), `expo.out` (Snappy).
+-   **Forbidden:** Bouncing, Elastic easing.
+-   **Duration:** Typically `0.3s` - `0.5s` for UI interactions.
 
-#### **Large Typography + Restrained Body**
-*   **Concept:** Scale Contrast.
-*   **Implementation:** Use massive headings (`text-display` or `text-hero`) paired with concise, constrained body text (`max-w-prose`).
-*   **Effect:** Creates a sense of confidence and authority.
+---
 
-#### **Data-First Visual Storytelling**
-*   **Concept:** Show, don't just tell.
-*   **Implementation:** Lead with numbers and charts. Text supports the data, not the other way around.
+## 8. Implementation Guide
+
+### **Tailwind Config**
+Ensure `tailwind.config.ts` reflects these exact values. Use CSS variables for colors to support potential theming, but lock values to the Navy/Teal palette.
+
+### **Global CSS**
+Define CSS variables in `:root` corresponding to the color tokens.
