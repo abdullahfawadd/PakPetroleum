@@ -28,19 +28,41 @@ export default function Hero() {
 
   const sectionRef = useGSAP<HTMLElement>(() => {
     // Initial states
-    gsap.set([tagRef.current, headlineRef.current, subtitleRef.current, ctaRef.current], {
+    gsap.set([tagRef.current, subtitleRef.current, ctaRef.current], {
       opacity: 0,
       y: 40,
     });
+
+    const chars = headlineRef.current?.querySelectorAll(".char");
+    if (chars && chars.length > 0) {
+      gsap.set(chars, { opacity: 0, y: 50, rotateX: -90 });
+    } else {
+      gsap.set(headlineRef.current, { opacity: 0, y: 40 });
+    }
+
     gsap.set(scrollRef.current, { opacity: 0 });
 
     // Intro timeline
     const tl = gsap.timeline({ delay: 0.5, defaults: { ease: "power3.out" } });
     tl.to(tagRef.current, { opacity: 1, y: 0, duration: 0.8 });
-    tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 1 }, 0.2);
-    tl.to(subtitleRef.current, { opacity: 1, y: 0, duration: 1 }, 0.4);
-    tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 1 }, 0.6);
-    tl.to(scrollRef.current, { opacity: 1, duration: 0.8 }, 1.5);
+
+    // Headline Stagger
+    if (chars && chars.length > 0) {
+      tl.to(chars, {
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        stagger: 0.02,
+        duration: 1,
+        ease: "power4.out"
+      }, 0.1);
+    } else {
+       tl.to(headlineRef.current, { opacity: 1, y: 0, duration: 1 }, 0.2);
+    }
+
+    tl.to(subtitleRef.current, { opacity: 1, y: 0, duration: 1 }, 0.8);
+    tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 1 }, 1.0);
+    tl.to(scrollRef.current, { opacity: 1, duration: 0.8 }, 1.8);
 
     // Parallax effect
     if (sectionRef.current) {
@@ -76,6 +98,14 @@ export default function Hero() {
     if (target) target.scrollIntoView({ behavior: "smooth" });
   }, []);
 
+  const splitText = (text: string) => {
+    return text.split("").map((char, index) => (
+      <span key={index} className="char inline-block whitespace-pre">
+        {char}
+      </span>
+    ));
+  };
+
   return (
     <section
       id="home"
@@ -83,13 +113,23 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#020c1b]"
     >
       {/* Background Mesh/Grid - Industrial Look */}
-      <div className="absolute inset-0 bg-mesh opacity-20 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none mix-blend-overlay" />
+
+      {/* Glass Gradient & Energy Core */}
+      <div className="absolute inset-0 bg-gradient-glass opacity-80 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-radial-energy opacity-40 pointer-events-none animate-pulse-slow" />
 
       {/* Subtle Dark Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020c1b]/80 via-transparent to-[#020c1b] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-dark-overlay pointer-events-none" />
 
       {/* Abstract Energy Flow (3D Scene) */}
       <SplineScene className="absolute top-0 right-0 w-full h-full z-0 pointer-events-none opacity-60 mix-blend-screen" />
+
+      {/* System Status Indicator */}
+      <div className="absolute bottom-8 left-8 z-20 hidden md:flex items-center gap-3 bg-navy-900/50 backdrop-blur-sm px-4 py-2 rounded-full border border-teal-500/20">
+        <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+        <span className="text-xs font-mono text-teal-400 tracking-widest">SYSTEM OPTIMAL</span>
+      </div>
 
       {/* Content */}
       <div className="relative z-10 container-main w-full pt-32 pb-24 lg:pt-52 lg:pb-40">
@@ -102,8 +142,12 @@ export default function Hero() {
             ref={headlineRef}
             className="text-hero font-display text-slate-light leading-tight mb-8"
           >
-            Powering a <br />
-            <span className="text-teal-400">Nation in Motion.</span>
+            <span className="block overflow-hidden">
+               {splitText("Powering a")}
+            </span>
+            <span className="block text-teal-400 overflow-hidden">
+               {splitText("Nation in Motion.")}
+            </span>
           </h1>
 
           <p

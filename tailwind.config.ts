@@ -103,11 +103,16 @@ const config: Config = {
         "gradient-energy": "linear-gradient(135deg, #0a192f 0%, #112240 100%)",
         "gradient-teal": "linear-gradient(135deg, #64FFDA 0%, #14b8a6 100%)",
         "gradient-glow": "radial-gradient(ellipse at center, rgba(100, 255, 218, 0.15), transparent 70%)",
+        "gradient-glass": "linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)",
+        "gradient-dark-overlay": "linear-gradient(180deg, rgba(2, 12, 27, 0.8) 0%, rgba(2, 12, 27, 0) 100%)",
+        "gradient-radial-energy": "radial-gradient(circle at center, rgba(100, 255, 218, 0.15) 0%, transparent 70%)",
       },
       boxShadow: {
         "glow-teal": "0 0 40px rgba(100, 255, 218, 0.15)",
         "soft": "0 10px 30px rgba(2, 12, 27, 0.7)",
         "card": "0 10px 30px -10px rgba(2, 12, 27, 0.7)",
+        "glow-teal-sm": "0 0 10px rgba(100, 255, 218, 0.2)",
+        "glow-teal-md": "0 0 20px rgba(100, 255, 218, 0.3)",
       },
 
       /**

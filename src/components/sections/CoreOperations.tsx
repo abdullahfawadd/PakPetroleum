@@ -54,7 +54,8 @@ export default function CoreOperations() {
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 items-start relative">
 
         {/* Sticky Header - Left Column */}
-        <div className="lg:w-1/3 sticky-header-content">
+        <div className="lg:w-1/3 sticky-header-content relative">
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-teal-400/20 via-white/5 to-transparent -ml-6 hidden lg:block" />
           <StickyHeader
             label="Capabilities"
             title="End-to-End Petroleum Logistics"

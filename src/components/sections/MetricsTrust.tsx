@@ -50,13 +50,13 @@ export default function MetricsTrust() {
   });
 
   return (
-    <section className="py-20 bg-navy-900 border-y border-white/5 relative" ref={containerRef}>
+    <section className="py-20 bg-white/5 backdrop-blur-md border-y border-white/5 relative" ref={containerRef}>
         <div className="container-main">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
                 {STATS.map((stat, idx) => (
-                    <div key={idx} className="stat-item text-center group">
+                    <div key={idx} className="stat-item text-center group p-6 rounded-lg transition-all duration-300 hover:shadow-glow-teal-sm hover:bg-navy-800/50">
                         <div className="text-4xl md:text-6xl font-display font-bold text-white mb-2 flex justify-center items-baseline">
-                            <span className="stat-value tabular-nums" data-value={stat.value}>0</span>
+                            <span className="stat-value tabular-nums font-mono" data-value={stat.value}>0</span>
                             <span className="text-teal-400 text-3xl md:text-4xl ml-1">{stat.suffix}</span>
                         </div>
                         <p className="text-slate-400 text-xs md:text-sm tracking-widest uppercase font-mono group-hover:text-teal-400 transition-colors duration-300">{stat.label}</p>
