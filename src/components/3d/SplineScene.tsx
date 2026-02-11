@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Stars, Line, PerspectiveCamera } from "@react-three/drei";
+import { Float, Stars, Line, PerspectiveCamera, Instances, Instance } from "@react-three/drei";
 import * as THREE from "three";
 
 function NetworkGraph() {
@@ -51,13 +51,15 @@ function NetworkGraph() {
 
   return (
     <group ref={groupRef}>
-      {/* Nodes */}
-      {nodes.map((pos, i) => (
-        <mesh key={i} position={pos}>
-          <sphereGeometry args={[0.04, 8, 8]} />
-          <meshBasicMaterial color="#64FFDA" />
-        </mesh>
-      ))}
+      {/* Nodes - Optimized with Instances for single draw call */}
+      <Instances range={nodes.length}>
+        <sphereGeometry args={[0.04, 8, 8]} />
+        <meshBasicMaterial color="#64FFDA" />
+
+        {nodes.map((pos, i) => (
+          <Instance key={i} position={pos} />
+        ))}
+      </Instances>
 
       {/* Connections - using simple Line for performance/style */}
       <Line
