@@ -1,75 +1,114 @@
-# Motion Guidelines
+# Motion & Interaction System
 
-## Philosophy: Power, Stability, Precision
+## 1. Philosophy: Energy-Grade Minimalism
+Our motion language reflects the core attributes of a national energy infrastructure provider: **Power, Stability, and Precision**.
 
-Our motion language is designed to reflect the core attributes of a national energy infrastructure provider. It must communicate:
+- **Power:** Movements are substantial and deliberate. Large elements arrive with mass.
+- **Stability:** No bouncing, elasticity, or whimsy. The interface feels grounded and reliable.
+- **Precision:** Timing is mathematical. Transitions are clean, with no "jank" or uncertainty.
 
--   **Power:** Motions should feel substantial and deliberate. Elements should arrive with weight.
--   **Stability:** Avoid erratic or overly springy movements. The interface should feel grounded.
--   **Precision:** Timing and easing should be mathematical and exact. Transitions must be clean and intentional.
+## 2. Core Directives
 
-## Core Rules
+### 2.1 The "No-Bounce" Rule
+Strictly prohibited easing curves:
+- ❌ `back.out`, `back.in`, `back.inOut`
+- ❌ `elastic.out`, `elastic.in`
+- ❌ `bounce.out`
 
-1.  **No Bouncing:** Avoid `back.out`, `elastic.out`, or any easing that overshoots its target.
-2.  **No Playful Easing:** Do not use "bouncy" or "whimsical" curves.
-3.  **Engineered Feel:** Motion is functional, not decorative. "If it moves, it has a purpose."
-4.  **Permissible Easing:**
-    -   **Power:** `power3.out`, `power4.out` (Standard entry/exit)
-    -   **Expo:** `expo.out` (Snappy, high-tech reveals)
-    -   **Precision:** `circ.out` (Mechanical, linear feel with slight ease)
-    -   **Linear:** `none` (Continuous loops, marquee, parallax)
+**Approved Easings (GSAP / Framer Motion):**
+- ✅ **Power (`power3.out`):** Standard entry for most elements. Strong initial impulse, smooth deceleration.
+- ✅ **Expo (`expo.out`):** High-tech reveals, count-ups, and overlays. Very fast start, long settle.
+- ✅ **Circ (`circ.out`):** Mechanical precision. Used for technical diagrams and map pins.
+- ✅ **Linear (`none`):** Continuous loops, marquees, and parallax.
 
-## When Motion is Allowed vs. Silent
+### 2.2 Performance Safety
+- Animate only `transform` (translate, scale, rotate) and `opacity`.
+- Avoid animating `width`, `height`, `top`, `left` to prevent layout thrashing.
+- Use `will-change: transform` sparingly for complex composites.
+- Clean up all GSAP ScrollTriggers in `useGSAP` scope (`ctx.revert()`).
 
-| Context | Motion Status | Description |
-| :--- | :--- | :--- |
-| **User Interaction** | **Allowed** | Hover states, clicks, focus rings. Essential for feedback. |
-| **Storytelling** | **Allowed** | Scroll-triggered reveals, data visualization updates. Guides the narrative. |
-| **Navigation** | **Allowed** | Page transitions, menu opening/closing. Provides spatial context. |
-| **Information Density** | **Silent** | Complex tables, dashboards, dense text blocks. Do not distract from reading. |
-| **Utility** | **Silent** | Background processes, purely functional toggles (unless critical state change). |
+## 3. Technology Stack & Usage
 
-## Animation Types per Section
+| Library | Use Case |
+| :--- | :--- |
+| **GSAP** | Complex scroll-linked animations, timelines, sequenced reveals, WebGL integration. |
+| **Framer Motion** | UI interactions (hover, tap), page transitions, simple component mounting/unmounting, layout shared elements. |
+| **Lenis** | Smooth scrolling normalization. |
 
-### 1. Hero Section
--   **Entrance:** Staggered reveal of text and imagery. `power3.out`.
--   **Background:** Subtle parallax or slow continuous loop (`linear`).
--   **Goal:** Establish authority immediately.
+## 4. Interaction Logic
 
-### 2. About / Trust
--   **Scroll Reveal:** Elements fade up and settle (`y: 20 -> 0`).
--   **Text:** `SplitText` reveals for key headlines (optional, keep it readable).
+### 4.1 Navigation
+- **Desktop:**
+  - **Hover:** Text color shifts immediately to `teal-400`. Optional: underline draws from left (`scaleX: 0 -> 1`).
+  - **Mega Menu:** Slides down with `circ.out` (mechanical feel).
+- **Mobile:**
+  - **Menu Open:** Backdrop fades in (`opacity: 0 -> 1`). Menu panel slides from right (`x: 100% -> 0%`) using `power3.out`.
+  - **Stagger:** Links reveal sequentially with 0.05s delay.
 
-### 3. Operations / Infrastructure
--   **Timelines:** Lines draw in sync with scroll (`scaleX` or `scaleY`).
--   **Maps:** Pins drop or fade in with precision. No bounce.
+### 4.2 Buttons & Links
+- **Primary Button:**
+  - **Hover:** Background brightens or shifts hue slightly. No scaling up (maintain stability).
+  - **Active/Click:** subtle scale down (`0.98`) is permitted for tactile feedback.
+- **Cards:**
+  - **Hover:** Border highlights (`border-teal-400`). Subtle lift (`y: -4px`) is allowed but must be slow and smooth.
 
-### 4. Metrics / KPI
--   **Data Count-up:** Numbers increment smoothly from 0 to value. Use `expo.out` for a settling effect.
--   **Charts:** Bars grow from bottom. Lines draw from left.
+### 4.3 Page Transitions
+- **Exit:** Current page content fades out (`opacity: 0`) and moves slightly up (`y: -20px`). Duration: 0.4s.
+- **Enter:** New page content fades in (`opacity: 0 -> 1`) from slightly below (`y: 20px -> 0`). Duration: 0.6s.
+- **Ease:** `power3.out`.
 
-### 5. Footer / Navigation
--   **Hover:** Links gain a subtle underline or color shift.
--   **Page Transition:** Content fades out (`opacity: 0`) and slight lift (`y: -10`) while new content fades in.
+## 5. Section Animation Plan
 
-## Framer Motion Implementation
+### 5.1 Hero Section
+- **Trigger:** On Load.
+- **Sequence:**
+  1.  Background/3D Scene fades in.
+  2.  Headline reveals (Staggered lines or characters). `power3.out`.
+  3.  Subheading & CTA fade up.
+  4.  Scroll Indicator fades in last.
+- **Parallax:** Background moves at 20% speed of scroll.
 
-### Button Hover States
--   **Scale:** `scale: 1.02` (Subtle lift)
--   **Glow:** `boxShadow: "0 0 20px rgba(100, 255, 218, 0.2)"`
--   **Transition:** `duration: 0.3`, `ease: "easeOut"`
+### 5.2 Metrics & Trust (Trust Ticker)
+- **Trigger:** `ScrollTrigger` (start: "top 85%").
+- **Sequence:**
+  - Stats container fades up.
+  - Numbers count up from 0 to value (`expo.out`, 2.5s duration).
+  - Trust logos/badges fade in with stagger.
 
-### Navigation Transitions
--   **Menu:** Slide in from right or fade down. `type: "tween"`, `ease: "circOut"`.
+### 5.3 Infrastructure Map (National Footprint)
+- **Trigger:** Scroll scrub or pinning.
+- **Behavior:**
+  - Map pins drop in (`y: -20 -> 0`, `opacity: 0`) sequentially.
+  - Connection lines draw (`stroke-dashoffset`) from hub to spokes.
 
-### Page Transitions
--   **Exit:** `opacity: 0`, `y: -20`
--   **Enter:** `opacity: 1`, `y: 0`
--   **Transition:** `duration: 0.5`, `ease: "power3.out"`
+### 5.4 Operations & Services
+- **Trigger:** Scroll (Batch reveal).
+- **Behavior:** Cards scale in slightly (`scale: 0.95 -> 1`) and fade up (`y: 30 -> 0`). Staggered by 0.1s.
 
-## Performance Guidelines
+### 5.5 Contact / Footer
+- **Trigger:** Scroll.
+- **Behavior:** Simple fade up. "Contact" button may have a continuous subtle pulse or shine effect if it's the primary conversion goal.
 
-1.  **Use `transform` and `opacity`:** Only animate properties that do not trigger layout thrashing. Avoid animating `width`, `height`, `top`, `left` unless absolutely necessary (use `scale` instead).
-2.  **`will-change`:** Use sparingly for complex elements before animation starts.
-3.  **Cleanup:** Always kill ScrollTriggers and Tweens on component unmount (`ctx.revert()`).
-4.  **Reduced Motion:** Respect `prefers-reduced-motion`. Disable or simplify animations for users with this setting.
+## 6. Code Reference (src/lib/motion.ts)
+
+Use the defined constants to ensure consistency:
+
+```typescript
+import { EASINGS, TRANSITION, VARIANTS } from "@/lib/motion";
+
+// GSAP
+gsap.to(target, {
+  y: 0,
+  opacity: 1,
+  ease: EASINGS.POWER,
+  duration: 0.8
+});
+
+// Framer Motion
+<motion.div
+  variants={VARIANTS.FADE_UP}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+/>
+```
