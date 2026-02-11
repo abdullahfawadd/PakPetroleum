@@ -24,7 +24,10 @@ export default function Sustainability() {
 
   return (
     <section className="py-24 bg-navy-950 relative overflow-hidden" ref={containerRef}>
-       <div className="container-main">
+       {/* Background Blob */}
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-900/10 rounded-full blur-[120px] pointer-events-none animate-pulse-slow" />
+
+       <div className="container-main relative z-10">
           <div className="max-w-3xl mb-16">
               <span className="text-teal-400 font-mono text-sm tracking-wider uppercase block mb-2">Sustainability & Compliance</span>
               <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
@@ -36,21 +39,21 @@ export default function Sustainability() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="sustain-card p-8 bg-navy-900/50 border border-white/5 rounded-2xl hover:bg-navy-900 transition-colors group">
+              <div className="sustain-card card-glass p-8 rounded-2xl group hover:shadow-glow-teal-sm">
                   <div className="w-14 h-14 rounded-full bg-teal-400/10 flex items-center justify-center mb-6 group-hover:bg-teal-400/20 transition-colors">
                       <Leaf className="w-7 h-7 text-teal-400" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">Environmental Stewardship</h3>
                   <p className="text-slate-400">Implementing cleaner logistics and vapor recovery systems to minimize emissions.</p>
               </div>
-              <div className="sustain-card p-8 bg-navy-900/50 border border-white/5 rounded-2xl hover:bg-navy-900 transition-colors group">
+              <div className="sustain-card card-glass p-8 rounded-2xl group hover:shadow-glow-teal-sm">
                   <div className="w-14 h-14 rounded-full bg-teal-400/10 flex items-center justify-center mb-6 group-hover:bg-teal-400/20 transition-colors">
                      <ShieldCheck className="w-7 h-7 text-teal-400" />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">Regulatory Compliance</h3>
                   <p className="text-slate-400">Full adherence to OGRA regulations and international ISO standards.</p>
               </div>
-              <div className="sustain-card p-8 bg-navy-900/50 border border-white/5 rounded-2xl hover:bg-navy-900 transition-colors group">
+              <div className="sustain-card card-glass p-8 rounded-2xl group hover:shadow-glow-teal-sm">
                   <div className="w-14 h-14 rounded-full bg-teal-400/10 flex items-center justify-center mb-6 group-hover:bg-teal-400/20 transition-colors">
                       <Droplets className="w-7 h-7 text-teal-400" />
                   </div>
