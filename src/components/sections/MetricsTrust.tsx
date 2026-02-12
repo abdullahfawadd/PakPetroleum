@@ -10,18 +10,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function MetricsTrust() {
   const containerRef = useGSAP<HTMLElement>(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+      }
+    });
+
     // Initial fade in for the stats
-    gsap.from(".stat-item", {
+    tl.from(".stat-item", {
         opacity: 0,
         y: 30,
         duration: 0.8,
         stagger: 0.1,
         ease: EASINGS.POWER,
-        scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-        }
-    });
+    }, 0);
 
     // Count up animation
     const numbers = containerRef.current?.querySelectorAll<HTMLElement>(".stat-value");
@@ -30,21 +33,14 @@ export default function MetricsTrust() {
         const obj = { val: 0 };
         const isFloat = targetValue % 1 !== 0;
 
-        gsap.to(obj, {
+        tl.to(obj, {
             val: targetValue,
             duration: 2.5,
             ease: EASINGS.EXPO,
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 80%",
-            },
             onUpdate: () => {
-                el.textContent = obj.val.toLocaleString(undefined, {
-                    minimumFractionDigits: isFloat ? 1 : 0,
-                    maximumFractionDigits: isFloat ? 1 : 0,
-                });
+                el.textContent = isFloat ? obj.val.toFixed(1) : obj.val.toFixed(0);
             }
-        });
+        }, 0);
     });
 
   });
