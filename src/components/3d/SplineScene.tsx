@@ -1,12 +1,14 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useLayoutEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Stars, Line, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 
 function NetworkGraph() {
   const groupRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const tempObject = useMemo(() => new THREE.Object3D(), []);
 
   // Generate nodes on a sphere surface
   const nodes = useMemo(() => {
@@ -42,6 +44,18 @@ function NetworkGraph() {
     return lines;
   }, [nodes]);
 
+  // Update instance matrices for optimized rendering
+  useLayoutEffect(() => {
+    if (meshRef.current) {
+      nodes.forEach((pos, i) => {
+        tempObject.position.copy(pos);
+        tempObject.updateMatrix();
+        meshRef.current!.setMatrixAt(i, tempObject.matrix);
+      });
+      meshRef.current!.instanceMatrix.needsUpdate = true;
+    }
+  }, [nodes, tempObject]);
+
   useFrame((state) => {
     if (groupRef.current) {
       groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
@@ -51,13 +65,11 @@ function NetworkGraph() {
 
   return (
     <group ref={groupRef}>
-      {/* Nodes */}
-      {nodes.map((pos, i) => (
-        <mesh key={i} position={pos}>
-          <sphereGeometry args={[0.04, 8, 8]} />
-          <meshBasicMaterial color="#64FFDA" />
-        </mesh>
-      ))}
+      {/* Nodes - Optimized with InstancedMesh (1 draw call vs 40) */}
+      <instancedMesh ref={meshRef} args={[undefined, undefined, nodes.length]}>
+        <sphereGeometry args={[0.04, 8, 8]} />
+        <meshBasicMaterial color="#64FFDA" />
+      </instancedMesh>
 
       {/* Connections - using simple Line for performance/style */}
       <Line
