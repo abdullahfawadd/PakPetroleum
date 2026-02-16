@@ -32,6 +32,9 @@ export function EnterpriseCard({
         className
       )}
     >
+      {/* Corner Accent */}
+      <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
       {/* Hover Reveal Arrow */}
       <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
          <ArrowUpRight className="w-5 h-5 text-teal-400" />
