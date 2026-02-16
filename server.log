@@ -6,9 +6,10 @@
   - Local:        http://localhost:3000
 
  ✓ Starting...
- ✓ Ready in 1725ms
- ○ Compiling /design-system ...
- ✓ Compiled /design-system in 12.2s (1457 modules)
- GET /design-system 200 in 13805ms
- ✓ Compiled in 1547ms (700 modules)
-[?25h
+ ✓ Ready in 1790ms
+ ○ Compiling / ...
+ ✓ Compiled / in 18.4s (2720 modules)
+ GET / 200 in 19485ms
+ ✓ Compiled in 1237ms (1325 modules)
+ ✓ Compiled in 359ms (1311 modules)
+ GET / 200 in 93ms
