@@ -28,17 +28,20 @@ function NetworkGraph() {
   // Create connections based on distance
   const connections = useMemo(() => {
     const lines: THREE.Vector3[] = [];
-    nodes.forEach((node, i) => {
-      nodes.forEach((other, j) => {
-        if (i < j) {
-          const dist = node.distanceTo(other);
-          if (dist < 2.5) {
-            lines.push(node);
-            lines.push(other);
-          }
+    const threshold = 2.5 * 2.5; // Squared distance threshold
+
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const node = nodes[i];
+        const other = nodes[j];
+
+        // Use distanceToSquared to avoid expensive Math.sqrt operations
+        if (node.distanceToSquared(other) < threshold) {
+          lines.push(node);
+          lines.push(other);
         }
-      });
-    });
+      }
+    }
     return lines;
   }, [nodes]);
 
