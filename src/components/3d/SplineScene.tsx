@@ -26,19 +26,22 @@ function NetworkGraph() {
   }, []);
 
   // Create connections based on distance
+  // ⚡ Bolt Optimization: Use distanceToSquared to avoid expensive Math.sqrt operations
+  // and optimize loop to avoid redundant checks (i < j).
   const connections = useMemo(() => {
     const lines: THREE.Vector3[] = [];
-    nodes.forEach((node, i) => {
-      nodes.forEach((other, j) => {
-        if (i < j) {
-          const dist = node.distanceTo(other);
-          if (dist < 2.5) {
-            lines.push(node);
-            lines.push(other);
-          }
+    const thresholdSquared = 2.5 * 2.5; // 6.25
+
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      for (let j = i + 1; j < nodes.length; j++) {
+        const other = nodes[j];
+        if (node.distanceToSquared(other) < thresholdSquared) {
+          lines.push(node);
+          lines.push(other);
         }
-      });
-    });
+      }
+    }
     return lines;
   }, [nodes]);
 
