@@ -6,16 +6,32 @@ export function useScroll(threshold: number = 30) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+    let rafId: number;
+
+    const updateScroll = () => {
       setIsScrolled(window.scrollY > threshold);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        rafId = window.requestAnimationFrame(updateScroll);
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     // Check initial scroll position
-    handleScroll();
+    updateScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
   }, [threshold]);
 
   return isScrolled;
