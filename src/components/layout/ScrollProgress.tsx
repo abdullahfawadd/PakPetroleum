@@ -7,7 +7,10 @@ export default function ScrollProgress() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+    let rafId: number;
+
+    const updateScrollProgress = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
@@ -16,10 +19,25 @@ export default function ScrollProgress() {
         barRef.current.style.width = `${progress}%`;
       }
       setVisible(scrollTop > 100);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        rafId = window.requestAnimationFrame(updateScrollProgress);
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    updateScrollProgress();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
   }, []);
 
   return (
