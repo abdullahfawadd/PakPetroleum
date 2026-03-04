@@ -1,0 +1,13 @@
+
+> pak-fuel@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 1796ms
+ ○ Compiling / ...
+ ✓ Compiled / in 18.7s (2720 modules)
+ GET / 200 in 20311ms
+ ✓ Compiled in 2.1s (1325 modules)
