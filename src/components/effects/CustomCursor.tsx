@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
@@ -9,8 +9,8 @@ const INTERACTIVE_SELECTORS = 'a, button, [data-cursor="pointer"], input, textar
 export default function CustomCursor() {
   const outerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
+  const isVisible = useRef(false);
+  const isHovering = useRef(false);
 
   // Detect if device supports hover (desktop)
   const hasMouse = useMediaQuery("(hover: hover) and (pointer: fine)");
@@ -46,39 +46,6 @@ export default function CustomCursor() {
     });
   }, [isTouchDevice]);
 
-  // Handle hover state changes with GSAP animations
-  useEffect(() => {
-    if (isTouchDevice || !outerRef.current || !innerRef.current) return;
-
-    if (isHovering) {
-      gsap.to(outerRef.current, {
-        scale: 1.8,
-        borderColor: "rgba(11, 42, 66, 0.65)",
-        duration: 0.35,
-        ease: "power2.out",
-      });
-      gsap.to(innerRef.current, {
-        scale: 0.5,
-        backgroundColor: "#B46B3D",
-        duration: 0.35,
-        ease: "power2.out",
-      });
-    } else {
-      gsap.to(outerRef.current, {
-        scale: 1,
-        borderColor: "rgba(11, 42, 66, 0.45)",
-        duration: 0.35,
-        ease: "power2.out",
-      });
-      gsap.to(innerRef.current, {
-        scale: 1,
-        backgroundColor: "#0B2A42",
-        duration: 0.35,
-        ease: "power2.out",
-      });
-    }
-  }, [isHovering, isTouchDevice]);
-
   // Mouse move handler
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!quickToXOuter.current || !quickToYOuter.current) return;
@@ -95,21 +62,66 @@ export default function CustomCursor() {
   }, []);
 
   // Mouse enter/leave document handler
-  const handleMouseEnter = useCallback(() => setIsVisible(true), []);
-  const handleMouseLeave = useCallback(() => setIsVisible(false), []);
+  const handleMouseEnter = useCallback(() => {
+    if (!outerRef.current || !innerRef.current) return;
+    isVisible.current = true;
+    outerRef.current.style.opacity = "1";
+    innerRef.current.style.opacity = "1";
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!outerRef.current || !innerRef.current) return;
+    isVisible.current = false;
+    outerRef.current.style.opacity = "0";
+    innerRef.current.style.opacity = "0";
+  }, []);
 
   // Hover detection on interactive elements
   const handleMouseOver = useCallback((e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (target.closest(INTERACTIVE_SELECTORS)) {
-      setIsHovering(true);
+    if (target.closest(INTERACTIVE_SELECTORS) && !isHovering.current) {
+      isHovering.current = true;
+      if (!outerRef.current || !innerRef.current) return;
+
+      gsap.to(outerRef.current, {
+        scale: 1.8,
+        borderColor: "rgba(11, 42, 66, 0.65)",
+        duration: 0.35,
+        ease: "power2.out",
+      });
+      gsap.to(innerRef.current, {
+        scale: 0.5,
+        backgroundColor: "#B46B3D",
+        duration: 0.35,
+        ease: "power2.out",
+      });
     }
   }, []);
 
   const handleMouseOut = useCallback((e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (target.closest(INTERACTIVE_SELECTORS)) {
-      setIsHovering(false);
+    const relatedTarget = e.relatedTarget as HTMLElement;
+
+    // Check if we are moving out of an interactive element
+    // and not into a child of that same interactive element
+    const closestInteractive = target.closest(INTERACTIVE_SELECTORS);
+
+    if (closestInteractive && (!relatedTarget || !closestInteractive.contains(relatedTarget)) && isHovering.current) {
+      isHovering.current = false;
+      if (!outerRef.current || !innerRef.current) return;
+
+      gsap.to(outerRef.current, {
+        scale: 1,
+        borderColor: "rgba(11, 42, 66, 0.45)",
+        duration: 0.35,
+        ease: "power2.out",
+      });
+      gsap.to(innerRef.current, {
+        scale: 1,
+        backgroundColor: "#0B2A42",
+        duration: 0.35,
+        ease: "power2.out",
+      });
     }
   }, []);
 
@@ -141,9 +153,7 @@ export default function CustomCursor() {
       <div
         ref={outerRef}
         className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference w-6 h-6 rounded-full border-[1.5px] border-[#0B2A42]/45 transition-opacity duration-200 ease-linear will-change-transform"
-        style={{
-          opacity: isVisible ? 1 : 0,
-        }}
+        style={{ opacity: 0 }}
         aria-hidden="true"
       />
 
@@ -151,9 +161,7 @@ export default function CustomCursor() {
       <div
         ref={innerRef}
         className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference w-2 h-2 rounded-full bg-[#0B2A42] transition-opacity duration-200 ease-linear will-change-transform"
-        style={{
-          opacity: isVisible ? 1 : 0,
-        }}
+        style={{ opacity: 0 }}
         aria-hidden="true"
       />
     </>
