@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { gsap } from "gsap";
 
 export function useLenis() {
   useEffect(() => {
@@ -16,14 +17,18 @@ export function useLenis() {
       infinite: false,
     });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    // ⚡ Bolt Optimization:
+    // Sync Lenis scroll with GSAP's ticker to ensure ScrollTrigger animations
+    // are perfectly synchronized with scroll position, preventing jitter.
+    // GSAP ticker provides time in seconds, Lenis expects milliseconds.
+    function update(time: number) {
+      lenis.raf(time * 1000);
     }
 
-    requestAnimationFrame(raf);
+    gsap.ticker.add(update);
 
     return () => {
+      gsap.ticker.remove(update);
       lenis.destroy();
     };
   }, []);
