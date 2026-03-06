@@ -9,3 +9,7 @@
 ## 2024-05-25 - Expensive Distance Checks in Loops
 **Learning:** Using `distanceTo` (which computes square root) inside a nested loop for collision/proximity checks is unnecessary when comparing against a constant threshold.
 **Action:** Use `distanceToSquared` and compare against the squared threshold to avoid `Math.sqrt` overhead.
+
+## 2025-02-13 - Throttling High-Frequency State Updates
+**Learning:** Attaching `setState` directly to `window` scroll events without throttling leads to excessive React re-renders and potential main thread blocking, which is an anti-pattern for performance-sensitive layouts (like Navigation).
+**Action:** Use the `requestAnimationFrame` pattern with a `ticking` flag to throttle scroll event handlers, ensuring state is updated at most once per frame, and always remember to clean up with `cancelAnimationFrame`.
