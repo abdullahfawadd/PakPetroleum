@@ -25,7 +25,7 @@ export function EnterpriseCard({
   onClick,
 }: EnterpriseCardProps) {
 
-  const CardContent = () => (
+  const cardContent = (
     <div
       className={cn(
         "group relative flex flex-col p-8 bg-navy-900 border border-white/5 hover:border-teal-500/30 transition-all duration-300 overflow-hidden",
@@ -70,14 +70,14 @@ export function EnterpriseCard({
   if (href) {
     return (
       <Link href={href} onClick={onClick} className="block h-full">
-        <CardContent />
+        {cardContent}
       </Link>
     );
   }
 
   return (
     <div onClick={onClick} className="h-full cursor-pointer">
-      <CardContent />
+      {cardContent}
     </div>
   );
 }
