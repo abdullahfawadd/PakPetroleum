@@ -19,6 +19,20 @@ const SplineScene = dynamic(() => import("@/components/3d/SplineScene"), {
   ),
 });
 
+// ⚡ Bolt Optimization:
+// Move text splitting logic outside the component to prevent recreating
+// arrays of React elements on every render cycle.
+const splitText = (text: string) => {
+  return text.split("").map((char, index) => (
+    <span key={index} className="char inline-block whitespace-pre">
+      {char}
+    </span>
+  ));
+};
+
+const POWERING_TEXT = splitText("Powering a");
+const NATION_TEXT = splitText("Nation in Motion.");
+
 export default function Hero() {
   const tagRef = useRef<HTMLParagraphElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
@@ -98,14 +112,6 @@ export default function Hero() {
     if (target) target.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  const splitText = (text: string) => {
-    return text.split("").map((char, index) => (
-      <span key={index} className="char inline-block whitespace-pre">
-        {char}
-      </span>
-    ));
-  };
-
   return (
     <section
       id="home"
@@ -143,10 +149,10 @@ export default function Hero() {
             className="text-hero font-display text-slate-light leading-tight mb-8"
           >
             <span className="block overflow-hidden">
-               {splitText("Powering a")}
+               {POWERING_TEXT}
             </span>
             <span className="block text-teal-400 overflow-hidden">
-               {splitText("Nation in Motion.")}
+               {NATION_TEXT}
             </span>
           </h1>
 

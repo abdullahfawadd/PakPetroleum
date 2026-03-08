@@ -9,3 +9,7 @@
 ## 2024-05-25 - Expensive Distance Checks in Loops
 **Learning:** Using `distanceTo` (which computes square root) inside a nested loop for collision/proximity checks is unnecessary when comparing against a constant threshold.
 **Action:** Use `distanceToSquared` and compare against the squared threshold to avoid `Math.sqrt` overhead.
+
+## 2024-05-26 - Static Text Fragments in GSAP Animations
+**Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
+**Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
