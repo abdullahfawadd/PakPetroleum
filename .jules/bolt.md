@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2026-03-09 - Nested Components Redefinition
+**Learning:** Defining a functional component (e.g., `const Child = () => ...`) inside the render body of a parent component forces React to create a new component reference on every parent render. This bypasses React's diffing algorithm and causes the entire DOM subtree to be unnecessarily unmounted and remounted, leading to severe performance degradation.
+**Action:** Always extract nested components outside of the parent's render function (or define them at the module level) and pass necessary data via props to ensure stable component references across render cycles.
