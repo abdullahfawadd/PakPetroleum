@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface StickyHeaderProps {
@@ -6,10 +6,12 @@ interface StickyHeaderProps {
   title: string;
   description?: string;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
-export function StickyHeader({ label, title, description, className, children }: StickyHeaderProps) {
+export function StickyHeader(props: StickyHeaderProps) {
+  const { label, title, description, className, children } = props;
+
   return (
     <div
       className={cn(
