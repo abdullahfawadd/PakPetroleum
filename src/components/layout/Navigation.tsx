@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { gsap } from "gsap";
@@ -31,10 +31,10 @@ export default function Navigation() {
     return () => { document.body.style.overflow = ""; };
   }, [isMobileOpen]);
 
-  const isActive = (href: string) => {
+  const isActive = useCallback((href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
-  };
+  }, [pathname]);
 
   return (
     <>
