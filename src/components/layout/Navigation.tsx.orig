@@ -36,15 +36,6 @@ export default function Navigation() {
     return pathname.startsWith(href);
   }, [pathname]);
 
-  // ⚡ Bolt: Optimize event handlers in React loops by replacing inline arrow functions
-  // with memoized useCallback handlers that retrieve item identifiers via data attributes.
-  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLLIElement>) => {
-    const name = e.currentTarget.getAttribute("data-name");
-    if (name) setHoveredItem(name);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => setHoveredItem(null), []);
-
   return (
     <>
       <nav
@@ -82,10 +73,9 @@ export default function Navigation() {
               return (
                 <li
                   key={item.name}
-                  data-name={item.name}
                   className="relative group"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseEnter={() => setHoveredItem(item.name)}
+                  onMouseLeave={() => setHoveredItem(null)}
                 >
                   <Link
                     href={item.href}
