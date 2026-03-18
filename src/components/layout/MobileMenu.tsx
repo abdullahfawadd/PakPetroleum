@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,11 +16,20 @@ interface MobileMenuProps {
 export default function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuProps) {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
-  const toggleExpand = (name: string) => {
+  const toggleExpand = useCallback((name: string) => {
     setExpandedItems(prev =>
       prev.includes(name) ? prev.filter(item => item !== name) : [...prev, name]
     );
-  };
+  }, []);
+
+  // ⚡ Bolt: Optimize event handlers in React loops by replacing inline arrow functions
+  // with memoized useCallback handlers that retrieve item identifiers via data attributes.
+  const handleToggleExpand = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const name = e.currentTarget.getAttribute("data-name");
+    if (name) toggleExpand(name);
+  }, [toggleExpand]);
 
   const isActive = (href: string) => {
     if (href === "/") return currentPath === "/";
@@ -63,9 +72,7 @@ export default function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuP
                       <div className="flex items-center justify-between">
                         <Link
                           href={item.href}
-                          onClick={() => {
-                             onClose();
-                          }}
+                          onClick={onClose}
                           className={cn(
                             "text-lg font-medium transition-colors duration-300",
                             isActive(item.href) ? "text-teal-400" : "text-primary"
@@ -75,11 +82,8 @@ export default function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuP
                         </Link>
                         {hasSubItems && (
                           <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                toggleExpand(item.name);
-                            }}
+                            data-name={item.name}
+                            onClick={handleToggleExpand}
                             className="p-2 text-slate-400 active:text-teal-400"
                           >
                              {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
