@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Stars, Line, PerspectiveCamera, Instances, Instance } from "@react-three/drei";
+import { Float, Stars, Line, PerspectiveCamera, Instances, Instance, AdaptiveDpr } from "@react-three/drei";
 import * as THREE from "three";
 
 function NetworkGraph() {
@@ -100,6 +100,9 @@ export default function SplineScene({ className }: { className?: string }) {
 
         {/* Background Particles */}
         <Stars radius={50} depth={50} count={2000} factor={3} saturation={0} fade speed={0.5} />
+
+        {/* ⚡ Bolt Optimization: Automatically downgrade pixel ratio on performance drop to ensure smooth scrolling */}
+        <AdaptiveDpr pixelated />
       </Canvas>
     </div>
   );
