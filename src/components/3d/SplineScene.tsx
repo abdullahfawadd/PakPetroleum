@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Stars, Line, PerspectiveCamera, Instances, Instance } from "@react-three/drei";
+import { Float, Stars, Line, PerspectiveCamera, Instances, Instance, AdaptiveDpr } from "@react-three/drei";
 import * as THREE from "three";
 
 function NetworkGraph() {
@@ -87,6 +87,9 @@ export default function SplineScene({ className }: { className?: string }) {
   return (
     <div className={className}>
       <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
+        {/* ⚡ Bolt Optimization: Automatically downgrade device pixel ratio during performance regressions */}
+        <AdaptiveDpr pixelated />
+
         <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={50} />
 
         {/* Environment / Lighting */}
