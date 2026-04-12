@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -98,6 +98,18 @@ export default function Contact() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -147,11 +159,20 @@ export default function Contact() {
     setIsSubmitting(true);
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    // Check if component is still mounted before updating state
+    if (!isMountedRef.current) return;
+
     setIsSubmitting(false);
     setIsSubmitted(true);
     setFormData({ name: '', email: '', subject: '', message: '' });
     // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000);
+    // ⚡ Bolt Optimization: Store timer reference to prevent memory leak on unmount
+    timerRef.current = setTimeout(() => {
+      if (isMountedRef.current) {
+        setIsSubmitted(false);
+      }
+    }, 5000);
   };
 
   return (
