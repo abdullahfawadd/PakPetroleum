@@ -31,10 +31,12 @@ export default function Navigation() {
     return () => { document.body.style.overflow = ""; };
   }, [isMobileOpen]);
 
-  const isActive = useCallback((href: string) => {
+  // ⚡ Bolt Optimization: Avoid useCallback for simple render-time helper functions
+  // that are not passed to memoized child components.
+  const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
-  }, [pathname]);
+  };
 
   // ⚡ Bolt: Optimize event handlers in React loops by replacing inline arrow functions
   // with memoized useCallback handlers that retrieve item identifiers via data attributes.

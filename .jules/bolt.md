@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-06-03 - Unnecessary useCallback for Route Checks
+**Learning:** Wrapping simple render-time helper functions (like `isActive` route checks) in `useCallback` when they are not passed to memoized child components is an ineffective micro-optimization. The overhead of React's hook management and dependency comparison often exceeds the cost of redefining a lightweight function.
+**Action:** Avoid `useCallback` for simple helper functions within functional components unless explicitly passing them down to memoized children.
