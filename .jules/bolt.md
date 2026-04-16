@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-05-27 - AdaptiveDpr in R3F Scenes
+**Learning:** For performance-critical React Three Fiber scenes (like `SplineScene`), relying on a static `dpr={[1, 2]}` clamp on the `<Canvas>` may still cause framerate drops on mid-tier devices when the scene has high complexity (e.g. many instances or particles).
+**Action:** Use `<AdaptiveDpr pixelated />` from `@react-three/drei` inside the `<Canvas>`, wrapped by `<PerformanceMonitor>`. This automatically scales down the resolution when framerate drops, ensuring smoother rendering.
