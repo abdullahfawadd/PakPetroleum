@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-05-27 - Ineffective useMemo Ref Callback Generator
+**Learning:** Creating a higher-order function to generate ref callbacks wrapped in `useMemo` (e.g., `useMemo(() => (idx) => (el) => ..., [])`) and calling it in a loop (e.g., `ref={setRef(idx)}`) does NOT prevent new closure allocations, because calling the generator creates a brand new closure every render anyway.
+**Action:** For lists of refs, simply use standard inline closures (`ref={(el) => refs.current[idx] = el}`) as React handles them efficiently, or create a custom stable caching mechanism if strictly necessary.
