@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-05-27 - DOM Read Inside GSAP Loops
+**Learning:** Using `querySelectorAll` and `getAttribute` to read values from DOM elements inside `useGSAP` or `useLayoutEffect` loops (especially for things like initial values of animations) forces expensive DOM reads which can cause layout thrashing and slow down component initialization.
+**Action:** Avoid DOM reads in setup hooks. Use React `useRef` arrays mapped directly to source data constants to bypass DOM queries entirely. This reduces setup overhead and ensures idiomatic data flow.
