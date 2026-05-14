@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Stars, Line, PerspectiveCamera, Instances, Instance } from "@react-three/drei";
+import { Float, Stars, Line, PerspectiveCamera, Instances, Instance, AdaptiveDpr, PerformanceMonitor } from "@react-three/drei";
 import * as THREE from "three";
 
 function NetworkGraph() {
@@ -87,19 +87,24 @@ export default function SplineScene({ className }: { className?: string }) {
   return (
     <div className={className}>
       <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
-        <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={50} />
+        <PerformanceMonitor>
+          <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={50} />
 
-        {/* Environment / Lighting */}
-        <ambientLight intensity={0.2} color="#0a192f" />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#64FFDA" />
+          {/* Environment / Lighting */}
+          <ambientLight intensity={0.2} color="#0a192f" />
+          <pointLight position={[10, 10, 10]} intensity={1} color="#64FFDA" />
 
-        {/* Floating Network */}
-        <Float speed={1} rotationIntensity={0.2} floatIntensity={0.2}>
-          <NetworkGraph />
-        </Float>
+          {/* Floating Network */}
+          <Float speed={1} rotationIntensity={0.2} floatIntensity={0.2}>
+            <NetworkGraph />
+          </Float>
 
-        {/* Background Particles */}
-        <Stars radius={50} depth={50} count={2000} factor={3} saturation={0} fade speed={0.5} />
+          {/* Background Particles */}
+          <Stars radius={50} depth={50} count={2000} factor={3} saturation={0} fade speed={0.5} />
+
+          {/* Adaptive Resolution to ensure performance on lower-end devices */}
+          <AdaptiveDpr pixelated />
+        </PerformanceMonitor>
       </Canvas>
     </div>
   );
