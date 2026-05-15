@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Stars, Line, PerspectiveCamera, Instances, Instance } from "@react-three/drei";
+import { Float, Stars, Line, PerspectiveCamera, Instances, Instance, PerformanceMonitor, AdaptiveDpr } from "@react-three/drei";
 import * as THREE from "three";
 
 function NetworkGraph() {
@@ -87,6 +87,12 @@ export default function SplineScene({ className }: { className?: string }) {
   return (
     <div className={className}>
       <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
+                {/* ⚡ Bolt Optimization:
+            Wrap the scene in <PerformanceMonitor> and use <AdaptiveDpr pixelated />
+            to automatically scale down resolution and maintain frame rates on lower-end devices.
+            This handles WebGL-level scaling internally without expensive React state updates. */}
+        <PerformanceMonitor>
+          <AdaptiveDpr pixelated />
         <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={50} />
 
         {/* Environment / Lighting */}
@@ -100,6 +106,7 @@ export default function SplineScene({ className }: { className?: string }) {
 
         {/* Background Particles */}
         <Stars radius={50} depth={50} count={2000} factor={3} saturation={0} fade speed={0.5} />
+      </PerformanceMonitor>
       </Canvas>
     </div>
   );
