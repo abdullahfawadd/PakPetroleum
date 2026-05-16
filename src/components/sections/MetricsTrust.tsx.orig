@@ -10,8 +10,6 @@ import { EASINGS } from "@/lib/motion";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function MetricsTrust() {
-  // ⚡ Bolt Optimization: Replace slow DOM querying (querySelectorAll)
-  // with idiomatic React refs to access target elements directly in O(1) time.
   const valueRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   const containerRef = useGSAP<HTMLElement>(() => {
