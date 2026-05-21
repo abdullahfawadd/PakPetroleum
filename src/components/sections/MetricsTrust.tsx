@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useMemo } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@/hooks/useGSAP";
@@ -9,6 +10,12 @@ import { EASINGS } from "@/lib/motion";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function MetricsTrust() {
+  const statRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const statRefCallbacks = useMemo(
+    () => STATS.map((_, idx) => (el: HTMLSpanElement | null) => { statRefs.current[idx] = el; }),
+    []
+  );
+
   const containerRef = useGSAP<HTMLElement>(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -27,9 +34,12 @@ export default function MetricsTrust() {
     }, 0);
 
     // Count up animation
-    const numbers = containerRef.current?.querySelectorAll<HTMLElement>(".stat-value");
-    numbers?.forEach((el) => {
-        const targetValue = parseFloat(el.getAttribute("data-value") || "0");
+    // ⚡ Bolt: Avoid DOM reads inside loop. Use React refs and map directly to source data constants
+    STATS.forEach((stat, idx) => {
+        const el = statRefs.current[idx];
+        if (!el) return;
+
+        const targetValue = stat.value;
         const obj = { val: 0 };
         const isFloat = targetValue % 1 !== 0;
 
@@ -52,7 +62,7 @@ export default function MetricsTrust() {
                 {STATS.map((stat, idx) => (
                     <div key={idx} className="stat-item text-center group p-6 rounded-lg transition-all duration-300 hover:shadow-glow-teal-sm hover:bg-navy-800/50">
                         <div className="text-4xl md:text-6xl font-display font-bold text-white mb-2 flex justify-center items-baseline">
-                            <span className="stat-value tabular-nums font-mono" data-value={stat.value}>0</span>
+                            <span ref={statRefCallbacks[idx]} className="stat-value tabular-nums font-mono">0</span>
                             <span className="text-teal-400 text-3xl md:text-4xl ml-1">{stat.suffix}</span>
                         </div>
                         <p className="text-slate-400 text-xs md:text-sm tracking-widest uppercase font-mono group-hover:text-teal-400 transition-colors duration-300">{stat.label}</p>
