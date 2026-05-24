@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -99,6 +99,16 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
@@ -150,8 +160,14 @@ export default function Contact() {
     setIsSubmitting(false);
     setIsSubmitted(true);
     setFormData({ name: '', email: '', subject: '', message: '' });
+
+    // Clear any existing timeout before setting a new one
+    // to prevent memory leaks and race conditions
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
     // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000);
+    timeoutRef.current = setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   return (
