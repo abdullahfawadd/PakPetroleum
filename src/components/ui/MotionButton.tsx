@@ -12,6 +12,18 @@ interface MotionButtonProps {
   href?: string; // Add href support for link-like buttons
 }
 
+// ⚡ Bolt Optimization:
+// Extracted variants to a module-level constant to prevent unnecessary
+// object memory allocations and child component re-renders on every parent render cycle.
+// Impact: Reduces garbage collection overhead and stabilizes Framer Motion references.
+const BUTTON_VARIANTS = {
+  hover: {
+    scale: 1.02,
+    boxShadow: "0 0 20px rgba(100, 255, 218, 0.2)",
+  },
+  tap: { scale: 0.98 },
+};
+
 export function MotionButton({
   children,
   onClick,
@@ -28,19 +40,11 @@ export function MotionButton({
     className
   );
 
-  const variants = {
-    hover: {
-      scale: 1.02,
-      boxShadow: "0 0 20px rgba(100, 255, 218, 0.2)",
-    },
-    tap: { scale: 0.98 },
-  };
-
   if (href) {
     return (
       <motion.a
         href={href}
-        variants={variants}
+        variants={BUTTON_VARIANTS}
         whileHover="hover"
         whileTap="tap"
         transition={{ duration: 0.3, ease: "easeOut" }} // Power/Stability
@@ -54,7 +58,7 @@ export function MotionButton({
 
   return (
     <motion.button
-      variants={variants}
+      variants={BUTTON_VARIANTS}
       whileHover="hover"
       whileTap="tap"
       transition={{ duration: 0.3, ease: "easeOut" }}
