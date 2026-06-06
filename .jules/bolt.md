@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-05-27 - Isolating High-Frequency State in Complex Layouts
+**Learning:** Mixing high-frequency state updates (e.g., controlled form inputs updating on every keystroke) in the same component as complex layout elements and GSAP scroll triggers causes the entire section to re-render constantly. This degrades scrolling performance and input responsiveness.
+**Action:** Extract fast-updating state components (like forms) into separate child components. This isolates re-renders to the form itself, preventing unnecessary React tree evaluation in heavy parent components.
