@@ -12,10 +12,79 @@ import { useGSAP } from "@/hooks/useGSAP";
 import MobileMenu from "./MobileMenu";
 import { cn } from "@/lib/utils";
 
+// ⚡ Bolt: Isolate hovered state to individual list items
+// to prevent the entire Navigation component from re-rendering on mouse enter/leave.
+function NavItem({ item, isActive }: { item: typeof NAV_ITEMS[number], isActive: boolean }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const hasSubItems = 'items' in item && Array.isArray(item.items) && item.items.length > 0;
+
+  return (
+    <li
+      className="relative group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link
+        href={item.href}
+        className={cn(
+          "flex items-center gap-1 py-2 text-sm font-medium transition-colors duration-300",
+          isActive ? "text-teal-400" : "text-primary group-hover:text-teal-400"
+        )}
+      >
+        {item.name}
+        {hasSubItems && (
+          <ChevronDown className={cn(
+            "w-4 h-4 transition-transform duration-300",
+            isHovered ? "rotate-180" : ""
+          )} />
+        )}
+        {isActive && !hasSubItems && (
+          <motion.span
+            layoutId="nav-indicator"
+            className="absolute bottom-0 left-0 right-0 h-[2px] bg-teal-400"
+            transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+          />
+        )}
+      </Link>
+
+      {/* Mega Menu Dropdown */}
+      <AnimatePresence>
+        {hasSubItems && isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-[600px] z-40"
+          >
+            <div className="bg-navy-800 rounded-xl shadow-2xl border border-white/5 overflow-hidden p-6 grid grid-cols-2 gap-6">
+               {item.items && item.items.map((subItem) => (
+                 <Link
+                   key={subItem.name}
+                   href={subItem.href}
+                   className="group/sub flex flex-col gap-1 p-3 rounded-lg hover:bg-white/5 transition-colors"
+                 >
+                   <span className="text-sm font-semibold text-primary group-hover/sub:text-teal-400 transition-colors">
+                     {subItem.name}
+                   </span>
+                   {subItem.description && (
+                     <span className="text-xs text-slate-400 line-clamp-2">
+                       {subItem.description}
+                     </span>
+                   )}
+                 </Link>
+               ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </li>
+  );
+}
+
 export default function Navigation() {
   const isScrolled = useScroll(30);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const pathname = usePathname();
 
   const navRef = useGSAP<HTMLElement>(() => {
@@ -35,15 +104,6 @@ export default function Navigation() {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   }, [pathname]);
-
-  // ⚡ Bolt: Optimize event handlers in React loops by replacing inline arrow functions
-  // with memoized useCallback handlers that retrieve item identifiers via data attributes.
-  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLLIElement>) => {
-    const name = e.currentTarget.getAttribute("data-name");
-    if (name) setHoveredItem(name);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => setHoveredItem(null), []);
 
   return (
     <>
@@ -74,76 +134,9 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex items-center gap-8">
-            {NAV_ITEMS.map((item) => {
-              // Ensure we check if items exists and has length, satisfying TypeScript
-              const hasSubItems = 'items' in item && Array.isArray(item.items) && item.items.length > 0;
-              const isItemActive = isActive(item.href);
-
-              return (
-                <li
-                  key={item.name}
-                  data-name={item.name}
-                  className="relative group"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "flex items-center gap-1 py-2 text-sm font-medium transition-colors duration-300",
-                      isItemActive ? "text-teal-400" : "text-primary group-hover:text-teal-400"
-                    )}
-                  >
-                    {item.name}
-                    {hasSubItems && (
-                      <ChevronDown className={cn(
-                        "w-4 h-4 transition-transform duration-300",
-                        hoveredItem === item.name ? "rotate-180" : ""
-                      )} />
-                    )}
-                    {isItemActive && !hasSubItems && (
-                      <motion.span
-                        layoutId="nav-indicator"
-                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-teal-400"
-                        transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
-                      />
-                    )}
-                  </Link>
-
-                  {/* Mega Menu Dropdown */}
-                  <AnimatePresence>
-                    {hasSubItems && hoveredItem === item.name && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-[600px] z-40"
-                      >
-                        <div className="bg-navy-800 rounded-xl shadow-2xl border border-white/5 overflow-hidden p-6 grid grid-cols-2 gap-6">
-                           {item.items.map((subItem) => (
-                             <Link
-                               key={subItem.name}
-                               href={subItem.href}
-                               className="group/sub flex flex-col gap-1 p-3 rounded-lg hover:bg-white/5 transition-colors"
-                             >
-                               <span className="text-sm font-semibold text-primary group-hover/sub:text-teal-400 transition-colors">
-                                 {subItem.name}
-                               </span>
-                               {subItem.description && (
-                                 <span className="text-xs text-slate-400 line-clamp-2">
-                                   {subItem.description}
-                                 </span>
-                               )}
-                             </Link>
-                           ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </li>
-              );
-            })}
+            {NAV_ITEMS.map((item) => (
+              <NavItem key={item.name} item={item} isActive={isActive(item.href)} />
+            ))}
           </ul>
 
           <div className="flex items-center gap-4 z-50 relative">

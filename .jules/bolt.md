@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2026-06-08 - Isolate High-Frequency Hover State in Shared Parent
+**Learning:** In a navigation component with many nested elements and complex layout animations, lifting hover state to the parent component causes the entire tree to re-render on every mouse movement.
+**Action:** Isolate high-frequency hover states by extracting the individual hoverable element (like a NavItem) into its own child component, limiting the re-render scope to only the active element.
