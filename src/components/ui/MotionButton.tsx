@@ -12,6 +12,17 @@ interface MotionButtonProps {
   href?: string; // Add href support for link-like buttons
 }
 
+// ⚡ Bolt: Hoisted static variants object outside the component render function.
+// This prevents Framer Motion from receiving a new object reference on every render,
+// reducing unnecessary memory allocations and potential child component re-renders.
+const motionButtonVariants = {
+  hover: {
+    scale: 1.02,
+    boxShadow: "0 0 20px rgba(100, 255, 218, 0.2)",
+  },
+  tap: { scale: 0.98 },
+};
+
 export function MotionButton({
   children,
   onClick,
@@ -28,19 +39,11 @@ export function MotionButton({
     className
   );
 
-  const variants = {
-    hover: {
-      scale: 1.02,
-      boxShadow: "0 0 20px rgba(100, 255, 218, 0.2)",
-    },
-    tap: { scale: 0.98 },
-  };
-
   if (href) {
     return (
       <motion.a
         href={href}
-        variants={variants}
+        variants={motionButtonVariants}
         whileHover="hover"
         whileTap="tap"
         transition={{ duration: 0.3, ease: "easeOut" }} // Power/Stability
@@ -54,7 +57,7 @@ export function MotionButton({
 
   return (
     <motion.button
-      variants={variants}
+      variants={motionButtonVariants}
       whileHover="hover"
       whileTap="tap"
       transition={{ duration: 0.3, ease: "easeOut" }}
