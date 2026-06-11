@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-06-11 - Layout Thrashing with width
+**Learning:** Animating the `width` property (e.g. for a scroll progress bar) inside a scroll event handler causes layout thrashing and forces main thread recalculations on every frame, degrading scroll performance.
+**Action:** Use GPU-accelerated CSS transforms (`transform: scaleX(...)`) instead of `width` and set `transform-origin` appropriately (e.g. `origin-left`) to offload the animation to the compositor and prevent layout recalculations.
