@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-05-27 - React Render Overhead in Scroll Loops
+**Learning:** Using React state (`useState`) to track UI styles (like an element's visibility/opacity) inside a high-frequency `requestAnimationFrame` scroll loop causes unnecessary render cycle overhead and can block the main thread. Additionally, animating CSS `width` inside these loops triggers expensive layout thrashing.
+**Action:** Bypass React's render cycle completely by maintaining local variables and using `ref.current.style` for direct DOM mutations in high-frequency event handlers. Also, swap layout-triggering properties like `width` for GPU-accelerated ones like `transform: scaleX(...)` with a specific `transform-origin` to reduce compositing costs.
