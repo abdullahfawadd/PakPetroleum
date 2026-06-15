@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ScrollProgress() {
   const barRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const visibleRef = useRef(false);
 
   useEffect(() => {
     // ⚡ Bolt: Throttling scroll events using requestAnimationFrame
@@ -15,12 +16,20 @@ export default function ScrollProgress() {
     const updateProgress = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) : 0;
 
       if (barRef.current) {
-        barRef.current.style.width = `${progress}%`;
+        // ⚡ Bolt Optimization: Use scaleX instead of width for GPU acceleration
+        barRef.current.style.transform = `scaleX(${progress})`;
       }
-      setVisible(scrollTop > 100);
+
+      const shouldBeVisible = scrollTop > 100;
+      if (shouldBeVisible !== visibleRef.current && containerRef.current) {
+        // ⚡ Bolt Optimization: Direct DOM mutation bypasses React render cycle
+        containerRef.current.style.opacity = shouldBeVisible ? "1" : "0";
+        visibleRef.current = shouldBeVisible;
+      }
+
       ticking = false;
     };
 
@@ -43,14 +52,13 @@ export default function ScrollProgress() {
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-[60] h-[2px] transition-opacity duration-300 ${
-        visible ? "opacity-100" : "opacity-0"
-      }`}
+      ref={containerRef}
+      className="fixed top-0 left-0 right-0 z-[60] h-[2px] transition-opacity duration-300 opacity-0"
     >
       <div
         ref={barRef}
-        className="h-full gradient-bar"
-        style={{ width: "0%", transition: "width 0.1s linear" }}
+        className="h-full gradient-bar origin-left"
+        style={{ transform: "scaleX(0)", transition: "transform 0.1s linear" }}
       />
     </div>
   );
