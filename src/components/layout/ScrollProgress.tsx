@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ScrollProgress() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const isVisibleRef = useRef(false);
 
   useEffect(() => {
     // ⚡ Bolt: Throttling scroll events using requestAnimationFrame
@@ -20,7 +21,15 @@ export default function ScrollProgress() {
       if (barRef.current) {
         barRef.current.style.width = `${progress}%`;
       }
-      setVisible(scrollTop > 100);
+
+      const shouldBeVisible = scrollTop > 100;
+      if (shouldBeVisible !== isVisibleRef.current) {
+        isVisibleRef.current = shouldBeVisible;
+        if (containerRef.current) {
+          containerRef.current.style.opacity = shouldBeVisible ? "1" : "0";
+        }
+      }
+
       ticking = false;
     };
 
@@ -43,9 +52,9 @@ export default function ScrollProgress() {
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-[60] h-[2px] transition-opacity duration-300 ${
-        visible ? "opacity-100" : "opacity-0"
-      }`}
+      ref={containerRef}
+      className="fixed top-0 left-0 right-0 z-[60] h-[2px] transition-opacity duration-300"
+      style={{ opacity: 0 }}
     >
       <div
         ref={barRef}

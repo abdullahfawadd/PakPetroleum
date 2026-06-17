@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-06-17 - Scroll Handlers and React State
+**Learning:** Using React state (`useState`) to toggle UI elements (like a scroll progress bar's visibility) inside a high-frequency `requestAnimationFrame` loop can trigger unnecessary render cycles, even with throttling.
+**Action:** When toggling simple CSS properties (like `opacity` or `transform`) on scroll, replace `useState` with a local `useRef` tracker and mutate the DOM directly (e.g., `containerRef.current.style.opacity = '1'`) to completely bypass the React render pipeline.
