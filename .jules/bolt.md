@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-06-18 - Unmeasurable DOM Optimizations
+**Learning:** Browser-level optimizations that offload work from the main thread to the GPU compositor (like replacing `width` with `transform: scaleX`) cannot be measured or proven using synthetic Node.js or Bun benchmark scripts, as these environments lack a rendering engine and DOM layout algorithms.
+**Action:** Do not attempt to write synthetic backend scripts to benchmark frontend layout thrashing optimizations.
