@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-05-18 - [Optimizing Scroll Animations]
+**Learning:** Found that `ScrollProgress` was using React `useState` to update progress bar width (`barRef.current.style.width = '${progress}%'`) inside a scroll event loop. This leads to main-thread blocking layout thrashing on every scroll event (paint bottleneck). Even though it was throttled by `requestAnimationFrame`, modifying `.width` still triggers expensive layout recalculations. Bypassing React and using GPU-accelerated CSS like `transform: scaleX(progress)` makes the scrolling buttery smooth.
+**Action:** When creating high-frequency scroll trackers, always bypass React's render loop by mutating elements via a `ref`, and ensure the animated properties are GPU-accelerated (like `transform` and `opacity`) rather than layout-triggering properties (`width`, `top`, etc).
