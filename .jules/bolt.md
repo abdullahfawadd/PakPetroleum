@@ -13,3 +13,7 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+
+## 2024-05-24 - Layout Thrashing in Scroll Loop Optimization
+**Learning:** Updating React state linked to `width` percentage animations inside a scroll event loop (`requestAnimationFrame`) severely blocks the main thread in Next.js/React applications due to layout thrashing. Bypassing state with a local `ref` boolean flag to toggle DOM styles directly (`opacity`), combined with switching `width` interpolation to `transform: scaleX`, eliminates render cycle overhead and shifts rendering to the GPU compositor entirely.
+**Action:** When auditing high-frequency scroll event listeners, immediately flag any `useState` hooks. Refactor to mutate element refs directly (`element.style.transform`) and switch layout properties (`width`, `height`, `top`, `left`) to composite-friendly transforms (`scale`, `translate`).
