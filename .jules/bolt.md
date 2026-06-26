@@ -13,3 +13,6 @@
 ## 2024-05-26 - Static Text Fragments in GSAP Animations
 **Learning:** Defining character-split arrays (e.g., `text.split("").map(...)`) inside a component render function for GSAP targets causes React to recreate the entire array of span elements on every render cycle.
 **Action:** Extract the string splitting logic and pre-calculate the element fragments as module-level static constants to eliminate render-time object allocations and VDOM overhead.
+## 2024-05-27 - Next.js initial build time in headless environments
+**Learning:** Initial page loads on Next.js dev servers can take significantly longer (25-30 seconds) on the first hit in headless environments (like Playwright), leading to false-positive timeout failures if `wait_for_timeout` or `goto` limits are too strict.
+**Action:** When writing Playwright verification scripts against a newly started dev server, increase navigation timeouts (`timeout=60000`) and manually pad `wait_for_timeout` delays to account for compilation lag before asserting or capturing screenshots.
