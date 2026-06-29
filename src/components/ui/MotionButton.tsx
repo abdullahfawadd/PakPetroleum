@@ -12,6 +12,18 @@ interface MotionButtonProps {
   href?: string; // Add href support for link-like buttons
 }
 
+// ⚡ Bolt: Extracted static Framer Motion config objects out of the render loop to module scope.
+// This prevents newly allocated object references on every render, avoiding unnecessary re-renders of the child motion components.
+const BUTTON_VARIANTS = {
+  hover: {
+    scale: 1.02,
+    boxShadow: "0 0 20px rgba(100, 255, 218, 0.2)",
+  },
+  tap: { scale: 0.98 },
+};
+
+const BUTTON_TRANSITION = { duration: 0.3, ease: "easeOut" as const };
+
 export function MotionButton({
   children,
   onClick,
@@ -28,22 +40,14 @@ export function MotionButton({
     className
   );
 
-  const variants = {
-    hover: {
-      scale: 1.02,
-      boxShadow: "0 0 20px rgba(100, 255, 218, 0.2)",
-    },
-    tap: { scale: 0.98 },
-  };
-
   if (href) {
     return (
       <motion.a
         href={href}
-        variants={variants}
+        variants={BUTTON_VARIANTS}
         whileHover="hover"
         whileTap="tap"
-        transition={{ duration: 0.3, ease: "easeOut" }} // Power/Stability
+        transition={BUTTON_TRANSITION} // Power/Stability
         className={baseClasses}
         onClick={onClick}
       >
@@ -54,10 +58,10 @@ export function MotionButton({
 
   return (
     <motion.button
-      variants={variants}
+      variants={BUTTON_VARIANTS}
       whileHover="hover"
       whileTap="tap"
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      transition={BUTTON_TRANSITION}
       className={baseClasses}
       onClick={onClick}
     >
