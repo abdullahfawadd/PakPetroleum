@@ -15,10 +15,12 @@ export default function ScrollProgress() {
     const updateProgress = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      // ⚡ Bolt: Offload layout to compositor by using scaleX instead of width.
+      // We calculate a 0-1 ratio instead of 0-100 percentage.
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
 
       if (barRef.current) {
-        barRef.current.style.width = `${progress}%`;
+        barRef.current.style.transform = `scaleX(${progress})`;
       }
       setVisible(scrollTop > 100);
       ticking = false;
@@ -49,8 +51,8 @@ export default function ScrollProgress() {
     >
       <div
         ref={barRef}
-        className="h-full gradient-bar"
-        style={{ width: "0%", transition: "width 0.1s linear" }}
+        className="h-full gradient-bar w-full origin-left"
+        style={{ transform: "scaleX(0)", transition: "transform 0.1s linear" }}
       />
     </div>
   );
