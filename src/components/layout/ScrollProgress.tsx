@@ -18,7 +18,8 @@ export default function ScrollProgress() {
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
 
       if (barRef.current) {
-        barRef.current.style.width = `${progress}%`;
+        // ⚡ Bolt: Use transform instead of width to prevent layout thrashing
+        barRef.current.style.transform = `scaleX(${progress / 100})`;
       }
       setVisible(scrollTop > 100);
       ticking = false;
@@ -49,8 +50,8 @@ export default function ScrollProgress() {
     >
       <div
         ref={barRef}
-        className="h-full gradient-bar"
-        style={{ width: "0%", transition: "width 0.1s linear" }}
+        className="h-full gradient-bar w-full origin-left"
+        style={{ transform: "scaleX(0)", transition: "transform 0.1s linear" }}
       />
     </div>
   );
